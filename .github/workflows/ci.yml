@@ -32,10 +32,11 @@ env:
 jobs:
   # ═══════════════════════════════════════════════════════════════
   # JOB 0: Skip Check
+  # Cải tiến: đổi sang ubuntu-latest (nhanh hơn, rẻ hơn windows-latest)
   # ═══════════════════════════════════════════════════════════════
   skip-check:
     name: Skip Check
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     outputs:
       no_ci:                ${{ steps.check.outputs.no_ci }}
       no_build:             ${{ steps.check.outputs.no_build }}
@@ -51,52 +52,49 @@ jobs:
           fetch-depth: 2
 
       - name: Show GitHub context
-        shell: pwsh
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: Write-Host $env:GITHUB_CONTEXT
+        run: echo "$GITHUB_CONTEXT"
 
       - name: Read commit message & set flags
         id: check
-        shell: pwsh
         run: |
-          $msg      = git log -1 --pretty=%B
-          $shortSha = git rev-parse --short HEAD
-          Write-Host "Commit: $msg"
+          msg=$(git log -1 --pretty=%B)
+          shortSha=$(git rev-parse --short HEAD)
+          echo "Commit: $msg"
 
-          "short_sha=$shortSha"         | Out-File $env:GITHUB_OUTPUT -Append
-          "actor=${{ github.actor }}"   | Out-File $env:GITHUB_OUTPUT -Append
+          echo "short_sha=$shortSha"       >> $GITHUB_OUTPUT
+          echo "actor=${{ github.actor }}" >> $GITHUB_OUTPUT
 
-          if ($msg -match "no-ci") {
-            Write-Host "no-ci — dừng pipeline"
-            "no_ci=true" | Out-File $env:GITHUB_OUTPUT -Append
-          } else {
-            "no_ci=false" | Out-File $env:GITHUB_OUTPUT -Append
-          }
+          if echo "$msg" | grep -q "no-ci"; then
+            echo "no-ci — dừng pipeline"
+            echo "no_ci=true"  >> $GITHUB_OUTPUT
+          else
+            echo "no_ci=false" >> $GITHUB_OUTPUT
+          fi
 
-          $skipBuild = "${{ inputs.skip_build }}" -eq "true" -or $msg -match "no-build"
-          if ($skipBuild) {
-            Write-Host "no-build — bỏ qua build"
-            "no_build=true" | Out-File $env:GITHUB_OUTPUT -Append
-          } else {
-            "no_build=false" | Out-File $env:GITHUB_OUTPUT -Append
-          }
+          skipBuild=false
+          if [ "${{ inputs.skip_build }}" = "true" ] || echo "$msg" | grep -q "no-build"; then
+            echo "no-build — bỏ qua build"
+            skipBuild=true
+          fi
+          echo "no_build=$skipBuild" >> $GITHUB_OUTPUT
 
           # Kiểm tra từng test project có tồn tại trong checkout không
-          $flags = @{
-            "has_tests"             = "${{ env.TEST_PATH }}"
-            "has_integration_tests" = "${{ env.INT_TEST_PATH }}"
-            "has_ui_tests"          = "${{ env.UI_TEST_PATH }}"
-          }
-          foreach ($key in $flags.Keys) {
-            if (Test-Path $flags[$key]) {
-              Write-Host "$key = true ($($flags[$key]))"
-              "$key=true" | Out-File $env:GITHUB_OUTPUT -Append
-            } else {
-              Write-Host "$key = false (không tìm thấy $($flags[$key]))"
-              "$key=false" | Out-File $env:GITHUB_OUTPUT -Append
-            }
-          }
+          for key_path in \
+            "has_tests=${{ env.TEST_PATH }}" \
+            "has_integration_tests=${{ env.INT_TEST_PATH }}" \
+            "has_ui_tests=${{ env.UI_TEST_PATH }}"; do
+            key="${key_path%%=*}"
+            path="${key_path#*=}"
+            if [ -f "$path" ]; then
+              echo "$key = true ($path)"
+              echo "$key=true"  >> $GITHUB_OUTPUT
+            else
+              echo "$key = false (không tìm thấy $path)"
+              echo "$key=false" >> $GITHUB_OUTPUT
+            fi
+          done
 
   # ═══════════════════════════════════════════════════════════════
   # JOB 1: Unit Tests
@@ -113,17 +111,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
+      - name: Setup .NET + cache NuGet
+        uses: ./.github/actions/setup-dotnet-cache
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
-
-      - name: Cache NuGet packages
-        uses: actions/cache@v4
-        with:
-          path: ~/.nuget/packages
-          key: nuget-${{ runner.os }}-${{ hashFiles('**/*.csproj', '**/packages.config') }}
-          restore-keys: nuget-${{ runner.os }}-
 
       - name: Run unit tests
         shell: pwsh
@@ -139,6 +130,7 @@ jobs:
         with:
           name: unit-test-results
           path: ./test-results/*.trx
+          retention-days: 7
 
   # ═══════════════════════════════════════════════════════════════
   # JOB 2: Integration Tests
@@ -156,17 +148,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
+      - name: Setup .NET + cache NuGet
+        uses: ./.github/actions/setup-dotnet-cache
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
-
-      - name: Cache NuGet packages
-        uses: actions/cache@v4
-        with:
-          path: ~/.nuget/packages
-          key: nuget-${{ runner.os }}-${{ hashFiles('**/*.csproj', '**/packages.config') }}
-          restore-keys: nuget-${{ runner.os }}-
 
       - name: Run integration tests
         shell: pwsh
@@ -182,6 +167,7 @@ jobs:
         with:
           name: integration-test-results
           path: ./test-results/*.trx
+          retention-days: 7
 
   # ═══════════════════════════════════════════════════════════════
   # JOB 3: Build Windows EXE
@@ -200,17 +186,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
+      - name: Setup .NET + cache NuGet
+        uses: ./.github/actions/setup-dotnet-cache
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
-
-      - name: Cache NuGet packages
-        uses: actions/cache@v4
-        with:
-          path: ~/.nuget/packages
-          key: nuget-${{ runner.os }}-${{ hashFiles('**/*.csproj', '**/packages.config') }}
-          restore-keys: nuget-${{ runner.os }}-
 
       - name: Restore dependencies
         shell: pwsh
@@ -228,6 +207,7 @@ jobs:
             --configuration Release `
             --runtime win-x64 `
             --self-contained true `
+            --no-restore `
             -p:PublishSingleFile=true `
             -p:EnableCompressionInSingleFile=true `
             -p:AssemblyVersion=$version `
@@ -257,6 +237,7 @@ jobs:
         with:
           name: build-log
           path: build-output.txt
+          retention-days: 7
 
       - name: Write Step Summary
         if: always()
@@ -297,17 +278,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
+      - name: Setup .NET + cache NuGet
+        uses: ./.github/actions/setup-dotnet-cache
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
-
-      - name: Cache NuGet packages
-        uses: actions/cache@v4
-        with:
-          path: ~/.nuget/packages
-          key: nuget-${{ runner.os }}-${{ hashFiles('**/*.csproj', '**/packages.config') }}
-          restore-keys: nuget-${{ runner.os }}-
 
       - name: Download EXE artifact
         uses: actions/download-artifact@v4
@@ -340,6 +314,7 @@ jobs:
         run: |
           dotnet test ${{ env.UI_TEST_PATH }} `
             --configuration Release `
+            --blame-hang-timeout 2m `
             --logger "trx;LogFileName=ui-test-results.trx" `
             --results-directory ./test-results
 
@@ -349,6 +324,7 @@ jobs:
         with:
           name: ui-test-results
           path: ./test-results/*.trx
+          retention-days: 7
 
       - name: Upload screenshots
         if: always()
@@ -357,6 +333,7 @@ jobs:
           name: ui-test-screenshots
           path: ./app/_screens/
           if-no-files-found: ignore
+          retention-days: 7
 
   # ═══════════════════════════════════════════════════════════════
   # JOB 5: Pipeline Summary — luôn chạy
@@ -366,6 +343,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: [skip-check, test, integration-test, build, ui-test]
     if: always() && needs.skip-check.outputs.no_ci != 'true'
+    permissions:
+      pull-requests: write
 
     steps:
       - name: Download test result artifacts
@@ -391,7 +370,7 @@ jobs:
           REPO:            ${{ github.repository }}
         run: |
           python3 - <<'PYEOF'
-          import os, json, glob, urllib.request
+          import os, json, glob, subprocess, tempfile
           import xml.etree.ElementTree as ET
 
           NS = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010"
@@ -414,7 +393,6 @@ jobs:
               return {"success": "✅", "failure": "❌", "skipped": "⏭️"}.get(result, "⚠️")
 
           def fmt_count(counts, result):
-              """Trả về chuỗi hiển thị, ví dụ: ✅ 5/5  hoặc ❌ 2/5."""
               icon = fmt_badge(result)
               if counts is None:
                   return f"{icon} —"
@@ -487,9 +465,7 @@ jobs:
               }]
           }
 
-          # Ghi payload ra file tạm rồi dùng curl — tránh Cloudflare 1010
-          # chặn Python-urllib (user-agent bị nhận dạng là bot)
-          import tempfile, subprocess, sys
+          # Dùng curl thay urllib — tránh Cloudflare 1010 chặn Python-urllib
           with tempfile.NamedTemporaryFile(mode="w", suffix=".json", delete=False) as f:
               json.dump(payload, f)
               tmp = f.name
@@ -505,3 +481,47 @@ jobs:
           if result.stderr:
               print(f"Discord body: {result.stderr.strip()}")
           PYEOF
+
+      - name: Comment on PR khi pipeline fail
+        if: |
+          github.event_name == 'pull_request' && (
+            needs.build.result == 'failure' ||
+            needs.test.result == 'failure' ||
+            needs.integration-test.result == 'failure' ||
+            needs.ui-test.result == 'failure'
+          )
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const badge = (r) => ({success:'✅', failure:'❌', skipped:'⏭️'})[r] ?? '⚠️';
+            const count = (c, r) => c ? `${badge(r)} ${c[0]}/${c[1]}` : `${badge(r)} —`;
+
+            // Đọc test counts từ env (được set bởi step trước qua GITHUB_ENV nếu cần)
+            const build = '${{ needs.build.result }}';
+            const test  = '${{ needs.test.result }}';
+            const intg  = '${{ needs.integration-test.result }}';
+            const ui    = '${{ needs.ui-test.result }}';
+            const sha   = '${{ needs.skip-check.outputs.short_sha }}';
+            const runId = '${{ github.run_id }}';
+            const repo  = '${{ github.repository }}';
+
+            const body = [
+              '## ❌ CI Pipeline Failed',
+              '',
+              '| Job | Kết quả |',
+              '|-----|---------|',
+              `| Unit Tests        | ${badge(test)}  ${test}  |`,
+              `| Integration Tests | ${badge(intg)}  ${intg}  |`,
+              `| UI Automation     | ${badge(ui)}    ${ui}    |`,
+              `| Build EXE         | ${badge(build)} ${build} |`,
+              '',
+              `**Commit:** \`${sha}\``,
+              `**[Xem log chi tiết →](https://github.com/${repo}/actions/runs/${runId})**`,
+            ].join('\n');
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo:  context.repo.repo,
+              issue_number: context.issue.number,
+              body
+            });

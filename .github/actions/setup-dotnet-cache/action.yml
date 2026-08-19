@@ -1,0 +1,22 @@
+name: Setup .NET with NuGet cache
+description: Cài .NET SDK và khởi tạo NuGet package cache — dùng chung cho mọi job
+
+inputs:
+  dotnet-version:
+    description: Phiên bản .NET cần cài
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ inputs.dotnet-version }}
+
+    - name: Cache NuGet packages
+      uses: actions/cache@v4
+      with:
+        path: ~/.nuget/packages
+        key: nuget-${{ runner.os }}-${{ hashFiles('**/*.csproj', '**/packages.config') }}
+        restore-keys: nuget-${{ runner.os }}-
