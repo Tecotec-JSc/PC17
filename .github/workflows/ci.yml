@@ -193,7 +193,8 @@ jobs:
 
       - name: Restore dependencies
         shell: pwsh
-        run: dotnet restore ${{ env.SOLUTION_PATH }}
+        # Phải chỉ định --runtime win-x64 để assets file có target cho publish --no-restore
+        run: dotnet restore ${{ env.SOLUTION_PATH }} --runtime win-x64
 
       - name: Check for vulnerable packages
         shell: pwsh
