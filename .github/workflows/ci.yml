@@ -1,0 +1,199 @@
+name: PC17 CI
+
+on:
+  push:
+    branches-ignore:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      skip_build:
+        description: 'Bỏ qua build'
+        type: boolean
+        default: false
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref_name }}
+  cancel-in-progress: true
+
+env:
+  DOTNET_VERSION: "8.0.x"
+  SOLUTION_PATH: "T3ACS/T3ACS.sln"
+  PROJECT_PATH:  "T3ACS/T3ACS/T3ACS.csproj"
+
+jobs:
+  # ═══════════════════════════════════════════════════════════════
+  # JOB 0: Skip Check
+  # ═══════════════════════════════════════════════════════════════
+  skip-check:
+    name: Skip Check
+    runs-on: windows-latest
+    outputs:
+      no_ci:     ${{ steps.check.outputs.no_ci }}
+      no_build:  ${{ steps.check.outputs.no_build }}
+      short_sha: ${{ steps.check.outputs.short_sha }}
+      actor:     ${{ steps.check.outputs.actor }}
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Show GitHub context
+        shell: pwsh
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: Write-Host $env:GITHUB_CONTEXT
+
+      - name: Read commit message & set flags
+        id: check
+        shell: pwsh
+        run: |
+          $msg      = git log -1 --pretty=%B
+          $shortSha = git rev-parse --short HEAD
+          Write-Host "Commit: $msg"
+
+          "short_sha=$shortSha"         | Out-File $env:GITHUB_OUTPUT -Append
+          "actor=${{ github.actor }}"   | Out-File $env:GITHUB_OUTPUT -Append
+
+          if ($msg -match "no-ci") {
+            Write-Host "no-ci — dừng pipeline"
+            "no_ci=true" | Out-File $env:GITHUB_OUTPUT -Append
+          } else {
+            "no_ci=false" | Out-File $env:GITHUB_OUTPUT -Append
+          }
+
+          $skipBuild = "${{ inputs.skip_build }}" -eq "true" -or $msg -match "no-build"
+          if ($skipBuild) {
+            Write-Host "no-build — bỏ qua build"
+            "no_build=true" | Out-File $env:GITHUB_OUTPUT -Append
+          } else {
+            "no_build=false" | Out-File $env:GITHUB_OUTPUT -Append
+          }
+
+  # ═══════════════════════════════════════════════════════════════
+  # JOB 1: Build Windows EXE
+  # ═══════════════════════════════════════════════════════════════
+  build:
+    name: Build Windows EXE
+    runs-on: windows-latest
+    needs: skip-check
+    if: |
+      needs.skip-check.outputs.no_ci != 'true' &&
+      needs.skip-check.outputs.no_build != 'true'
+    outputs:
+      artifact_name: ${{ steps.meta.outputs.artifact_name }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Restore dependencies
+        shell: pwsh
+        run: dotnet restore ${{ env.SOLUTION_PATH }}
+
+      - name: Publish self-contained EXE
+        shell: pwsh
+        run: |
+          dotnet publish ${{ env.PROJECT_PATH }} `
+            --configuration Release `
+            --runtime win-x64 `
+            --self-contained true `
+            -p:PublishSingleFile=true `
+            -p:EnableCompressionInSingleFile=true `
+            --output publish/ `
+            2>&1 | Tee-Object build-output.txt
+
+      - name: Set artifact metadata
+        id: meta
+        shell: pwsh
+        run: |
+          $short  = "${{ needs.skip-check.outputs.short_sha }}"
+          $branch = "${{ github.ref_name }}" -replace "/", "-"
+          $name   = "PC17-${branch}-${short}"
+          "artifact_name=$name" | Out-File $env:GITHUB_OUTPUT -Append
+
+      - name: Upload EXE artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.meta.outputs.artifact_name }}
+          path: publish/
+          retention-days: 14
+
+      - name: Upload build log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-log
+          path: build-output.txt
+
+      - name: Write Step Summary
+        if: always()
+        shell: pwsh
+        run: |
+          $short    = "${{ needs.skip-check.outputs.short_sha }}"
+          $artifact = "${{ steps.meta.outputs.artifact_name }}"
+          @"
+          ## 🏗️ Build Result
+
+          | | |
+          |---|---|
+          | Branch   | ``${{ github.ref_name }}`` |
+          | Commit   | ``$short`` |
+          | Actor    | ``${{ needs.skip-check.outputs.actor }}`` |
+          | Artifact | ``$artifact`` |
+          | Runtime  | win-x64 self-contained |
+          | Retention | 14 ngày |
+          "@ | Out-File $env:GITHUB_STEP_SUMMARY -Append
+
+  # ═══════════════════════════════════════════════════════════════
+  # JOB 2: Pipeline Summary — luôn chạy
+  # ═══════════════════════════════════════════════════════════════
+  report:
+    name: Pipeline Summary
+    runs-on: windows-latest
+    needs: [skip-check, build]
+    if: always() && needs.skip-check.outputs.no_ci != 'true'
+
+    steps:
+      - name: Write final summary
+        shell: pwsh
+        run: |
+          $buildResult = "${{ needs.build.result }}"
+          $artifact    = "${{ needs.build.outputs.artifact_name }}"
+          $short       = "${{ needs.skip-check.outputs.short_sha }}"
+
+          $overall = switch ($buildResult) {
+            "success" { "✅ PASSED" }
+            "failure" { "❌ FAILED" }
+            "skipped" { "⏭️ SKIPPED" }
+            default   { "⚠️ WARNING" }
+          }
+
+          $buildBadge = switch ($buildResult) {
+            "success" { "✅ success" }
+            "skipped" { "⏭️ skipped" }
+            default   { "❌ failed" }
+          }
+
+          @"
+          ---
+          ## $overall — PC17 Pipeline
+
+          | Job | Kết quả |
+          |-----|---------|
+          | Build Windows EXE | $buildBadge |
+
+          **Artifact:** ``$artifact``
+          **Commit:** ``$short`` by ``${{ needs.skip-check.outputs.actor }}``
+          **Branch:** ``${{ github.ref_name }}``
+
+          ### Tải EXE
+          > Actions tab → chọn run này → kéo xuống **Artifacts** → tải ``$artifact``
+          "@ | Out-File $env:GITHUB_STEP_SUMMARY -Append
