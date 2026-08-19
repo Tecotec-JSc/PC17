@@ -317,6 +317,17 @@ jobs:
           # TestDataSeeder đọc DUT từ DB này, sau đó tự seed template
           Copy-Item "T3ACS\T3ACS.UITests\SeedData\T3.db" -Destination "app\T3.db"
 
+      - name: Set license registry key cho CI
+        shell: pwsh
+        run: |
+          # Ghi license key vào registry HKCU\SOFTWARE\T3\KeyLicenseT3ACS dưới dạng UTF-8 bytes
+          # (T3.Configuration.Registry lưu bằng UTF8Encoding.GetBytes nên phải ghi Binary)
+          $keyPath = "HKCU:\SOFTWARE\T3"
+          if (-not (Test-Path $keyPath)) { New-Item -Path $keyPath -Force | Out-Null }
+          $bytes = [System.Text.Encoding]::UTF8.GetBytes("AKLYG-G157T-L46ZY-D158S-NRU45")
+          Set-ItemProperty -Path $keyPath -Name "KeyLicenseT3ACS" -Value $bytes -Type Binary
+          Write-Host "Đã ghi KeyLicenseT3ACS ($($bytes.Length) bytes) vào $keyPath"
+
       - name: Run UI automation tests
         env:
           T3ACS_UI_TEST_APP_DIR: ${{ github.workspace }}\app
