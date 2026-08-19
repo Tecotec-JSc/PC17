@@ -408,12 +408,7 @@ jobs:
           > Actions tab → chọn run này → kéo xuống **Artifacts** → tải ``$artifact``
           "@ | Out-File $env:GITHUB_STEP_SUMMARY -Append
 
-      - name: Notify Discord khi pipeline fail
-        if: |
-          needs.build.result == 'failure' ||
-          needs.test.result == 'failure' ||
-          needs.integration-test.result == 'failure' ||
-          needs.ui-test.result == 'failure'
+      - name: Notify Discord kết quả pipeline
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_URL }}
           BUILD_RESULT:    ${{ needs.build.result }}
@@ -433,20 +428,26 @@ jobs:
               return {"success": "✅ passed", "failure": "❌ FAILED",
                       "skipped": "⏭️ skipped"}.get(r, f"⚠️ {r}")
 
+          results = [os.environ['BUILD_RESULT'], os.environ['TEST_RESULT'],
+                     os.environ['INT_RESULT'],   os.environ['UI_RESULT']]
+          all_passed = all(r in ("success", "skipped") for r in results)
+
+          title  = "✅ PC17 CI Pipeline PASSED" if all_passed else "❌ PC17 CI Pipeline FAILED"
+          color  = 3066993 if all_passed else 15158332  # xanh lá / đỏ
           run_url = f"https://github.com/{os.environ['REPO']}/actions/runs/{os.environ['RUN_ID']}"
 
           payload = {
               "embeds": [{
-                  "title": "❌ PC17 CI Pipeline FAILED",
-                  "color": 15158332,
+                  "title": title,
+                  "color": color,
                   "fields": [
-                      {"name": "Branch",         "value": f"`{os.environ['BRANCH']}`",    "inline": True},
-                      {"name": "Commit",         "value": f"`{os.environ['SHORT_SHA']}`", "inline": True},
-                      {"name": "Author",         "value": os.environ['ACTOR'],            "inline": True},
-                      {"name": "Unit Tests",     "value": badge(os.environ['TEST_RESULT']),  "inline": True},
-                      {"name": "Integration",    "value": badge(os.environ['INT_RESULT']),   "inline": True},
-                      {"name": "UI Automation",  "value": badge(os.environ['UI_RESULT']),    "inline": True},
-                      {"name": "Build EXE",      "value": badge(os.environ['BUILD_RESULT']), "inline": True},
+                      {"name": "Branch",        "value": f"`{os.environ['BRANCH']}`",    "inline": True},
+                      {"name": "Commit",        "value": f"`{os.environ['SHORT_SHA']}`", "inline": True},
+                      {"name": "Author",        "value": os.environ['ACTOR'],            "inline": True},
+                      {"name": "Unit Tests",    "value": badge(os.environ['TEST_RESULT']),  "inline": True},
+                      {"name": "Integration",   "value": badge(os.environ['INT_RESULT']),   "inline": True},
+                      {"name": "UI Automation", "value": badge(os.environ['UI_RESULT']),    "inline": True},
+                      {"name": "Build EXE",     "value": badge(os.environ['BUILD_RESULT']), "inline": True},
                   ],
                   "url": run_url,
                   "footer": {"text": "Click title để xem log chi tiết"}
