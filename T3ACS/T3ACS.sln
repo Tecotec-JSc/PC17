@@ -25,6 +25,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "T3ACS.Service", "T3ACS.Serv
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "T3ACS.Tests", "T3ACS.Tests\T3ACS.Tests.csproj", "{AC892864-CBCB-4730-8F61-6CAC5BBCF178}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "T3ACS.IntegrationTests", "T3ACS.IntegrationTests\T3ACS.IntegrationTests.csproj", "{020EEDAD-57BD-44F9-9CB2-93B248E394E4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "T3ACS.UITests", "T3ACS.UITests\T3ACS.UITests.csproj", "{CA192F18-64ED-40F2-AF1D-10F677667B14}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -73,6 +77,14 @@ Global
 		{AC892864-CBCB-4730-8F61-6CAC5BBCF178}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AC892864-CBCB-4730-8F61-6CAC5BBCF178}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AC892864-CBCB-4730-8F61-6CAC5BBCF178}.Release|Any CPU.Build.0 = Release|Any CPU
+		{020EEDAD-57BD-44F9-9CB2-93B248E394E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{020EEDAD-57BD-44F9-9CB2-93B248E394E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{020EEDAD-57BD-44F9-9CB2-93B248E394E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{020EEDAD-57BD-44F9-9CB2-93B248E394E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA192F18-64ED-40F2-AF1D-10F677667B14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA192F18-64ED-40F2-AF1D-10F677667B14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA192F18-64ED-40F2-AF1D-10F677667B14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA192F18-64ED-40F2-AF1D-10F677667B14}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

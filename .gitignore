@@ -17,3 +17,7 @@
 
 # Native runtimes sinh ra khi build
 **/bin/**/runtimes/
+
+# Thư mục automation riêng và app đã build — không thuộc repo PC17
+T3ACS.Automation/
+UITestApp/
