@@ -37,8 +37,11 @@ namespace T3ACS.UITests.Screens
             var confirmDialog = WindowFinder.WaitForNewWindow(_session.App, _session.Automation, beforeConfirm, TimeSpan.FromSeconds(5));
             if (confirmDialog == null) throw new InvalidOperationException("Delete confirmation dialog did not open.");
 
+            // Đợi dialog render xong trên CI trước khi tìm button (dialog mới xuất hiện,
+            // UIA tree chưa kịp populate ngay)
+            Thread.Sleep(1000);
             var beforeNotification = WindowFinder.SnapshotHandles(_session.App);
-            var confirmOk = ElementFinder.FindById(confirmDialog, "btnOK", TimeSpan.FromSeconds(5));
+            var confirmOk = ElementFinder.FindById(confirmDialog, "btnOK", TimeSpan.FromSeconds(10));
             if (confirmOk == null) throw new InvalidOperationException("Confirmation dialog's OK button not found.");
             confirmOk.Click();
 

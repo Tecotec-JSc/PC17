@@ -25,7 +25,8 @@ namespace T3ACS.UITests.Screens
         /// </summary>
         public void AddStep(string stepTypeText, string parameterName)
         {
-            var stepTypeItem = ElementFinder.FindByText(Root, stepTypeText, TimeSpan.FromSeconds(10));
+            // Tăng timeout lên 20s vì FormEditProcedure embed vào panelMain có thể chậm trên CI
+            var stepTypeItem = ElementFinder.FindByText(Root, stepTypeText, TimeSpan.FromSeconds(20));
             if (stepTypeItem == null) throw new InvalidOperationException($"Step type '{stepTypeText}' not found in panelStepType.");
             stepTypeItem.Click();
             Thread.Sleep(200);
