@@ -489,6 +489,13 @@ jobs:
           req  = urllib.request.Request(
               os.environ["DISCORD_WEBHOOK"], data=data,
               headers={"Content-Type": "application/json"})
-          with urllib.request.urlopen(req) as resp:
-              print(f"Discord response: {resp.status}")
+          try:
+              with urllib.request.urlopen(req) as resp:
+                  print(f"Discord OK: {resp.status}")
+          except urllib.error.HTTPError as e:
+              # In ra response body để debug — không raise để pipeline không fail
+              body = e.read().decode(errors="replace")
+              print(f"Discord error {e.code}: {body}")
+          except Exception as e:
+              print(f"Discord send failed: {e}")
           PYEOF
