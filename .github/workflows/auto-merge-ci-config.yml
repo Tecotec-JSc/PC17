@@ -1,0 +1,63 @@
+name: Auto-merge CI config → main
+
+# Khi push lên bất kỳ branch nào có thay đổi trong .github/workflows/**,
+# nếu TOÀN BỘ file thay đổi đều nằm trong .github/workflows/ thì tự merge
+# thẳng vào main mà không cần pipeline pass.
+# Nếu có file T3ACS/** thay đổi thì không tự merge — phải qua PR thông thường.
+
+on:
+  push:
+    branches-ignore:
+      - main
+    paths:
+      - '.github/workflows/**'
+
+permissions:
+  contents: write
+
+jobs:
+  auto-merge:
+    name: Auto-merge CI config
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          # Dùng token mặc định — push được vào main vì repo chưa có branch protection
+          token: ${{ github.token }}
+
+      - name: Kiểm tra chỉ thay đổi .github/workflows/**
+        id: check
+        run: |
+          git fetch origin main
+          CHANGED=$(git diff --name-only origin/main..HEAD)
+          echo "Files changed:"
+          echo "$CHANGED"
+
+          # Lọc ra file không phải .github/workflows/
+          NON_CI=$(echo "$CHANGED" | grep -v "^\.github/workflows/" | grep -v "^$" || true)
+
+          if [ -z "$CHANGED" ]; then
+            echo "Không có file thay đổi so với main — skip"
+            echo "only_ci=false" >> $GITHUB_OUTPUT
+          elif [ -z "$NON_CI" ]; then
+            echo "only_ci=true" >> $GITHUB_OUTPUT
+            echo "Chỉ CI config thay đổi — sẽ auto-merge"
+          else
+            echo "only_ci=false" >> $GITHUB_OUTPUT
+            echo "Có source code thay đổi — KHÔNG auto-merge:"
+            echo "$NON_CI"
+          fi
+
+      - name: Merge thẳng vào main
+        if: steps.check.outputs.only_ci == 'true'
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git checkout main
+          git merge --ff-only "${{ github.ref_name }}"
+          git push origin main
+
+          echo "✅ Auto-merged ${{ github.ref_name }} → main"

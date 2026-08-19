@@ -4,6 +4,8 @@ on:
   push:
     branches-ignore:
       - main
+      # ci/** tự merge qua auto-merge-ci-config.yml, không cần chạy full pipeline
+      - 'ci/**'
   pull_request:
     branches:
       - main
