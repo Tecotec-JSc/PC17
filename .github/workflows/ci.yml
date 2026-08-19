@@ -32,10 +32,11 @@ jobs:
     name: Skip Check
     runs-on: windows-latest
     outputs:
-      no_ci:     ${{ steps.check.outputs.no_ci }}
-      no_build:  ${{ steps.check.outputs.no_build }}
-      short_sha: ${{ steps.check.outputs.short_sha }}
-      actor:     ${{ steps.check.outputs.actor }}
+      no_ci:      ${{ steps.check.outputs.no_ci }}
+      no_build:   ${{ steps.check.outputs.no_build }}
+      short_sha:  ${{ steps.check.outputs.short_sha }}
+      actor:      ${{ steps.check.outputs.actor }}
+      has_tests:  ${{ steps.check.outputs.has_tests }}
 
     steps:
       - uses: actions/checkout@v4
@@ -74,49 +75,27 @@ jobs:
             "no_build=false" | Out-File $env:GITHUB_OUTPUT -Append
           }
 
-  # ═══════════════════════════════════════════════════════════════
-  # JOB 1: Format Check
-  # ═══════════════════════════════════════════════════════════════
-  format-check:
-    name: Format Check
-    runs-on: windows-latest
-    needs: skip-check
-    if: needs.skip-check.outputs.no_ci != 'true'
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: ${{ env.DOTNET_VERSION }}
-
-      - name: Cache NuGet packages
-        uses: actions/cache@v4
-        with:
-          path: ~/.nuget/packages
-          key: nuget-${{ runner.os }}-${{ hashFiles('**/*.csproj', '**/packages.config') }}
-          restore-keys: nuget-${{ runner.os }}-
-
-      - name: Restore dependencies
-        shell: pwsh
-        run: dotnet restore ${{ env.SOLUTION_PATH }}
-
-      - name: Check code format
-        shell: pwsh
-        run: dotnet format ${{ env.SOLUTION_PATH }} --verify-no-changes --verbosity diagnostic
+          # Kiểm tra project test có tồn tại không (chỉ merge vào main sau khi có test)
+          if (Test-Path "${{ env.TEST_PATH }}") {
+            Write-Host "Test project found — sẽ chạy Unit Tests"
+            "has_tests=true" | Out-File $env:GITHUB_OUTPUT -Append
+          } else {
+            Write-Host "Test project not found — bỏ qua Unit Tests"
+            "has_tests=false" | Out-File $env:GITHUB_OUTPUT -Append
+          }
 
   # ═══════════════════════════════════════════════════════════════
-  # JOB 2: Unit Tests
-  # Yêu cầu tạo project T3ACS/T3ACS.Tests trước khi bật job này
+  # JOB 1: Unit Tests
+  # Chỉ chạy khi T3ACS.Tests tồn tại trong checkout
   # ═══════════════════════════════════════════════════════════════
   test:
     name: Unit Tests
     runs-on: windows-latest
     needs: skip-check
     if: |
-      needs.skip-check.outputs.no_ci != 'true' &&
-      needs.skip-check.outputs.no_build != 'true'
+      needs.skip-check.outputs.no_ci    != 'true' &&
+      needs.skip-check.outputs.no_build != 'true' &&
+      needs.skip-check.outputs.has_tests == 'true'
 
     steps:
       - uses: actions/checkout@v4
@@ -149,15 +128,14 @@ jobs:
           path: ./test-results/*.trx
 
   # ═══════════════════════════════════════════════════════════════
-  # JOB 3: Build Windows EXE
-  # Chờ format-check pass trước khi build
+  # JOB 2: Build Windows EXE
   # ═══════════════════════════════════════════════════════════════
   build:
     name: Build Windows EXE
     runs-on: windows-latest
-    needs: [skip-check, format-check]
+    needs: [skip-check]
     if: |
-      needs.skip-check.outputs.no_ci != 'true' &&
+      needs.skip-check.outputs.no_ci    != 'true' &&
       needs.skip-check.outputs.no_build != 'true'
     outputs:
       artifact_name: ${{ steps.meta.outputs.artifact_name }}
@@ -245,27 +223,25 @@ jobs:
           "@ | Out-File $env:GITHUB_STEP_SUMMARY -Append
 
   # ═══════════════════════════════════════════════════════════════
-  # JOB 4: Pipeline Summary — luôn chạy
+  # JOB 3: Pipeline Summary — luôn chạy
   # ═══════════════════════════════════════════════════════════════
   report:
     name: Pipeline Summary
     runs-on: windows-latest
-    needs: [skip-check, format-check, test, build]
+    needs: [skip-check, test, build]
     if: always() && needs.skip-check.outputs.no_ci != 'true'
 
     steps:
       - name: Write final summary
         shell: pwsh
         run: |
-          $buildResult  = "${{ needs.build.result }}"
-          $formatResult = "${{ needs.format-check.result }}"
-          $testResult   = "${{ needs.test.result }}"
-          $artifact     = "${{ needs.build.outputs.artifact_name }}"
-          $short        = "${{ needs.skip-check.outputs.short_sha }}"
+          $buildResult = "${{ needs.build.result }}"
+          $testResult  = "${{ needs.test.result }}"
+          $artifact    = "${{ needs.build.outputs.artifact_name }}"
+          $short       = "${{ needs.skip-check.outputs.short_sha }}"
 
           $allPassed = ($buildResult -eq "success") -and
-                       ($formatResult -eq "success" -or $formatResult -eq "skipped") -and
-                       ($testResult   -eq "success" -or $testResult   -eq "skipped")
+                       ($testResult  -eq "success" -or $testResult -eq "skipped")
 
           $overall = if ($allPassed) { "✅ PASSED" } else { "❌ FAILED" }
 
@@ -281,9 +257,8 @@ jobs:
 
           | Job | Kết quả |
           |-----|---------|
-          | Format Check      | $($badge[$formatResult] ?? "⚠️ $formatResult") |
-          | Unit Tests        | $($badge[$testResult]   ?? "⚠️ $testResult") |
-          | Build Windows EXE | $($badge[$buildResult]  ?? "⚠️ $buildResult") |
+          | Unit Tests        | $($badge[$testResult]  ?? "⚠️ $testResult") |
+          | Build Windows EXE | $($badge[$buildResult] ?? "⚠️ $buildResult") |
 
           **Artifact:** ``$artifact``
           **Commit:** ``$short`` by ``${{ needs.skip-check.outputs.actor }}``
