@@ -115,16 +115,35 @@ jobs:
         shell: pwsh
         run: dotnet restore ${{ env.SOLUTION_PATH }}
 
-      # ── Format check (.editorconfig) ────────────────────────────
-      - name: Check format (.editorconfig)
-        id: fmt
+      # ── Lấy danh sách file .cs thay đổi ────────────────────────
+      - name: Get changed .cs files
+        id: changed
         shell: pwsh
         run: |
+          $files = git diff --name-only HEAD~1 HEAD | Where-Object { $_ -match "\.cs$" }
+          if (-not $files) {
+            Write-Host "Khong co file .cs nao thay doi - skip convention"
+            "has_changes=false" | Out-File $env:GITHUB_OUTPUT -Append
+            "" | Set-Content changed-files.txt
+          } else {
+            $files | ForEach-Object { Write-Host "  $_" }
+            $files | Set-Content changed-files.txt
+            "has_changes=true" | Out-File $env:GITHUB_OUTPUT -Append
+          }
+
+      # ── Format check — chi file .cs thay doi ───────────────────
+      - name: Check format (.editorconfig)
+        id: fmt
+        if: steps.changed.outputs.has_changes == 'true'
+        shell: pwsh
+        run: |
+          $files = Get-Content changed-files.txt | Where-Object { $_ -ne "" }
           dotnet format ${{ env.SOLUTION_PATH }} `
             --verify-no-changes `
             --severity warn `
-            --report format-report.json 2>&1 | Tee-Object fmt-output.txt
-
+            --report format-report.json `
+            --include @files `
+            2>&1 | Tee-Object fmt-output.txt
           $count = 0
           if (Test-Path format-report.json) {
             $count = (Get-Content format-report.json | ConvertFrom-Json).Count
@@ -132,9 +151,10 @@ jobs:
           "violations=$count" | Out-File $env:GITHUB_OUTPUT -Append
           Write-Host "Format violations: $count"
 
-      # ── Roslyn analyzer ──────────────────────────────────────────
+      # ── Roslyn — chi loc warning/error tren file thay doi ───────
       - name: Run Roslyn analyzers (T3ACS.ruleset)
         id: roslyn
+        if: steps.changed.outputs.has_changes == 'true'
         shell: pwsh
         run: |
           dotnet build ${{ env.SOLUTION_PATH }} `
@@ -144,43 +164,45 @@ jobs:
             /p:CodeAnalysisRuleSet=T3ACS.ruleset `
             /p:TreatWarningsAsErrors=false `
             2>&1 | Tee-Object roslyn-output.txt
-
-          $warn = (Select-String -Path roslyn-output.txt -Pattern ": warning ").Count
-          $err  = (Select-String -Path roslyn-output.txt -Pattern ": error "  ).Count
+          $files = Get-Content changed-files.txt | Where-Object { $_ -ne "" }
+          $warn = 0; $err = 0
+          foreach ($f in $files) {
+            $fname = Split-Path $f -Leaf
+            $warn += (Select-String -Path roslyn-output.txt -Pattern "$fname.*: warning " -ErrorAction SilentlyContinue).Count
+            $err  += (Select-String -Path roslyn-output.txt -Pattern "$fname.*: error "   -ErrorAction SilentlyContinue).Count
+          }
           "warnings=$warn" | Out-File $env:GITHUB_OUTPUT -Append
           "errors=$err"    | Out-File $env:GITHUB_OUTPUT -Append
 
-      # ── Naming convention (Hungarian notation) ───────────────────
+      # ── Naming — chi file thay doi ──────────────────────────────
       - name: Check naming conventions
         id: naming
+        if: steps.changed.outputs.has_changes == 'true'
         shell: pwsh
         run: |
+          $files  = Get-Content changed-files.txt | Where-Object { $_ -ne "" }
           $issues = 0
-          $output = @("=== Naming convention check ===")
-
-          # Private field không có prefix _
-          Get-ChildItem -Recurse -Filter "*.cs" -Exclude "obj","bin" | ForEach-Object {
-            $matches = Select-String -Path $_.FullName `
-              -Pattern 'private\s+(readonly\s+)?\w+\s+[a-z][a-zA-Z0-9]*\s*[;=]'
-            $matches | Where-Object { $_ -notmatch 'private.*_' } | ForEach-Object {
-              $output += $_.ToString()
-              $issues++
-            }
+          $output = @("=== Naming check (changed files only) ===")
+          foreach ($f in $files) {
+            if (-not (Test-Path $f)) { continue }
+            $m = Select-String -Path $f -Pattern 'private\s+(readonly\s+)?\w+\s+[a-z][a-zA-Z0-9]*\s*[;=]' -ErrorAction SilentlyContinue
+            $m | Where-Object { $_ -notmatch 'private.*_' } | ForEach-Object { $output += $_.ToString(); $issues++ }
+            $m2 = Select-String -Path $f -Pattern '\b(str|int|bool|obj|arr|lst|dct|mgr|usr|dvc)[A-Z][a-zA-Z]+' -ErrorAction SilentlyContinue
+            $m2 | ForEach-Object { $output += $_.ToString(); $issues++ }
           }
-
-          # Hungarian notation: strXxx, intXxx, boolXxx, v.v.
-          Get-ChildItem -Recurse -Filter "*.cs" -Exclude "obj","bin" | ForEach-Object {
-            $matches = Select-String -Path $_.FullName `
-              -Pattern '\b(str|int|bool|obj|arr|lst|dct|mgr|usr|dvc)[A-Z][a-zA-Z]+'
-            $matches | ForEach-Object {
-              $output += $_.ToString()
-              $issues++
-            }
-          }
-
           $output | Set-Content naming-output.txt
           $output | Write-Host
           "issues=$issues" | Out-File $env:GITHUB_OUTPUT -Append
+
+      # ── Không có file thay đổi — set defaults ───────────────────
+      - name: No CS changes — skip all checks
+        if: steps.changed.outputs.has_changes != 'true'
+        shell: pwsh
+        run: |
+          "violations=0" | Out-File $env:GITHUB_OUTPUT -Append -FilePath $env:GITHUB_OUTPUT
+          "warnings=0"   | Out-File $env:GITHUB_OUTPUT -Append
+          "errors=0"     | Out-File $env:GITHUB_OUTPUT -Append
+          "issues=0"     | Out-File $env:GITHUB_OUTPUT -Append
 
       # ── GitHub Step Summary ──────────────────────────────────────
       - name: Write Step Summary
