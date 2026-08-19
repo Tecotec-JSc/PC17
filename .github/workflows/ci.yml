@@ -315,15 +315,38 @@ jobs:
           T3ACS_UI_TEST_APP_DIR: ${{ github.workspace }}\app
         shell: pwsh
         run: |
-          # Bắt đầu ghi màn hình bằng ffmpeg
-          $ffmpeg = [System.Diagnostics.Process]::new()
-          $ffmpeg.StartInfo.FileName      = "ffmpeg"
-          $ffmpeg.StartInfo.Arguments     = "-f gdigrab -framerate 5 -video_size 1920x1080 -i desktop -vf scale=1280:720 -vcodec libx264 -preset ultrafast -pix_fmt yuv420p ui-test-recording.mp4"
-          $ffmpeg.StartInfo.UseShellExecute    = $false
-          $ffmpeg.StartInfo.RedirectStandardInput = $true
-          $ffmpeg.StartInfo.RedirectStandardError = $true
-          $ffmpeg.Start() | Out-Null
-          Start-Sleep -Seconds 2   # đợi ffmpeg khởi động xong
+          # Refresh PATH để choco install ffmpeg có hiệu lực trong step này
+          $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" +
+                      [System.Environment]::GetEnvironmentVariable("Path","User")
+
+          # Tìm ffmpeg — ưu tiên PATH, fallback về đường dẫn choco mặc định
+          $ffmpegExe = (Get-Command ffmpeg -ErrorAction SilentlyContinue)?.Source
+          if (-not $ffmpegExe) { $ffmpegExe = "C:\ProgramData\chocolatey\bin\ffmpeg.exe" }
+          Write-Host "ffmpeg: $ffmpegExe | tồn tại: $(Test-Path $ffmpegExe)"
+
+          # Khởi động recording nếu ffmpeg có sẵn
+          $ffmpegProc  = $null
+          $stderrTask  = $null
+          if (Test-Path $ffmpegExe) {
+            $proc = [System.Diagnostics.Process]::new()
+            $proc.StartInfo.FileName             = $ffmpegExe
+            $proc.StartInfo.Arguments            = "-f gdigrab -framerate 5 -video_size 1920x1080 -i desktop -vf scale=1280:720 -vcodec libx264 -preset ultrafast -pix_fmt yuv420p ui-test-recording.mp4"
+            $proc.StartInfo.UseShellExecute      = $false
+            $proc.StartInfo.RedirectStandardInput  = $true
+            $proc.StartInfo.RedirectStandardError  = $true
+            $proc.Start() | Out-Null
+            $stderrTask = $proc.StandardError.ReadToEndAsync()
+            Start-Sleep -Seconds 3
+            if ($proc.HasExited) {
+              Write-Host "⚠️ ffmpeg thoát ngay (exit $($proc.ExitCode)) — không record:"
+              try { Write-Host $stderrTask.Result } catch {}
+            } else {
+              Write-Host "✅ ffmpeg đang ghi (PID $($proc.Id))"
+              $ffmpegProc = $proc
+            }
+          } else {
+            Write-Host "⚠️ ffmpeg không tìm thấy — bỏ qua recording"
+          }
 
           $testExitCode = 0
           try {
@@ -334,12 +357,12 @@ jobs:
               --results-directory ./test-results
             $testExitCode = $LASTEXITCODE
           } finally {
-            # Gửi 'q' để ffmpeg finalize MP4 đúng cách (không bị corrupt)
-            try {
-              $ffmpeg.StandardInput.WriteLine("q")
-              $ffmpeg.WaitForExit(15000)
-            } catch { }
-            if (-not $ffmpeg.HasExited) { $ffmpeg.Kill() }
+            if ($ffmpegProc -and -not $ffmpegProc.HasExited) {
+              # Gửi 'q' để ffmpeg finalize MP4 đúng cách (không bị corrupt)
+              try { $ffmpegProc.StandardInput.WriteLine("q"); $ffmpegProc.WaitForExit(15000) } catch {}
+              if (-not $ffmpegProc.HasExited) { $ffmpegProc.Kill() }
+              try { Write-Host "ffmpeg log:`n$($stderrTask.Result)" } catch {}
+            }
           }
 
           exit $testExitCode
