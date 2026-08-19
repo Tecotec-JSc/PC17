@@ -366,55 +366,22 @@ jobs:
     if: always() && needs.skip-check.outputs.no_ci != 'true'
 
     steps:
-      - name: Write final summary
-        shell: pwsh
-        run: |
-          $buildResult       = "${{ needs.build.result }}"
-          $testResult        = "${{ needs.test.result }}"
-          $integrationResult = "${{ needs.integration-test.result }}"
-          $uiResult          = "${{ needs.ui-test.result }}"
-          $artifact          = "${{ needs.build.outputs.artifact_name }}"
-          $short             = "${{ needs.skip-check.outputs.short_sha }}"
+      - name: Download test result artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: "*-test-results"
+          path: ./test-results
+          merge-multiple: false
+        continue-on-error: true
 
-          $allPassed = ($buildResult -eq "success") -and
-                       ($testResult        -eq "success" -or $testResult        -eq "skipped") -and
-                       ($integrationResult -eq "success" -or $integrationResult -eq "skipped") -and
-                       ($uiResult          -eq "success" -or $uiResult          -eq "skipped")
-
-          $overall = if ($allPassed) { "✅ PASSED" } else { "❌ FAILED" }
-
-          $badge = @{
-            "success" = "✅ success"
-            "failure" = "❌ failed"
-            "skipped" = "⏭️ skipped"
-          }
-
-          @"
-          ---
-          ## $overall — PC17 Pipeline
-
-          | Job | Kết quả |
-          |-----|---------|
-          | Unit Tests        | $($badge[$testResult]        ?? "⚠️ $testResult") |
-          | Integration Tests | $($badge[$integrationResult] ?? "⚠️ $integrationResult") |
-          | UI Automation     | $($badge[$uiResult]          ?? "⚠️ $uiResult") |
-          | Build Windows EXE | $($badge[$buildResult]       ?? "⚠️ $buildResult") |
-
-          **Artifact:** ``$artifact``
-          **Commit:** ``$short`` by ``${{ needs.skip-check.outputs.actor }}``
-          **Branch:** ``${{ github.ref_name }}``
-
-          ### Tải EXE
-          > Actions tab → chọn run này → kéo xuống **Artifacts** → tải ``$artifact``
-          "@ | Out-File $env:GITHUB_STEP_SUMMARY -Append
-
-      - name: Notify Discord kết quả pipeline
+      - name: Write final summary & notify Discord
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_URL }}
           BUILD_RESULT:    ${{ needs.build.result }}
           TEST_RESULT:     ${{ needs.test.result }}
           INT_RESULT:      ${{ needs.integration-test.result }}
           UI_RESULT:       ${{ needs.ui-test.result }}
+          ARTIFACT:        ${{ needs.build.outputs.artifact_name }}
           SHORT_SHA:       ${{ needs.skip-check.outputs.short_sha }}
           BRANCH:          ${{ github.ref_name }}
           ACTOR:           ${{ needs.skip-check.outputs.actor }}
@@ -422,41 +389,105 @@ jobs:
           REPO:            ${{ github.repository }}
         run: |
           python3 - <<'PYEOF'
-          import os, json, urllib.request
+          import os, json, glob, urllib.request
+          import xml.etree.ElementTree as ET
 
-          def badge(r):
-              return {"success": "✅ passed", "failure": "❌ FAILED",
-                      "skipped": "⏭️ skipped"}.get(r, f"⚠️ {r}")
+          NS = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010"
 
-          results = [os.environ['BUILD_RESULT'], os.environ['TEST_RESULT'],
-                     os.environ['INT_RESULT'],   os.environ['UI_RESULT']]
-          all_passed = all(r in ("success", "skipped") for r in results)
+          def parse_trx(pattern):
+              """Đọc file TRX, trả về (passed, total) hoặc None nếu không có."""
+              files = glob.glob(f"./test-results/{pattern}/*.trx")
+              if not files:
+                  return None
+              try:
+                  root = ET.parse(files[0]).getroot()
+                  c = root.find(f".//{{{NS}}}Counters")
+                  if c is not None:
+                      return int(c.get("passed", 0)), int(c.get("total", 0))
+              except Exception:
+                  pass
+              return None
 
-          title  = "✅ PC17 CI Pipeline PASSED" if all_passed else "❌ PC17 CI Pipeline FAILED"
-          color  = 3066993 if all_passed else 15158332  # xanh lá / đỏ
+          def fmt_badge(result):
+              return {"success": "✅", "failure": "❌", "skipped": "⏭️"}.get(result, "⚠️")
+
+          def fmt_count(counts, result):
+              """Trả về chuỗi hiển thị, ví dụ: ✅ 5/5  hoặc ❌ 2/5."""
+              icon = fmt_badge(result)
+              if counts is None:
+                  return f"{icon} —"
+              passed, total = counts
+              return f"{icon} {passed}/{total}"
+
+          unit_counts = parse_trx("unit-test-results")
+          int_counts  = parse_trx("integration-test-results")
+          ui_counts   = parse_trx("ui-test-results")
+
+          build  = os.environ["BUILD_RESULT"]
+          test   = os.environ["TEST_RESULT"]
+          intg   = os.environ["INT_RESULT"]
+          ui     = os.environ["UI_RESULT"]
+          all_ok = all(r in ("success", "skipped") for r in [build, test, intg, ui])
+
+          # ── GitHub Step Summary ─────────────────────────────────────
+          overall = "✅ PASSED" if all_ok else "❌ FAILED"
+          summary_lines = [
+              "---",
+              f"## {overall} — PC17 Pipeline",
+              "",
+              "| Job | Kết quả | Tests |",
+              "|-----|---------|-------|",
+              f"| Unit Tests        | {fmt_badge(test)}  {test}  | {fmt_count(unit_counts, test)} |",
+              f"| Integration Tests | {fmt_badge(intg)}  {intg}  | {fmt_count(int_counts,  intg)} |",
+              f"| UI Automation     | {fmt_badge(ui)}    {ui}    | {fmt_count(ui_counts,   ui)}   |",
+              f"| Build Windows EXE | {fmt_badge(build)} {build} | — |",
+              "",
+              f"**Artifact:** `{os.environ['ARTIFACT']}`  ",
+              f"**Commit:** `{os.environ['SHORT_SHA']}` by {os.environ['ACTOR']}  ",
+              f"**Branch:** `{os.environ['BRANCH']}`",
+              "",
+              "### Tải EXE",
+              f"> Actions tab → chọn run này → kéo xuống **Artifacts** → tải `{os.environ['ARTIFACT']}`",
+          ]
+          summary_path = os.environ.get("GITHUB_STEP_SUMMARY", "/dev/null")
+          with open(summary_path, "a") as f:
+              f.write("\n".join(summary_lines) + "\n")
+
+          # ── Discord notification ────────────────────────────────────
+          def discord_field(counts, result, label):
+              icon = fmt_badge(result)
+              if counts:
+                  passed, total = counts
+                  val = f"{icon} {passed}/{total} passed"
+              else:
+                  val = f"{icon} {result}"
+              return {"name": label, "value": val, "inline": True}
+
           run_url = f"https://github.com/{os.environ['REPO']}/actions/runs/{os.environ['RUN_ID']}"
+          title   = "✅ PC17 CI PASSED" if all_ok else "❌ PC17 CI FAILED"
+          color   = 3066993 if all_ok else 15158332
 
           payload = {
               "embeds": [{
                   "title": title,
                   "color": color,
                   "fields": [
-                      {"name": "Branch",        "value": f"`{os.environ['BRANCH']}`",    "inline": True},
-                      {"name": "Commit",        "value": f"`{os.environ['SHORT_SHA']}`", "inline": True},
-                      {"name": "Author",        "value": os.environ['ACTOR'],            "inline": True},
-                      {"name": "Unit Tests",    "value": badge(os.environ['TEST_RESULT']),  "inline": True},
-                      {"name": "Integration",   "value": badge(os.environ['INT_RESULT']),   "inline": True},
-                      {"name": "UI Automation", "value": badge(os.environ['UI_RESULT']),    "inline": True},
-                      {"name": "Build EXE",     "value": badge(os.environ['BUILD_RESULT']), "inline": True},
+                      {"name": "Branch", "value": f"`{os.environ['BRANCH']}`",    "inline": True},
+                      {"name": "Commit", "value": f"`{os.environ['SHORT_SHA']}`", "inline": True},
+                      {"name": "Author", "value": os.environ["ACTOR"],            "inline": True},
+                      discord_field(unit_counts, test,  "Unit Tests"),
+                      discord_field(int_counts,  intg,  "Integration"),
+                      discord_field(ui_counts,   ui,    "UI Automation"),
+                      {"name": "Build EXE", "value": f"{fmt_badge(build)} {build}", "inline": True},
                   ],
                   "url": run_url,
-                  "footer": {"text": "Click title để xem log chi tiết"}
+                  "footer": {"text": "Click title → xem log chi tiết"}
               }]
           }
 
           data = json.dumps(payload).encode()
-          req = urllib.request.Request(
-              os.environ['DISCORD_WEBHOOK'], data=data,
+          req  = urllib.request.Request(
+              os.environ["DISCORD_WEBHOOK"], data=data,
               headers={"Content-Type": "application/json"})
           with urllib.request.urlopen(req) as resp:
               print(f"Discord response: {resp.status}")
