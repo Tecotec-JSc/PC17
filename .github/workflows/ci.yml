@@ -161,7 +161,7 @@ jobs:
 
       - name: Check for vulnerable packages
         shell: pwsh
-        run: dotnet list ${{ env.SOLUTION_PATH }} package --vulnerable --include-transitive
+        run: dotnet list ${{ env.PROJECT_PATH }} package --vulnerable --include-transitive
 
       - name: Publish self-contained EXE
         shell: pwsh
