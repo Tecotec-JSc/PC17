@@ -1,0 +1,354 @@
+name: PC17 CI
+
+on:
+  push:
+    branches-ignore:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      skip_convention:
+        description: 'Bỏ qua convention check'
+        type: boolean
+        default: false
+      skip_build:
+        description: 'Bỏ qua build'
+        type: boolean
+        default: false
+      target_branch:
+        description: 'Branch cần build (mặc định: branch hiện tại)'
+        type: string
+        default: ''
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref_name }}
+  cancel-in-progress: true
+
+env:
+  DOTNET_VERSION: "8.0.x"
+  SOLUTION_PATH: "T3ACS/T3ACS.sln"
+  PROJECT_PATH:  "T3ACS/T3ACS/T3ACS.csproj"
+
+jobs:
+  # ═══════════════════════════════════════════════════════════════
+  # JOB 0: Skip Check
+  # ═══════════════════════════════════════════════════════════════
+  skip-check:
+    name: Skip Check
+    runs-on: windows-latest
+    outputs:
+      no_ci:         ${{ steps.check.outputs.no_ci }}
+      no_build:      ${{ steps.check.outputs.no_build }}
+      no_convention: ${{ steps.check.outputs.no_convention }}
+      short_sha:     ${{ steps.check.outputs.short_sha }}
+      actor:         ${{ steps.check.outputs.actor }}
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Show GitHub context
+        shell: pwsh
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: Write-Host $env:GITHUB_CONTEXT
+
+      - name: Read commit message & set flags
+        id: check
+        shell: pwsh
+        run: |
+          $msg      = git log -1 --pretty=%B
+          $shortSha = git rev-parse --short HEAD
+          Write-Host "Commit: $msg"
+
+          "short_sha=$shortSha"              | Out-File $env:GITHUB_OUTPUT -Append
+          "actor=${{ github.actor }}"        | Out-File $env:GITHUB_OUTPUT -Append
+
+          if ($msg -match "no-ci") {
+            Write-Host "❌ no-ci — dừng pipeline"
+            "no_ci=true" | Out-File $env:GITHUB_OUTPUT -Append
+          } else {
+            "no_ci=false" | Out-File $env:GITHUB_OUTPUT -Append
+          }
+
+          $skipBuild = "${{ inputs.skip_build }}" -eq "true" -or $msg -match "no-build"
+          if ($skipBuild) {
+            Write-Host "⚡ no-build"
+            "no_build=true" | Out-File $env:GITHUB_OUTPUT -Append
+          } else {
+            "no_build=false" | Out-File $env:GITHUB_OUTPUT -Append
+          }
+
+          $skipConv = "${{ inputs.skip_convention }}" -eq "true" -or $msg -match "no-convention"
+          if ($skipConv) {
+            Write-Host "⚡ no-convention"
+            "no_convention=true" | Out-File $env:GITHUB_OUTPUT -Append
+          } else {
+            "no_convention=false" | Out-File $env:GITHUB_OUTPUT -Append
+          }
+
+  # ═══════════════════════════════════════════════════════════════
+  # JOB 1: Convention Check (song song với build)
+  # ═══════════════════════════════════════════════════════════════
+  convention:
+    name: Convention Check
+    runs-on: windows-latest
+    needs: skip-check
+    if: |
+      needs.skip-check.outputs.no_ci != 'true' &&
+      needs.skip-check.outputs.no_convention != 'true'
+    outputs:
+      summary: ${{ steps.summary.outputs.text }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Restore dependencies
+        shell: pwsh
+        run: dotnet restore ${{ env.SOLUTION_PATH }}
+
+      # ── Format check (.editorconfig) ────────────────────────────
+      - name: Check format (.editorconfig)
+        id: fmt
+        shell: pwsh
+        run: |
+          dotnet format ${{ env.SOLUTION_PATH }} `
+            --verify-no-changes `
+            --severity warn `
+            --report format-report.json 2>&1 | Tee-Object fmt-output.txt
+
+          $count = 0
+          if (Test-Path format-report.json) {
+            $count = (Get-Content format-report.json | ConvertFrom-Json).Count
+          }
+          "violations=$count" | Out-File $env:GITHUB_OUTPUT -Append
+          Write-Host "Format violations: $count"
+
+      # ── Roslyn analyzer ──────────────────────────────────────────
+      - name: Run Roslyn analyzers (T3ACS.ruleset)
+        id: roslyn
+        shell: pwsh
+        run: |
+          dotnet build ${{ env.SOLUTION_PATH }} `
+            --no-restore `
+            --configuration Release `
+            /p:RunAnalyzersDuringBuild=true `
+            /p:CodeAnalysisRuleSet=T3ACS.ruleset `
+            /p:TreatWarningsAsErrors=false `
+            2>&1 | Tee-Object roslyn-output.txt
+
+          $warn = (Select-String -Path roslyn-output.txt -Pattern ": warning ").Count
+          $err  = (Select-String -Path roslyn-output.txt -Pattern ": error "  ).Count
+          "warnings=$warn" | Out-File $env:GITHUB_OUTPUT -Append
+          "errors=$err"    | Out-File $env:GITHUB_OUTPUT -Append
+
+      # ── Naming convention (Hungarian notation) ───────────────────
+      - name: Check naming conventions
+        id: naming
+        shell: pwsh
+        run: |
+          $issues = 0
+          $output = @("=== Naming convention check ===")
+
+          # Private field không có prefix _
+          Get-ChildItem -Recurse -Filter "*.cs" -Exclude "obj","bin" | ForEach-Object {
+            $matches = Select-String -Path $_.FullName `
+              -Pattern 'private\s+(readonly\s+)?\w+\s+[a-z][a-zA-Z0-9]*\s*[;=]'
+            $matches | Where-Object { $_ -notmatch 'private.*_' } | ForEach-Object {
+              $output += $_.ToString()
+              $issues++
+            }
+          }
+
+          # Hungarian notation: strXxx, intXxx, boolXxx, v.v.
+          Get-ChildItem -Recurse -Filter "*.cs" -Exclude "obj","bin" | ForEach-Object {
+            $matches = Select-String -Path $_.FullName `
+              -Pattern '\b(str|int|bool|obj|arr|lst|dct|mgr|usr|dvc)[A-Z][a-zA-Z]+'
+            $matches | ForEach-Object {
+              $output += $_.ToString()
+              $issues++
+            }
+          }
+
+          $output | Set-Content naming-output.txt
+          $output | Write-Host
+          "issues=$issues" | Out-File $env:GITHUB_OUTPUT -Append
+
+      # ── GitHub Step Summary ──────────────────────────────────────
+      - name: Write Step Summary
+        id: summary
+        shell: pwsh
+        run: |
+          $fmt    = "${{ steps.fmt.outputs.violations }}"
+          $warn   = "${{ steps.roslyn.outputs.warnings }}"
+          $err    = "${{ steps.roslyn.outputs.errors }}"
+          $naming = "${{ steps.naming.outputs.issues }}"
+          $text   = "Format: $fmt | Analyzer: ${warn}W ${err}E | Naming: $naming"
+          "text=$text" | Out-File $env:GITHUB_OUTPUT -Append
+
+          @"
+          ## 📋 Convention Check — T3ACS
+
+          | Check | Kết quả |
+          |-------|---------|
+          | Format (.editorconfig) | $fmt violations |
+          | Roslyn warnings | $warn |
+          | Roslyn errors | $err |
+          | Naming issues (Hungarian) | $naming |
+
+          > ⚠️ Tất cả là Warning — build không bị fail.
+          "@ | Out-File $env:GITHUB_STEP_SUMMARY -Append
+
+      - name: Upload convention reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: convention-report
+          path: |
+            fmt-output.txt
+            format-report.json
+            roslyn-output.txt
+            naming-output.txt
+
+  # ═══════════════════════════════════════════════════════════════
+  # JOB 2: Build Windows EXE (song song với convention)
+  # ═══════════════════════════════════════════════════════════════
+  build:
+    name: Build Windows EXE
+    runs-on: windows-latest
+    needs: skip-check
+    if: |
+      needs.skip-check.outputs.no_ci != 'true' &&
+      needs.skip-check.outputs.no_build != 'true'
+    outputs:
+      artifact_name: ${{ steps.meta.outputs.artifact_name }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Restore dependencies
+        shell: pwsh
+        run: dotnet restore ${{ env.SOLUTION_PATH }}
+
+      - name: Publish self-contained EXE
+        shell: pwsh
+        run: |
+          dotnet publish ${{ env.PROJECT_PATH }} `
+            --configuration Release `
+            --runtime win-x64 `
+            --self-contained true `
+            -p:PublishSingleFile=true `
+            -p:EnableCompressionInSingleFile=true `
+            --output publish/ `
+            2>&1 | Tee-Object build-output.txt
+
+      - name: Set artifact metadata
+        id: meta
+        shell: pwsh
+        run: |
+          $short  = "${{ needs.skip-check.outputs.short_sha }}"
+          $branch = "${{ github.ref_name }}" -replace "/", "-"
+          $name   = "PC17-${branch}-${short}"
+          "artifact_name=$name" | Out-File $env:GITHUB_OUTPUT -Append
+
+      - name: Upload EXE artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.meta.outputs.artifact_name }}
+          path: publish/
+          retention-days: 14
+
+      - name: Upload build log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-log
+          path: build-output.txt
+
+      - name: Write Step Summary
+        if: always()
+        shell: pwsh
+        run: |
+          $short    = "${{ needs.skip-check.outputs.short_sha }}"
+          $artifact = "${{ steps.meta.outputs.artifact_name }}"
+          @"
+          ## 🏗️ Build Result
+
+          | | |
+          |---|---|
+          | Branch | ``${{ github.ref_name }}`` |
+          | Commit | ``$short`` |
+          | Actor  | ``${{ needs.skip-check.outputs.actor }}`` |
+          | Artifact | ``$artifact`` |
+          | Runtime | win-x64 self-contained |
+          | Retention | 14 ngày |
+          "@ | Out-File $env:GITHUB_STEP_SUMMARY -Append
+
+  # ═══════════════════════════════════════════════════════════════
+  # JOB 3: Pipeline Summary — luôn chạy
+  # ═══════════════════════════════════════════════════════════════
+  report:
+    name: Pipeline Summary
+    runs-on: windows-latest
+    needs: [skip-check, convention, build]
+    if: always() && needs.skip-check.outputs.no_ci != 'true'
+
+    steps:
+      - name: Write final summary
+        shell: pwsh
+        run: |
+          $convResult  = "${{ needs.convention.result }}"
+          $buildResult = "${{ needs.build.result }}"
+          $convSummary = "${{ needs.convention.outputs.summary }}"
+          $artifact    = "${{ needs.build.outputs.artifact_name }}"
+          $short       = "${{ needs.skip-check.outputs.short_sha }}"
+
+          $overall = switch ($buildResult) {
+            "success" { "✅ PASSED" }
+            "failure" { "❌ FAILED" }
+            "skipped" { "⏭️ BUILD SKIPPED" }
+            default   { "⚠️ WARNING" }
+          }
+
+          $convBadge = switch ($convResult) {
+            "success" { "✅ passed" }
+            "skipped" { "⏭️ skipped" }
+            default   { "⚠️ has issues" }
+          }
+
+          $buildBadge = switch ($buildResult) {
+            "success" { "✅ success" }
+            "skipped" { "⏭️ skipped" }
+            default   { "❌ failed" }
+          }
+
+          @"
+          ---
+          ## $overall — PC17 Pipeline
+
+          | Job | Kết quả |
+          |-----|---------|
+          | Convention Check | $convBadge |
+          | Build Windows EXE | $buildBadge |
+
+          **Convention:** $convSummary
+          **Artifact:** ``$artifact``
+          **Commit:** ``$short`` by ``${{ needs.skip-check.outputs.actor }}``
+          **Branch:** ``${{ github.ref_name }}``
+
+          ### Tải EXE
+          > Actions tab → chọn run này → kéo xuống **Artifacts** → tải ``$artifact``
+          "@ | Out-File $env:GITHUB_STEP_SUMMARY -Append

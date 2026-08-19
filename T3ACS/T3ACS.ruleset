@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  T3ACS.ruleset — SW-pc17-26 Coding Convention
+  Tất cả vi phạm là Warning, không fail build.
+  Tham chiếu: CODING_CONVENTION.md
+-->
+<RuleSet Name="T3ACS Convention Rules" ToolsVersion="17.0">
+
+  <!-- ════════════════════════════════════════════════════
+       IDE / Roslyn Code Style Analyzers (built-in .NET)
+       ════════════════════════════════════════════════════ -->
+
+  <Rules AnalyzerId="Microsoft.CodeAnalysis.CSharp" RuleNamespace="Microsoft.CodeAnalysis.CSharp">
+    <!-- Naming: private field phải có prefix _ -->
+    <Rule Id="IDE1006" Action="Warning" />
+  </Rules>
+
+  <Rules AnalyzerId="Microsoft.CodeAnalysis.CSharp.CodeStyle" RuleNamespace="Microsoft.CodeAnalysis.CSharp.CodeStyle">
+    <!-- var khi type rõ ràng -->
+    <Rule Id="IDE0007" Action="Warning" />
+    <!-- Dùng using var (csharp_prefer_simple_using_statement) -->
+    <Rule Id="IDE0063" Action="Warning" />
+    <!-- Null propagation ?. -->
+    <Rule Id="IDE0031" Action="Warning" />
+    <!-- Null coalescing ?? -->
+    <Rule Id="IDE0029" Action="Warning" />
+    <!-- Coalesce assignment ??= -->
+    <Rule Id="IDE0074" Action="Warning" />
+    <!-- Không cần this. -->
+    <Rule Id="IDE0003" Action="Warning" />
+  </Rules>
+
+  <!-- ════════════════════════════════════════════════════
+       .NET Platform Analyzers (CA*)
+       ════════════════════════════════════════════════════ -->
+
+  <Rules AnalyzerId="Microsoft.CodeAnalysis.NetAnalyzers" RuleNamespace="Microsoft.CodeAnalysis.NetAnalyzers">
+
+    <!-- Async / Await -->
+    <!-- Không dùng .Result hoặc .Wait() -->
+    <Rule Id="CA2007" Action="Warning" />   <!-- ConfigureAwait -->
+    <Rule Id="VSTHRD002" Action="Warning" /> <!-- Avoid .Result -->
+    <Rule Id="VSTHRD110" Action="Warning" /> <!-- Không bỏ qua Task -->
+
+    <!-- Exception handling -->
+    <!-- Không catch (Exception) im lặng -->
+    <Rule Id="CA1031" Action="Warning" />
+    <!-- Dispose pattern -->
+    <Rule Id="CA2000" Action="Warning" />   <!-- Dispose object trước khi mất scope -->
+    <Rule Id="CA1063" Action="Warning" />   <!-- Implement IDisposable đúng cách -->
+
+    <!-- Magic number / string -->
+    <Rule Id="CA1720" Action="Warning" />   <!-- Tên chứa type name -->
+
+    <!-- Naming -->
+    <Rule Id="CA1707" Action="Warning" />   <!-- Tên không chứa underscore (trừ private field) -->
+    <Rule Id="CA1708" Action="Warning" />   <!-- Phân biệt hoa thường -->
+    <Rule Id="CA1710" Action="Warning" />   <!-- Suffix collection đúng -->
+    <Rule Id="CA1711" Action="Warning" />   <!-- Không dùng suffix sai (New, Ex, ...) -->
+    <Rule Id="CA1715" Action="Warning" />   <!-- Interface phải có prefix I -->
+    <Rule Id="CA1716" Action="Warning" />   <!-- Không dùng từ khóa C# làm tên -->
+    <Rule Id="CA1720" Action="Warning" />   <!-- Tên không chứa tên kiểu dữ liệu -->
+    <Rule Id="CA1725" Action="Warning" />   <!-- Tên parameter phải khớp base -->
+
+    <!-- LINQ / Performance -->
+    <Rule Id="CA1860" Action="Warning" />   <!-- Ưu tiên IsEmpty hơn Any() khi có thể -->
+    <Rule Id="CA1851" Action="Warning" />   <!-- Tránh enumerate IEnumerable nhiều lần -->
+
+    <!-- Null-check -->
+    <Rule Id="CA1062" Action="Warning" />   <!-- Validate argument không null -->
+
+    <!-- Dead code -->
+    <Rule Id="CA1801" Action="Warning" />   <!-- Parameter không dùng -->
+    <Rule Id="CA1804" Action="Warning" />   <!-- Local variable không dùng -->
+
+  </Rules>
+
+  <!-- ════════════════════════════════════════════════════
+       Tắt các rule không áp dụng cho WinForms
+       ════════════════════════════════════════════════════ -->
+
+  <Rules AnalyzerId="Microsoft.CodeAnalysis.NetAnalyzers" RuleNamespace="Microsoft.CodeAnalysis.NetAnalyzers">
+    <!-- async void cho event handler là hợp lệ trong WinForms -->
+    <Rule Id="CA2012" Action="None" />
+    <!-- WinForms forms không cần sealed -->
+    <Rule Id="CA1852" Action="None" />
+  </Rules>
+
+</RuleSet>
