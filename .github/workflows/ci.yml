@@ -485,17 +485,21 @@ jobs:
               }]
           }
 
-          data = json.dumps(payload).encode()
-          req  = urllib.request.Request(
-              os.environ["DISCORD_WEBHOOK"], data=data,
-              headers={"Content-Type": "application/json"})
-          try:
-              with urllib.request.urlopen(req) as resp:
-                  print(f"Discord OK: {resp.status}")
-          except urllib.error.HTTPError as e:
-              # In ra response body để debug — không raise để pipeline không fail
-              body = e.read().decode(errors="replace")
-              print(f"Discord error {e.code}: {body}")
-          except Exception as e:
-              print(f"Discord send failed: {e}")
+          # Ghi payload ra file tạm rồi dùng curl — tránh Cloudflare 1010
+          # chặn Python-urllib (user-agent bị nhận dạng là bot)
+          import tempfile, subprocess, sys
+          with tempfile.NamedTemporaryFile(mode="w", suffix=".json", delete=False) as f:
+              json.dump(payload, f)
+              tmp = f.name
+
+          result = subprocess.run(
+              ["curl", "-s", "-o", "/dev/stderr", "-w", "%{http_code}",
+               "-X", "POST", os.environ["DISCORD_WEBHOOK"],
+               "-H", "Content-Type: application/json",
+               "-H", "User-Agent: DiscordBot (https://github.com/Tecotec-JSc/PC17, 1.0)",
+               "--data", f"@{tmp}"],
+              capture_output=True, text=True)
+          print(f"Discord HTTP {result.stdout.strip()}")
+          if result.stderr:
+              print(f"Discord body: {result.stderr.strip()}")
           PYEOF
