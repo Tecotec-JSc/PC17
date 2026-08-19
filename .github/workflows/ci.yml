@@ -306,12 +306,16 @@ jobs:
           Set-ItemProperty -Path $keyPath -Name "KeyLicenseT3ACS" -Value $bytes -Type Binary
           Write-Host "Đã ghi KeyLicenseT3ACS ($($bytes.Length) bytes) vào $keyPath"
 
+      - name: Cài đặt FFmpeg
+        shell: pwsh
+        run: choco install ffmpeg --no-progress -y
+
       - name: Run UI automation tests (with screen recording)
         env:
           T3ACS_UI_TEST_APP_DIR: ${{ github.workspace }}\app
         shell: pwsh
         run: |
-          # Bắt đầu ghi màn hình bằng ffmpeg (có sẵn trên windows-latest)
+          # Bắt đầu ghi màn hình bằng ffmpeg
           $ffmpeg = [System.Diagnostics.Process]::new()
           $ffmpeg.StartInfo.FileName      = "ffmpeg"
           $ffmpeg.StartInfo.Arguments     = "-f gdigrab -framerate 5 -video_size 1920x1080 -i desktop -vf scale=1280:720 -vcodec libx264 -preset ultrafast -pix_fmt yuv420p ui-test-recording.mp4"
