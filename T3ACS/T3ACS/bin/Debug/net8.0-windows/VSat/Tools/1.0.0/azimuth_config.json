@@ -1,0 +1,66 @@
+{
+  "DllPath": "",
+  "FormulaFilePath": "",
+  "Variables": [
+    {
+      "Name": "Longitude (l_E)",
+      "Title": "Longitude (l_E)",
+      "Value": "105.85",
+      "Unit": "Degree",
+      "Min": null,
+      "Max": 180,
+      "Type": "Double",
+      "TypeImport": "Input",
+      "Required": true,
+      "Report": true
+    },
+    {
+      "Name": "Latitude (L_E)",
+      "Title": "Latitude (L_E)",
+      "Value": "21.05",
+      "Unit": "Degree",
+      "Min": null,
+      "Max": 90,
+      "Type": "Double",
+      "TypeImport": "Input",
+      "Required": true,
+      "Report": true
+    },
+    {
+      "Name": "Interval",
+      "Title": "Interval",
+      "Value": "1",
+      "Unit": "Degree",
+      "Min": null,
+      "Max": 1,
+      "Type": "Double",
+      "TypeImport": "Input",
+      "Required": true,
+      "Report": true
+    },
+    {
+      "Name": "Max Elevation",
+      "Title": "Max Elevation",
+      "Value": "2",
+      "Unit": "Degree",
+      "Min": null,
+      "Max": 90,
+      "Type": "Double",
+      "TypeImport": "Input",
+      "Required": true,
+      "Report": true
+    },
+    {
+      "Name": "Min Elevation",
+      "Title": "Min Elevation",
+      "Value": "-4",
+      "Unit": "Degree",
+      "Min": null,
+      "Max": 90,
+      "Type": "Double",
+      "TypeImport": "Input",
+      "Required": true,
+      "Report": true
+    }
+  ]
+}

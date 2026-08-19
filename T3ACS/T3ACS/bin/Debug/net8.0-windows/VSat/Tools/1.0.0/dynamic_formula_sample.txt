@@ -1,0 +1,38 @@
+# FILE CÔNG THỨC MẪU - ĐO KIỂM KHOẢNG CÁCH SATSIM
+# Định dạng khai báo biến kèm đơn vị và giới hạn (Min/Max):
+#   Tên_Biến (Đơn_Vị) {Min; Max} hoặc Tên_Biến [Đơn_Vị] {Min, Max}
+#   (Cho phép dùng dấu phẩy ',' hoặc dấu chấm phẩy ';' để ngăn cách Min và Max)
+# Ví dụ: P_Tx (dBm) {0; 100} hoặc P_r (dBm) {-150; 0}
+
+INPUT: P_Tx (dBm) {0; 100}, L_ant (dB) {0; 20}, G_Tx_ant (dBi) {0; 100}, G_Rx_sat (dBi) {0; 50}, L_sat (dB) {0; 200}, G_Tx_sat (dBi) {0; 50}, G_Rx_ant (dBi) {0; 100}, f_up (MHz) {1000; 30000}, f_down (MHz) {1000; 30000}, P_r (dBm) {-150; 0}
+OUTPUT: d (km) {0; 100000}
+
+# Giá trị mặc định của các tham số đầu vào
+P_Tx = 40.0
+L_ant = 2.0
+G_Tx_ant = 42.0
+G_Rx_sat = 10.0
+L_sat = 60.0
+G_Tx_sat = 10.0
+G_Rx_ant = 42.0
+f_up = 14250.0
+f_down = 11950.0
+P_r = -80.0
+
+# --- CÁC BƯỚC TÍNH TOÁN TRUNG GIAN ---
+
+# 1. Tính tổng công suất phát và độ lợi anten trong hệ thống
+Total_Gain = P_Tx - L_ant + G_Tx_ant + G_Rx_sat - L_sat + G_Tx_sat + G_Rx_ant
+
+# 2. Tổng suy hao đường truyền tự do tối đa cho phép (FSPL) để đạt được công suất thu P_r
+L_FS_total = Total_Gain - P_r
+
+# 3. Tính logarit của các tần số Uplink và Downlink
+Log_f_up = log10(f_up)
+Log_f_down = log10(f_down)
+
+# 4. Tính toán log10(d) dựa trên công thức Free Space Path Loss tổng hợp
+Log_d = (L_FS_total - 64.88 - 20.0 * Log_f_up - 20.0 * Log_f_down) / 40.0
+
+# 5. Kết quả khoảng cách đo kiểm d (km)
+d = 10.0 ^ Log_d

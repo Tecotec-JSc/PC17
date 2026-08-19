@@ -1,0 +1,40 @@
+{
+  "Variables": [
+    {
+      "Name": "Tracking Duration",
+      "Title": "N/A",
+      "Value": "10.0",
+      "Unit": "S",
+      "Min": 0,
+      "Max": 0,
+      "Type": "Double",
+      "TypeImport": "Double",
+      "Required": true,
+      "Report": true
+    },
+    {
+      "Name": "Sample Interval",
+      "Title": "N/A",
+      "Value": "1.0",
+      "Unit": "S",
+      "Min": 0,
+      "Max": 0,
+      "Type": "Double",
+      "TypeImport": "Double",
+      "Required": true,
+      "Report": true
+    },
+    {
+      "Name": "Delta Carrier",
+      "Title": "N/A",
+      "Value": "0.00",
+      "Unit": "N/A",
+      "Min": 0,
+      "Max": 0,
+      "Type": "Double",
+      "TypeImport": "Double",
+      "Required": true,
+      "Report": true
+    }
+  ]
+}

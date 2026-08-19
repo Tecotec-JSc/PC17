@@ -1,0 +1,52 @@
+{
+  "Variables": [
+    {
+      "Name": "Tracking Duration",
+      "Title": "N/A",
+      "Value": "15",
+      "Unit": "S",
+      "Min": 0,
+      "Max": 0,
+      "Type": "Double",
+      "TypeImport": "Double",
+      "Required": true,
+      "Report": true
+    },
+    {
+      "Name": "Sample Interval",
+      "Title": "N/A",
+      "Value": "2.0",
+      "Unit": "S",
+      "Min": 0,
+      "Max": 0,
+      "Type": "Double",
+      "TypeImport": "Double",
+      "Required": true,
+      "Report": true
+    },
+    {
+      "Name": "Delta Carrier",
+      "Title": "N/A",
+      "Value": "0",
+      "Unit": "dBm",
+      "Min": 0,
+      "Max": 0,
+      "Type": "Double",
+      "TypeImport": "Double",
+      "Required": true,
+      "Report": true
+    },
+    {
+      "Name": "Delta Frequency",
+      "Title": "N/A",
+      "Value": "0",
+      "Unit": "Hz",
+      "Min": 0,
+      "Max": 0,
+      "Type": "Double",
+      "TypeImport": "Double",
+      "Required": false,
+      "Report": false
+    }
+  ]
+}

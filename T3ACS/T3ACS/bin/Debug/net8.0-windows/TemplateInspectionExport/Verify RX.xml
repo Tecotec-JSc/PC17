@@ -1,0 +1,2764 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FileExtensionInputViewModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Category>RFTestSet</Category>
+  <Name>Verify RX</Name>
+  <Type>2</Type>
+  <TypeFrame>1</TypeFrame>
+  <Version>1.0.0</Version>
+  <Procedures>
+    <TemplateViewModel>
+      <PackageId>0</PackageId>
+      <TableProcedures>
+        <TableProcedureViewModel>
+          <ProcedureDetailId>61</ProcedureDetailId>
+          <NumberOder>1</NumberOder>
+          <Title>URL Configuration</Title>
+          <Description />
+          <ProcedureDetailValue2s />
+          <MaskDone>false</MaskDone>
+          <MaskDoneValue xsi:nil="true" />
+          <LoopInput>1</LoopInput>
+          <Required>false</Required>
+          <Done xsi:nil="true" />
+          <PathDll />
+          <PathSource />
+          <StepType>URL Configuration</StepType>
+          <Status>0</Status>
+          <ListURL>
+            <URLViewModel>
+              <URL>192.168.0.1</URL>
+              <Title>Modem</Title>
+            </URLViewModel>
+            <URLViewModel>
+              <URL>192.168.0.2</URL>
+              <Title>ACU</Title>
+            </URLViewModel>
+          </ListURL>
+          <strURL>[{"URL":"192.168.0.1","Title":"Modem","Description":null},{"URL":"192.168.0.2","Title":"ACU","Description":null}]</strURL>
+        </TableProcedureViewModel>
+        <TableProcedureViewModel>
+          <ProcedureDetailId>62</ProcedureDetailId>
+          <NumberOder>2</NumberOder>
+          <Title>DUT parameters</Title>
+          <Description />
+          <Variables>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>62</ProcedureDetailId>
+              <ProcedureVariableId>276</ProcedureVariableId>
+              <Value>14000</Value>
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>TX_Freq</Name>
+              <NumberOrder>1</NumberOrder>
+              <Title>TX Frequency</Title>
+              <TypeInput>Input</TypeInput>
+              <Required>true</Required>
+              <Report>true</Report>
+            </ProcedureDetaiVariableViewModel>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>62</ProcedureDetailId>
+              <ProcedureVariableId>277</ProcedureVariableId>
+              <Value>12800</Value>
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>TX_LO_Freq</Name>
+              <NumberOrder>2</NumberOrder>
+              <Title>TX LO Frequency</Title>
+              <TypeInput>Input</TypeInput>
+              <Required>true</Required>
+              <Report>true</Report>
+            </ProcedureDetaiVariableViewModel>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>62</ProcedureDetailId>
+              <ProcedureVariableId>278</ProcedureVariableId>
+              <Value>10600</Value>
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>RX_LO_Freq</Name>
+              <NumberOrder>3</NumberOrder>
+              <Title>RX LO Frequency</Title>
+              <TypeInput>Input</TypeInput>
+              <Required>true</Required>
+              <Report>true</Report>
+            </ProcedureDetaiVariableViewModel>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>62</ProcedureDetailId>
+              <ProcedureVariableId>280</ProcedureVariableId>
+              <Value>0</Value>
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>RX_Freq</Name>
+              <NumberOrder>4</NumberOrder>
+              <Title>RX Frequency</Title>
+              <TypeInput>Output</TypeInput>
+              <Required>true</Required>
+              <Report>true</Report>
+            </ProcedureDetaiVariableViewModel>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>62</ProcedureDetailId>
+              <ProcedureVariableId>290</ProcedureVariableId>
+              <Value />
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>TX_Gain</Name>
+              <NumberOrder>5</NumberOrder>
+              <Title>TX Gain</Title>
+              <TypeInput>Input</TypeInput>
+              <Required>false</Required>
+              <Report>true</Report>
+            </ProcedureDetaiVariableViewModel>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>62</ProcedureDetailId>
+              <ProcedureVariableId>291</ProcedureVariableId>
+              <Value />
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>RX_Gain</Name>
+              <NumberOrder>6</NumberOrder>
+              <Title>RX Gain</Title>
+              <TypeInput>Input</TypeInput>
+              <Required>false</Required>
+              <Report>true</Report>
+            </ProcedureDetaiVariableViewModel>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>62</ProcedureDetailId>
+              <ProcedureVariableId>292</ProcedureVariableId>
+              <Value />
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>BUC_Power</Name>
+              <NumberOrder>7</NumberOrder>
+              <Title>TX Power</Title>
+              <TypeInput>Input</TypeInput>
+              <Required>false</Required>
+              <Report>true</Report>
+            </ProcedureDetaiVariableViewModel>
+          </Variables>
+          <ProcedureDetailValue2s />
+          <MaskDone>false</MaskDone>
+          <MaskDoneValue xsi:nil="true" />
+          <LoopInput>1</LoopInput>
+          <Required>false</Required>
+          <Done xsi:nil="true" />
+          <PathDll />
+          <PathSource />
+          <StepType>Number</StepType>
+          <Status>0</Status>
+        </TableProcedureViewModel>
+        <TableProcedureViewModel>
+          <ProcedureDetailId>63</ProcedureDetailId>
+          <NumberOder>3</NumberOder>
+          <Title>SAT-SIM connect</Title>
+          <Description>Connect and verify communication with the selected SATSIM device.</Description>
+          <Variables>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>63</ProcedureDetailId>
+              <ProcedureVariableId>237</ProcedureVariableId>
+              <Value>DeviceConnectRun</Value>
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>frm_Connect</Name>
+              <NumberOrder>1</NumberOrder>
+              <Title>FormCalibration</Title>
+              <TypeInput />
+              <Required>false</Required>
+              <Report>false</Report>
+            </ProcedureDetaiVariableViewModel>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>63</ProcedureDetailId>
+              <ProcedureVariableId>238</ProcedureVariableId>
+              <Value>192.168.0.252</Value>
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>Ip</Name>
+              <NumberOrder>2</NumberOrder>
+              <Title>Ip</Title>
+              <TypeInput>Input</TypeInput>
+              <Required>true</Required>
+              <Report>true</Report>
+            </ProcedureDetaiVariableViewModel>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>63</ProcedureDetailId>
+              <ProcedureVariableId>239</ProcedureVariableId>
+              <Value>4000</Value>
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>port</Name>
+              <NumberOrder>3</NumberOrder>
+              <Title>Port</Title>
+              <TypeInput>Input</TypeInput>
+              <Required>true</Required>
+              <Report>true</Report>
+            </ProcedureDetaiVariableViewModel>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>63</ProcedureDetailId>
+              <ProcedureVariableId>240</ProcedureVariableId>
+              <Value>False</Value>
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>_stConnectSATSIM</Name>
+              <NumberOrder>4</NumberOrder>
+              <Title>Status connect SAT-SIM</Title>
+              <TypeInput>Input</TypeInput>
+              <Required>true</Required>
+              <Report>true</Report>
+            </ProcedureDetaiVariableViewModel>
+          </Variables>
+          <ProcedureDetailValue2s />
+          <MaskDone>false</MaskDone>
+          <MaskDoneValue xsi:nil="true" />
+          <LoopInput>1</LoopInput>
+          <Required>false</Required>
+          <Done xsi:nil="true" />
+          <PathDll />
+          <PathSource />
+          <StepType>SAT-SIM connect</StepType>
+          <Status>0</Status>
+          <Functions>
+            <ProcedureDetailFunction>
+              <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+              <NumberOrder>0</NumberOrder>
+              <ProcedureDetailId>0</ProcedureDetailId>
+              <FunctionName>LoadView</FunctionName>
+              <PathDll>\VSat\Tools\1.0.2\VSat.Satsim.dll</PathDll>
+              <Assembly>VSat.Satsim</Assembly>
+              <AssemblyType>controlSATSIM</AssemblyType>
+              <Value>GetFormByName</Value>
+              <Default>false</Default>
+              <ValueDetails />
+              <FunctionVariables>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>frm_Connect</VariableName>
+                  <Value>DeviceConnectRun</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>Ip</VariableName>
+                  <Value>192.168.0.252</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>port</VariableName>
+                  <Value>4000</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>_stConnectSATSIM</VariableName>
+                  <Value>true</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+              </FunctionVariables>
+            </ProcedureDetailFunction>
+            <ProcedureDetailFunction>
+              <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+              <NumberOrder>0</NumberOrder>
+              <ProcedureDetailId>0</ProcedureDetailId>
+              <FunctionName>LoadViewCreate</FunctionName>
+              <PathDll>\VSat\Tools\1.0.2\VSat.Satsim.dll</PathDll>
+              <Assembly>VSat.Satsim</Assembly>
+              <AssemblyType>controlSATSIM</AssemblyType>
+              <Value>GetFormByName</Value>
+              <Default>false</Default>
+              <ValueDetails />
+              <FunctionVariables>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>frm_Connect</VariableName>
+                  <Value>DeviceConnectInit</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>Ip</VariableName>
+                  <Value>192.168.0.252</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>port</VariableName>
+                  <Value>4000</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>_stConnectSATSIM</VariableName>
+                  <Value>true</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+              </FunctionVariables>
+            </ProcedureDetailFunction>
+            <ProcedureDetailFunction>
+              <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+              <NumberOrder>0</NumberOrder>
+              <ProcedureDetailId>0</ProcedureDetailId>
+              <FunctionName>SaveData</FunctionName>
+              <PathDll>\VSat\Tools\1.0.2\VSat.Satsim.dll</PathDll>
+              <Assembly>VSat.Satsim</Assembly>
+              <AssemblyType>controlSATSIM</AssemblyType>
+              <Value>SaveDataFormStep</Value>
+              <Default>false</Default>
+              <ValueDetails />
+              <FunctionVariables>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>frm_Connect</VariableName>
+                  <Value>DeviceConnectRun</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>Ip</VariableName>
+                  <Value>192.168.0.252</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>port</VariableName>
+                  <Value>4000</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>_stConnectSATSIM</VariableName>
+                  <Value>true</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+              </FunctionVariables>
+            </ProcedureDetailFunction>
+            <ProcedureDetailFunction>
+              <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+              <NumberOrder>0</NumberOrder>
+              <ProcedureDetailId>0</ProcedureDetailId>
+              <FunctionName>SaveDataCreate</FunctionName>
+              <PathDll>\VSat\Tools\1.0.2\VSat.Satsim.dll</PathDll>
+              <Assembly>VSat.Satsim</Assembly>
+              <AssemblyType>controlSATSIM</AssemblyType>
+              <Value>SaveDataFormStep</Value>
+              <Default>false</Default>
+              <ValueDetails />
+              <FunctionVariables>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>frm_Connect</VariableName>
+                  <Value>DeviceConnectInit</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>Ip</VariableName>
+                  <Value>192.168.0.252</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>port</VariableName>
+                  <Value>4000</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>_stConnectSATSIM</VariableName>
+                  <Value>true</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+              </FunctionVariables>
+            </ProcedureDetailFunction>
+          </Functions>
+        </TableProcedureViewModel>
+        <TableProcedureViewModel>
+          <ProcedureDetailId>64</ProcedureDetailId>
+          <NumberOder>4</NumberOder>
+          <Title>SAT-SIM Frequency Calculation</Title>
+          <Description>Calculate operating frequencies based on selected band and parameters.</Description>
+          <Variables>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>64</ProcedureDetailId>
+              <ProcedureVariableId>269</ProcedureVariableId>
+              <Value>FrequencyCaculationRun</Value>
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>frm_Freq_Cac_Run</Name>
+              <NumberOrder>1</NumberOrder>
+              <Title>FormCalibration</Title>
+              <TypeInput />
+              <Required>false</Required>
+              <Report>false</Report>
+            </ProcedureDetaiVariableViewModel>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>64</ProcedureDetailId>
+              <ProcedureVariableId>270</ProcedureVariableId>
+              <Value>Ku</Value>
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>Band</Name>
+              <NumberOrder>2</NumberOrder>
+              <Title>Band</Title>
+              <TypeInput>Input</TypeInput>
+              <Required>true</Required>
+              <Report>true</Report>
+            </ProcedureDetaiVariableViewModel>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>64</ProcedureDetailId>
+              <ProcedureVariableId>271</ProcedureVariableId>
+              <Value>true</Value>
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>Mute</Name>
+              <NumberOrder>3</NumberOrder>
+              <Title>Mute</Title>
+              <TypeInput>Input</TypeInput>
+              <Required>true</Required>
+              <Report>true</Report>
+            </ProcedureDetaiVariableViewModel>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>64</ProcedureDetailId>
+              <ProcedureVariableId>272</ProcedureVariableId>
+              <Value>13500</Value>
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>IN_Freq</Name>
+              <NumberOrder>4</NumberOrder>
+              <Title>SAT-SIM Frequency In</Title>
+              <TypeInput>Input</TypeInput>
+              <Required>true</Required>
+              <Report>true</Report>
+            </ProcedureDetaiVariableViewModel>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>64</ProcedureDetailId>
+              <ProcedureVariableId>273</ProcedureVariableId>
+              <Value>11750</Value>
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>Out_Freq</Name>
+              <NumberOrder>5</NumberOrder>
+              <Title>SAT-SIM Frequency Out</Title>
+              <TypeInput>Input</TypeInput>
+              <Required>true</Required>
+              <Report>true</Report>
+            </ProcedureDetaiVariableViewModel>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>64</ProcedureDetailId>
+              <ProcedureVariableId>274</ProcedureVariableId>
+              <Value>0</Value>
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>Att_In</Name>
+              <NumberOrder>6</NumberOrder>
+              <Title>Attenuator In</Title>
+              <TypeInput>Input</TypeInput>
+              <Required>true</Required>
+              <Report>true</Report>
+            </ProcedureDetaiVariableViewModel>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>64</ProcedureDetailId>
+              <ProcedureVariableId>275</ProcedureVariableId>
+              <Value>0</Value>
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>Att_Out</Name>
+              <NumberOrder>7</NumberOrder>
+              <Title>Attenuator Out</Title>
+              <TypeInput>Input</TypeInput>
+              <Required>true</Required>
+              <Report>true</Report>
+            </ProcedureDetaiVariableViewModel>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>64</ProcedureDetailId>
+              <ProcedureVariableId>276</ProcedureVariableId>
+              <Value>14000</Value>
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>TX_Freq</Name>
+              <NumberOrder>8</NumberOrder>
+              <Title>TX Frequency</Title>
+              <TypeInput>Input</TypeInput>
+              <Required>true</Required>
+              <Report>true</Report>
+            </ProcedureDetaiVariableViewModel>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>64</ProcedureDetailId>
+              <ProcedureVariableId>277</ProcedureVariableId>
+              <Value>12800</Value>
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>TX_LO_Freq</Name>
+              <NumberOrder>9</NumberOrder>
+              <Title>TX LO Frequency</Title>
+              <TypeInput>Input</TypeInput>
+              <Required>true</Required>
+              <Report>true</Report>
+            </ProcedureDetaiVariableViewModel>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>64</ProcedureDetailId>
+              <ProcedureVariableId>278</ProcedureVariableId>
+              <Value>10600</Value>
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>RX_LO_Freq</Name>
+              <NumberOrder>10</NumberOrder>
+              <Title>RX LO Frequency</Title>
+              <TypeInput>Input</TypeInput>
+              <Required>true</Required>
+              <Report>true</Report>
+            </ProcedureDetaiVariableViewModel>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>64</ProcedureDetailId>
+              <ProcedureVariableId>279</ProcedureVariableId>
+              <Value>0</Value>
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>TX_IF_Freq</Name>
+              <NumberOrder>11</NumberOrder>
+              <Title>Frequency TX IF</Title>
+              <TypeInput>Output</TypeInput>
+              <Required>true</Required>
+              <Report>true</Report>
+            </ProcedureDetaiVariableViewModel>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>64</ProcedureDetailId>
+              <ProcedureVariableId>280</ProcedureVariableId>
+              <Value>0</Value>
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>RX_Freq</Name>
+              <NumberOrder>12</NumberOrder>
+              <Title>RX Frequency</Title>
+              <TypeInput>Output</TypeInput>
+              <Required>true</Required>
+              <Report>true</Report>
+            </ProcedureDetaiVariableViewModel>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>64</ProcedureDetailId>
+              <ProcedureVariableId>281</ProcedureVariableId>
+              <Value>0</Value>
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>RX_IF_Freq</Name>
+              <NumberOrder>13</NumberOrder>
+              <Title>Frequency RX IF</Title>
+              <TypeInput>Output</TypeInput>
+              <Required>true</Required>
+              <Report>true</Report>
+            </ProcedureDetaiVariableViewModel>
+          </Variables>
+          <ProcedureDetailValue2s />
+          <MaskDone>false</MaskDone>
+          <MaskDoneValue xsi:nil="true" />
+          <LoopInput>1</LoopInput>
+          <Required>false</Required>
+          <Done xsi:nil="true" />
+          <PathDll />
+          <PathSource />
+          <StepType>Frequency Calculation</StepType>
+          <Status>0</Status>
+          <Functions>
+            <ProcedureDetailFunction>
+              <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+              <NumberOrder>0</NumberOrder>
+              <ProcedureDetailId>0</ProcedureDetailId>
+              <FunctionName>LoadView</FunctionName>
+              <PathDll>\VSat\Tools\1.0.2\VSat.Satsim.dll</PathDll>
+              <Assembly>VSat.Satsim</Assembly>
+              <AssemblyType>controlSATSIM</AssemblyType>
+              <Value>GetFormByName</Value>
+              <Default>false</Default>
+              <ValueDetails />
+              <FunctionVariables>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>frm_Freq_Cac_Run</VariableName>
+                  <Value>FrequencyCaculationRun</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>Band</VariableName>
+                  <Value>C</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>Mute</VariableName>
+                  <Value>true</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>IN_Freq</VariableName>
+                  <Value>13500</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>Out_Freq</VariableName>
+                  <Value>11750</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>Att_In</VariableName>
+                  <Value>0</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>Att_Out</VariableName>
+                  <Value>0</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>TX_Freq</VariableName>
+                  <Value>14000</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>TX_LO_Freq</VariableName>
+                  <Value>12800</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>RX_LO_Freq</VariableName>
+                  <Value>10600</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+              </FunctionVariables>
+            </ProcedureDetailFunction>
+            <ProcedureDetailFunction>
+              <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+              <NumberOrder>0</NumberOrder>
+              <ProcedureDetailId>0</ProcedureDetailId>
+              <FunctionName>SaveData</FunctionName>
+              <PathDll>\VSat\Tools\1.0.2\VSat.Satsim.dll</PathDll>
+              <Assembly>VSat.Satsim</Assembly>
+              <AssemblyType>controlSATSIM</AssemblyType>
+              <Value>GetFormByName</Value>
+              <Default>false</Default>
+              <ValueDetails />
+              <FunctionVariables>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>frm_Freq_Cac_Run</VariableName>
+                  <Value>FrequencyCaculationRun</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>Band</VariableName>
+                  <Value>C</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>Mute</VariableName>
+                  <Value>true</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>IN_Freq</VariableName>
+                  <Value>13500</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>Out_Freq</VariableName>
+                  <Value>11750</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>Att_In</VariableName>
+                  <Value>0</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>Att_Out</VariableName>
+                  <Value>0</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>TX_Freq</VariableName>
+                  <Value>14000</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>TX_LO_Freq</VariableName>
+                  <Value>12800</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>RX_LO_Freq</VariableName>
+                  <Value>10600</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>TX_IF_Freq</VariableName>
+                  <Value>0</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>RX_Freq</VariableName>
+                  <Value>0</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>RX_IF_Freq</VariableName>
+                  <Value>0</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+              </FunctionVariables>
+            </ProcedureDetailFunction>
+          </Functions>
+        </TableProcedureViewModel>
+        <TableProcedureViewModel>
+          <ProcedureDetailId>65</ProcedureDetailId>
+          <NumberOder>5</NumberOder>
+          <Title>Distance Calculate</Title>
+          <Description />
+          <Variables>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>65</ProcedureDetailId>
+              <ProcedureVariableId>241</ProcedureVariableId>
+              <Value>0</Value>
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>P_Tx</Name>
+              <NumberOrder>1</NumberOrder>
+              <Title>N/A</Title>
+              <TypeInput>Input</TypeInput>
+              <Required>true</Required>
+              <Report>false</Report>
+            </ProcedureDetaiVariableViewModel>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>65</ProcedureDetailId>
+              <ProcedureVariableId>242</ProcedureVariableId>
+              <Value>0</Value>
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>L_ant</Name>
+              <NumberOrder>2</NumberOrder>
+              <Title>N/A</Title>
+              <TypeInput>Input</TypeInput>
+              <Required>true</Required>
+              <Report>false</Report>
+            </ProcedureDetaiVariableViewModel>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>65</ProcedureDetailId>
+              <ProcedureVariableId>243</ProcedureVariableId>
+              <Value>0</Value>
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>G_Tx_ant</Name>
+              <NumberOrder>3</NumberOrder>
+              <Title>N/A</Title>
+              <TypeInput>Input</TypeInput>
+              <Required>true</Required>
+              <Report>false</Report>
+            </ProcedureDetaiVariableViewModel>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>65</ProcedureDetailId>
+              <ProcedureVariableId>244</ProcedureVariableId>
+              <Value>0</Value>
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>G_Rx_sat</Name>
+              <NumberOrder>4</NumberOrder>
+              <Title>N/A</Title>
+              <TypeInput>Input</TypeInput>
+              <Required>true</Required>
+              <Report>false</Report>
+            </ProcedureDetaiVariableViewModel>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>65</ProcedureDetailId>
+              <ProcedureVariableId>245</ProcedureVariableId>
+              <Value>0</Value>
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>L_sat</Name>
+              <NumberOrder>5</NumberOrder>
+              <Title>N/A</Title>
+              <TypeInput>Input</TypeInput>
+              <Required>true</Required>
+              <Report>false</Report>
+            </ProcedureDetaiVariableViewModel>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>65</ProcedureDetailId>
+              <ProcedureVariableId>246</ProcedureVariableId>
+              <Value>0</Value>
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>G_Tx_sat</Name>
+              <NumberOrder>6</NumberOrder>
+              <Title>N/A</Title>
+              <TypeInput>Input</TypeInput>
+              <Required>true</Required>
+              <Report>false</Report>
+            </ProcedureDetaiVariableViewModel>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>65</ProcedureDetailId>
+              <ProcedureVariableId>247</ProcedureVariableId>
+              <Value>0</Value>
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>G_Rx_ant</Name>
+              <NumberOrder>7</NumberOrder>
+              <Title>N/A</Title>
+              <TypeInput>Input</TypeInput>
+              <Required>true</Required>
+              <Report>false</Report>
+            </ProcedureDetaiVariableViewModel>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>65</ProcedureDetailId>
+              <ProcedureVariableId>248</ProcedureVariableId>
+              <Value>0</Value>
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>P_r</Name>
+              <NumberOrder>10</NumberOrder>
+              <Title>N/A</Title>
+              <TypeInput>Input</TypeInput>
+              <Required>true</Required>
+              <Report>false</Report>
+            </ProcedureDetaiVariableViewModel>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>65</ProcedureDetailId>
+              <ProcedureVariableId>249</ProcedureVariableId>
+              <Value />
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>distance</Name>
+              <NumberOrder>11</NumberOrder>
+              <Title>N/A</Title>
+              <TypeInput>Output</TypeInput>
+              <Required>true</Required>
+              <Report>false</Report>
+            </ProcedureDetaiVariableViewModel>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>65</ProcedureDetailId>
+              <ProcedureVariableId>293</ProcedureVariableId>
+              <Value>0</Value>
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>f_up</Name>
+              <NumberOrder>8</NumberOrder>
+              <Title>N/A</Title>
+              <TypeInput>Input</TypeInput>
+              <Required>true</Required>
+              <Report>false</Report>
+            </ProcedureDetaiVariableViewModel>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>65</ProcedureDetailId>
+              <ProcedureVariableId>294</ProcedureVariableId>
+              <Value>0</Value>
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>f_down</Name>
+              <NumberOrder>9</NumberOrder>
+              <Title>N/A</Title>
+              <TypeInput>Input</TypeInput>
+              <Required>true</Required>
+              <Report>false</Report>
+            </ProcedureDetaiVariableViewModel>
+          </Variables>
+          <ProcedureDetailValue2s />
+          <MaskDone>false</MaskDone>
+          <MaskDoneValue xsi:nil="true" />
+          <LoopInput>1</LoopInput>
+          <Required>false</Required>
+          <Done xsi:nil="true" />
+          <PathDll>C:\Users\ETL-PC\Documents\Calculate\VSat.FormulaEvaluator.dll</PathDll>
+          <PathSource>C:\Users\ADMIN\Downloads\Procedure\Documents\Calculate\CalculateDistance.txt</PathSource>
+          <StepType>Calculate</StepType>
+          <Status>0</Status>
+        </TableProcedureViewModel>
+        <TableProcedureViewModel>
+          <ProcedureDetailId>66</ProcedureDetailId>
+          <NumberOder>6</NumberOder>
+          <Title>SAT-SIM configuration</Title>
+          <Description>Apply calculated settings and configure the SATSIM device automatically.</Description>
+          <Variables>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>66</ProcedureDetailId>
+              <ProcedureVariableId>270</ProcedureVariableId>
+              <Value>Ku</Value>
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>Band</Name>
+              <NumberOrder>3</NumberOrder>
+              <Title>Band</Title>
+              <TypeInput>Input</TypeInput>
+              <Required>true</Required>
+              <Report>true</Report>
+            </ProcedureDetaiVariableViewModel>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>66</ProcedureDetailId>
+              <ProcedureVariableId>271</ProcedureVariableId>
+              <Value>true</Value>
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>Mute</Name>
+              <NumberOrder>4</NumberOrder>
+              <Title>Mute</Title>
+              <TypeInput>Input</TypeInput>
+              <Required>true</Required>
+              <Report>true</Report>
+            </ProcedureDetaiVariableViewModel>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>66</ProcedureDetailId>
+              <ProcedureVariableId>272</ProcedureVariableId>
+              <Value>13500</Value>
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>IN_Freq</Name>
+              <NumberOrder>5</NumberOrder>
+              <Title>SAT-SIM Frequency In</Title>
+              <TypeInput>Input</TypeInput>
+              <Required>true</Required>
+              <Report>true</Report>
+            </ProcedureDetaiVariableViewModel>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>66</ProcedureDetailId>
+              <ProcedureVariableId>273</ProcedureVariableId>
+              <Value>11750</Value>
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>Out_Freq</Name>
+              <NumberOrder>6</NumberOrder>
+              <Title>SAT-SIM Frequency Out</Title>
+              <TypeInput>Input</TypeInput>
+              <Required>true</Required>
+              <Report>true</Report>
+            </ProcedureDetaiVariableViewModel>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>66</ProcedureDetailId>
+              <ProcedureVariableId>274</ProcedureVariableId>
+              <Value>0</Value>
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>Att_In</Name>
+              <NumberOrder>7</NumberOrder>
+              <Title>Attenuator In</Title>
+              <TypeInput>Input</TypeInput>
+              <Required>true</Required>
+              <Report>true</Report>
+            </ProcedureDetaiVariableViewModel>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>66</ProcedureDetailId>
+              <ProcedureVariableId>275</ProcedureVariableId>
+              <Value>0</Value>
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>Att_Out</Name>
+              <NumberOrder>8</NumberOrder>
+              <Title>Attenuator Out</Title>
+              <TypeInput>Input</TypeInput>
+              <Required>true</Required>
+              <Report>true</Report>
+            </ProcedureDetaiVariableViewModel>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>66</ProcedureDetailId>
+              <ProcedureVariableId>282</ProcedureVariableId>
+              <Value>SATSIMconfigRun</Value>
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>frm_Freq_Conf_Run</Name>
+              <NumberOrder>1</NumberOrder>
+              <Title>FormCalibration</Title>
+              <TypeInput />
+              <Required>false</Required>
+              <Report>false</Report>
+            </ProcedureDetaiVariableViewModel>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>66</ProcedureDetailId>
+              <ProcedureVariableId>289</ProcedureVariableId>
+              <Value>PowerGraphForm</Value>
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>frm_Graphic</Name>
+              <NumberOrder>2</NumberOrder>
+              <Title>FormCalibration</Title>
+              <TypeInput />
+              <Required>false</Required>
+              <Report>false</Report>
+            </ProcedureDetaiVariableViewModel>
+          </Variables>
+          <ProcedureDetailValue2s />
+          <MaskDone>false</MaskDone>
+          <MaskDoneValue xsi:nil="true" />
+          <LoopInput>1</LoopInput>
+          <Required>false</Required>
+          <Done xsi:nil="true" />
+          <PathDll />
+          <PathSource />
+          <StepType>SAT-SIM configuration</StepType>
+          <Status>0</Status>
+          <Functions>
+            <ProcedureDetailFunction>
+              <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+              <NumberOrder>0</NumberOrder>
+              <ProcedureDetailId>0</ProcedureDetailId>
+              <FunctionName>LoadView</FunctionName>
+              <PathDll>\VSat\Tools\1.0.2\VSat.Satsim.dll</PathDll>
+              <Assembly>VSat.Satsim</Assembly>
+              <AssemblyType>controlSATSIM</AssemblyType>
+              <Value>GetFormByName</Value>
+              <Default>false</Default>
+              <ValueDetails />
+              <FunctionVariables>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>frm_Freq_Conf_Run</VariableName>
+                  <Value>SATSIMconfigRun</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>Band</VariableName>
+                  <Value>C</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>Mute</VariableName>
+                  <Value>true</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>IN_Freq</VariableName>
+                  <Value>13500</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>Out_Freq</VariableName>
+                  <Value>11750</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>Att_In</VariableName>
+                  <Value>0</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>Att_Out</VariableName>
+                  <Value>0</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+              </FunctionVariables>
+            </ProcedureDetailFunction>
+            <ProcedureDetailFunction>
+              <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+              <NumberOrder>0</NumberOrder>
+              <ProcedureDetailId>0</ProcedureDetailId>
+              <FunctionName>SaveData</FunctionName>
+              <PathDll>\VSat\Tools\1.0.2\VSat.Satsim.dll</PathDll>
+              <Assembly>VSat.Satsim</Assembly>
+              <AssemblyType>controlSATSIM</AssemblyType>
+              <Value>SaveDataFormStep</Value>
+              <Default>false</Default>
+              <ValueDetails />
+              <FunctionVariables>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>frm_Freq_Conf_Run</VariableName>
+                  <Value>SATSIMconfigRun</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>Band</VariableName>
+                  <Value>C</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>Mute</VariableName>
+                  <Value>true</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>IN_Freq</VariableName>
+                  <Value>13500</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>Out_Freq</VariableName>
+                  <Value>11750</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>Att_In</VariableName>
+                  <Value>0</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>Att_Out</VariableName>
+                  <Value>0</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+              </FunctionVariables>
+            </ProcedureDetailFunction>
+            <ProcedureDetailFunction>
+              <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+              <NumberOrder>0</NumberOrder>
+              <ProcedureDetailId>0</ProcedureDetailId>
+              <FunctionName>Monitor</FunctionName>
+              <PathDll>\VSat\Tools\1.0.2\VSat.Satsim.dll</PathDll>
+              <Assembly>VSat.Satsim</Assembly>
+              <AssemblyType>controlSATSIM</AssemblyType>
+              <Value>GetFormByName</Value>
+              <Default>false</Default>
+              <ValueDetails />
+              <FunctionVariables>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>frm_Graphic</VariableName>
+                  <Value>PowerGraphForm</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+              </FunctionVariables>
+            </ProcedureDetailFunction>
+          </Functions>
+        </TableProcedureViewModel>
+        <TableProcedureViewModel>
+          <ProcedureDetailId>67</ProcedureDetailId>
+          <NumberOder>7</NumberOder>
+          <Title>Sat-Sim Installation</Title>
+          <Description />
+          <Variables>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>67</ProcedureDetailId>
+              <ProcedureVariableId>249</ProcedureVariableId>
+              <Value />
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>distance</Name>
+              <NumberOrder>3</NumberOrder>
+              <Title>Actual Distance</Title>
+              <TypeInput>Input</TypeInput>
+              <Required>true</Required>
+              <Report>true</Report>
+            </ProcedureDetaiVariableViewModel>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>67</ProcedureDetailId>
+              <ProcedureVariableId>250</ProcedureVariableId>
+              <Value>10</Value>
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>Azimuth</Name>
+              <NumberOrder>1</NumberOrder>
+              <Title>Azimuth</Title>
+              <TypeInput>Input</TypeInput>
+              <Required>true</Required>
+              <Report>true</Report>
+            </ProcedureDetaiVariableViewModel>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>67</ProcedureDetailId>
+              <ProcedureVariableId>251</ProcedureVariableId>
+              <Value>10</Value>
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>Elevation</Name>
+              <NumberOrder>2</NumberOrder>
+              <Title>Elevation</Title>
+              <TypeInput>Input</TypeInput>
+              <Required>true</Required>
+              <Report>true</Report>
+            </ProcedureDetaiVariableViewModel>
+          </Variables>
+          <ProcedureDetailValue2s />
+          <MaskDone>false</MaskDone>
+          <MaskDoneValue xsi:nil="true" />
+          <LoopInput>1</LoopInput>
+          <Required>false</Required>
+          <Done xsi:nil="true" />
+          <PathDll />
+          <PathSource />
+          <StepType>Number</StepType>
+          <Status>0</Status>
+        </TableProcedureViewModel>
+        <TableProcedureViewModel>
+          <ProcedureDetailId>68</ProcedureDetailId>
+          <NumberOder>8</NumberOder>
+          <Title>VSAT Configuration</Title>
+          <Description />
+          <Variables>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>68</ProcedureDetailId>
+              <ProcedureVariableId>250</ProcedureVariableId>
+              <Value>10</Value>
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>Azimuth</Name>
+              <NumberOrder>1</NumberOrder>
+              <Title>Azimuth</Title>
+              <TypeInput>Input</TypeInput>
+              <Required>true</Required>
+              <Report>true</Report>
+            </ProcedureDetaiVariableViewModel>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>68</ProcedureDetailId>
+              <ProcedureVariableId>251</ProcedureVariableId>
+              <Value>10</Value>
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>Elevation</Name>
+              <NumberOrder>2</NumberOrder>
+              <Title>Elevation</Title>
+              <TypeInput>Input</TypeInput>
+              <Required>true</Required>
+              <Report>true</Report>
+            </ProcedureDetaiVariableViewModel>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>68</ProcedureDetailId>
+              <ProcedureVariableId>279</ProcedureVariableId>
+              <Value>0</Value>
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>TX_IF_Freq</Name>
+              <NumberOrder>3</NumberOrder>
+              <Title>Frequency TX IF</Title>
+              <TypeInput>Output</TypeInput>
+              <Required>true</Required>
+              <Report>true</Report>
+            </ProcedureDetaiVariableViewModel>
+          </Variables>
+          <ProcedureDetailValue2s />
+          <MaskDone>false</MaskDone>
+          <MaskDoneValue xsi:nil="true" />
+          <LoopInput>1</LoopInput>
+          <Required>false</Required>
+          <Done xsi:nil="true" />
+          <PathDll />
+          <PathSource />
+          <StepType>Number</StepType>
+          <Status>0</Status>
+        </TableProcedureViewModel>
+        <TableProcedureViewModel>
+          <ProcedureDetailId>69</ProcedureDetailId>
+          <NumberOder>9</NumberOder>
+          <Title>Modem Configuration</Title>
+          <Description />
+          <Variables>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>69</ProcedureDetailId>
+              <ProcedureVariableId>276</ProcedureVariableId>
+              <Value>14000</Value>
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>TX_Freq</Name>
+              <NumberOrder>1</NumberOrder>
+              <Title>TX Frequency</Title>
+              <TypeInput>Input</TypeInput>
+              <Required>true</Required>
+              <Report>true</Report>
+            </ProcedureDetaiVariableViewModel>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>69</ProcedureDetailId>
+              <ProcedureVariableId>292</ProcedureVariableId>
+              <Value />
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>BUC_Power</Name>
+              <NumberOrder>2</NumberOrder>
+              <Title>TX Power</Title>
+              <TypeInput>Input</TypeInput>
+              <Required>false</Required>
+              <Report>true</Report>
+            </ProcedureDetaiVariableViewModel>
+          </Variables>
+          <ProcedureDetailValue2s />
+          <MaskDone>false</MaskDone>
+          <MaskDoneValue xsi:nil="true" />
+          <LoopInput>1</LoopInput>
+          <Required>false</Required>
+          <Done xsi:nil="true" />
+          <PathDll />
+          <PathSource />
+          <StepType>Number</StepType>
+          <Status>0</Status>
+        </TableProcedureViewModel>
+        <TableProcedureViewModel>
+          <ProcedureDetailId>70</ProcedureDetailId>
+          <NumberOder>10</NumberOder>
+          <Title>IF Signal Measurement</Title>
+          <Description>Measure IF signal characteristics including power, frequency, and quality accurately.</Description>
+          <Variables>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>70</ProcedureDetailId>
+              <ProcedureVariableId>252</ProcedureVariableId>
+              <Value>FormDetailStepSpectrumFreqSpanRBW</Value>
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>frm_ConfigFreq</Name>
+              <NumberOrder>1</NumberOrder>
+              <Title>FormCalibration</Title>
+              <TypeInput />
+              <Required>false</Required>
+              <Report>false</Report>
+            </ProcedureDetaiVariableViewModel>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>70</ProcedureDetailId>
+              <ProcedureVariableId>253</ProcedureVariableId>
+              <Value>1000</Value>
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>centerFreq</Name>
+              <NumberOrder>2</NumberOrder>
+              <Title>Center_Frequency</Title>
+              <TypeInput>Input</TypeInput>
+              <Required>true</Required>
+              <Report>false</Report>
+            </ProcedureDetaiVariableViewModel>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>70</ProcedureDetailId>
+              <ProcedureVariableId>254</ProcedureVariableId>
+              <Value>1000</Value>
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>span</Name>
+              <NumberOrder>3</NumberOrder>
+              <Title>Span</Title>
+              <TypeInput>Input</TypeInput>
+              <Required>true</Required>
+              <Report>false</Report>
+            </ProcedureDetaiVariableViewModel>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>70</ProcedureDetailId>
+              <ProcedureVariableId>255</ProcedureVariableId>
+              <Value>10</Value>
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>rbw</Name>
+              <NumberOrder>4</NumberOrder>
+              <Title>RBW</Title>
+              <TypeInput>Input</TypeInput>
+              <Required>true</Required>
+              <Report>false</Report>
+            </ProcedureDetaiVariableViewModel>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>70</ProcedureDetailId>
+              <ProcedureVariableId>256</ProcedureVariableId>
+              <Value>True</Value>
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>obw_Enabled</Name>
+              <NumberOrder>5</NumberOrder>
+              <Title>OBW_Enabled</Title>
+              <TypeInput>Input</TypeInput>
+              <Required>true</Required>
+              <Report>false</Report>
+            </ProcedureDetaiVariableViewModel>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>70</ProcedureDetailId>
+              <ProcedureVariableId>257</ProcedureVariableId>
+              <Value>99</Value>
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>obw_Percent</Name>
+              <NumberOrder>6</NumberOrder>
+              <Title>OBW_Percent</Title>
+              <TypeInput>Input</TypeInput>
+              <Required>true</Required>
+              <Report>false</Report>
+            </ProcedureDetaiVariableViewModel>
+          </Variables>
+          <ProcedureDetailValue2s />
+          <MaskDone>false</MaskDone>
+          <MaskDoneValue xsi:nil="true" />
+          <LoopInput>1</LoopInput>
+          <Required>false</Required>
+          <Done xsi:nil="true" />
+          <PathDll />
+          <PathSource />
+          <StepType>IF Signal Measurement</StepType>
+          <Status>0</Status>
+          <Functions>
+            <ProcedureDetailFunction>
+              <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+              <NumberOrder>0</NumberOrder>
+              <ProcedureDetailId>0</ProcedureDetailId>
+              <FunctionName>LoadView</FunctionName>
+              <PathDll>\Vsat\Tools\1.0.0\VSat.Spectrum.dll</PathDll>
+              <Assembly>VSat</Assembly>
+              <AssemblyType>ControlAllModel</AssemblyType>
+              <Value>GetFormByName</Value>
+              <Default>false</Default>
+              <ValueDetails />
+              <FunctionVariables>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>frm_ConfigFreq</VariableName>
+                  <Value>FormDetailStepSpectrumFreqSpanRBW</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>centerFreq</VariableName>
+                  <Value>1000</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>span</VariableName>
+                  <Value>1000</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>rbw</VariableName>
+                  <Value>10</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>obw_Enabled</VariableName>
+                  <Value>true</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>obw_Percent</VariableName>
+                  <Value>99</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+              </FunctionVariables>
+            </ProcedureDetailFunction>
+            <ProcedureDetailFunction>
+              <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+              <NumberOrder>0</NumberOrder>
+              <ProcedureDetailId>0</ProcedureDetailId>
+              <FunctionName>SaveData</FunctionName>
+              <PathDll>\Vsat\Tools\1.0.0\VSat.Spectrum.dll</PathDll>
+              <Assembly>VSat</Assembly>
+              <AssemblyType>ControlAllModel</AssemblyType>
+              <Value>SaveDataFormStep</Value>
+              <Default>false</Default>
+              <ValueDetails />
+              <FunctionVariables>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>frm_ConfigFreq</VariableName>
+                  <Value>FormDetailStepSpectrumFreqSpanRBW</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>centerFreq</VariableName>
+                  <Value>1000</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>span</VariableName>
+                  <Value>1000</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>rbw</VariableName>
+                  <Value>10</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>obw_Enabled</VariableName>
+                  <Value>true</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>obw_Percent</VariableName>
+                  <Value>99</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+              </FunctionVariables>
+            </ProcedureDetailFunction>
+          </Functions>
+        </TableProcedureViewModel>
+        <TableProcedureViewModel>
+          <ProcedureDetailId>71</ProcedureDetailId>
+          <NumberOder>11</NumberOder>
+          <Title>Stability Monitoring</Title>
+          <Description>Measure signal stability while tracking long-term performance and consistency continuously.</Description>
+          <Variables>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>71</ProcedureDetailId>
+              <ProcedureVariableId>258</ProcedureVariableId>
+              <Value>FormDetailStepSpectrumFreqMonitor</Value>
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>frm_MonFreq</Name>
+              <NumberOrder>1</NumberOrder>
+              <Title>FormCalibration</Title>
+              <TypeInput />
+              <Required>false</Required>
+              <Report>false</Report>
+            </ProcedureDetaiVariableViewModel>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>71</ProcedureDetailId>
+              <ProcedureVariableId>259</ProcedureVariableId>
+              <Value>5</Value>
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>dur</Name>
+              <NumberOrder>2</NumberOrder>
+              <Title>Duration</Title>
+              <TypeInput>Input</TypeInput>
+              <Required>true</Required>
+              <Report>true</Report>
+            </ProcedureDetaiVariableViewModel>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>71</ProcedureDetailId>
+              <ProcedureVariableId>260</ProcedureVariableId>
+              <Value>1</Value>
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>sample</Name>
+              <NumberOrder>3</NumberOrder>
+              <Title>Sample</Title>
+              <TypeInput>Input</TypeInput>
+              <Required>true</Required>
+              <Report>true</Report>
+            </ProcedureDetaiVariableViewModel>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>71</ProcedureDetailId>
+              <ProcedureVariableId>261</ProcedureVariableId>
+              <Value>0</Value>
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>delta_Carrier</Name>
+              <NumberOrder>4</NumberOrder>
+              <Title>Delta_Carrier</Title>
+              <TypeInput>Output</TypeInput>
+              <Required>true</Required>
+              <Report>false</Report>
+            </ProcedureDetaiVariableViewModel>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>71</ProcedureDetailId>
+              <ProcedureVariableId>262</ProcedureVariableId>
+              <Value>0</Value>
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>delta_Frequency</Name>
+              <NumberOrder>5</NumberOrder>
+              <Title>Delta_Frequency</Title>
+              <TypeInput>Output</TypeInput>
+              <Required>true</Required>
+              <Report>false</Report>
+            </ProcedureDetaiVariableViewModel>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>71</ProcedureDetailId>
+              <ProcedureVariableId>263</ProcedureVariableId>
+              <Value>0</Value>
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>marker_Freq</Name>
+              <NumberOrder>6</NumberOrder>
+              <Title>Marker_Frequency</Title>
+              <TypeInput>Output</TypeInput>
+              <Required>true</Required>
+              <Report>false</Report>
+            </ProcedureDetaiVariableViewModel>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>71</ProcedureDetailId>
+              <ProcedureVariableId>264</ProcedureVariableId>
+              <Value>0</Value>
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>marker_Power</Name>
+              <NumberOrder>7</NumberOrder>
+              <Title>Marker_Power</Title>
+              <TypeInput>Output</TypeInput>
+              <Required>true</Required>
+              <Report>false</Report>
+            </ProcedureDetaiVariableViewModel>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>71</ProcedureDetailId>
+              <ProcedureVariableId>265</ProcedureVariableId>
+              <Value>0</Value>
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>carrier_Freq</Name>
+              <NumberOrder>8</NumberOrder>
+              <Title>Carrier_Frequency</Title>
+              <TypeInput>Output</TypeInput>
+              <Required>true</Required>
+              <Report>false</Report>
+            </ProcedureDetaiVariableViewModel>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>71</ProcedureDetailId>
+              <ProcedureVariableId>266</ProcedureVariableId>
+              <Value>0</Value>
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>carrier_Power</Name>
+              <NumberOrder>9</NumberOrder>
+              <Title>Carrier_Power</Title>
+              <TypeInput>Output</TypeInput>
+              <Required>true</Required>
+              <Report>false</Report>
+            </ProcedureDetaiVariableViewModel>
+          </Variables>
+          <ProcedureDetailValue2s />
+          <MaskDone>false</MaskDone>
+          <MaskDoneValue xsi:nil="true" />
+          <LoopInput>1</LoopInput>
+          <Required>false</Required>
+          <Done xsi:nil="true" />
+          <PathDll />
+          <PathSource />
+          <StepType>Stability Monitoring</StepType>
+          <Status>0</Status>
+          <Functions>
+            <ProcedureDetailFunction>
+              <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+              <NumberOrder>0</NumberOrder>
+              <ProcedureDetailId>0</ProcedureDetailId>
+              <FunctionName>LoadView</FunctionName>
+              <PathDll>\Vsat\Tools\1.0.0\VSat.Spectrum.dll</PathDll>
+              <Assembly>VSat</Assembly>
+              <AssemblyType>ControlAllModel</AssemblyType>
+              <Value>GetFormByName</Value>
+              <Default>false</Default>
+              <ValueDetails />
+              <FunctionVariables>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>frm_MonFreq</VariableName>
+                  <Value>FormDetailStepSpectrumFreqMonitor</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>dur</VariableName>
+                  <Value>0</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>sample</VariableName>
+                  <Value>0</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>delta_Carrier</VariableName>
+                  <Value>0</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>delta_Frequency</VariableName>
+                  <Value>0</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+              </FunctionVariables>
+            </ProcedureDetailFunction>
+            <ProcedureDetailFunction>
+              <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+              <NumberOrder>0</NumberOrder>
+              <ProcedureDetailId>0</ProcedureDetailId>
+              <FunctionName>SaveData</FunctionName>
+              <PathDll>\Vsat\Tools\1.0.0\VSat.Spectrum.dll</PathDll>
+              <Assembly>VSat</Assembly>
+              <AssemblyType>ControlAllModel</AssemblyType>
+              <Value>SaveDataFormStep</Value>
+              <Default>false</Default>
+              <ValueDetails />
+              <FunctionVariables>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>frm_MonFreq</VariableName>
+                  <Value>FormDetailStepSpectrumFreqMonitor</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>dur</VariableName>
+                  <Value>0</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>sample</VariableName>
+                  <Value>0</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>delta_Carrier</VariableName>
+                  <Value>0</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>marker_Freq</VariableName>
+                  <Value>0</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>marker_Power</VariableName>
+                  <Value>0</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>carrier_Freq</VariableName>
+                  <Value>0</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>carrier_Power</VariableName>
+                  <Value>0</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+                <ProcedureDetailFunctionVariable>
+                  <ProcedureDetailFunctionId>0</ProcedureDetailFunctionId>
+                  <VariableId>0</VariableId>
+                  <VariableName>delta_Frequency</VariableName>
+                  <Value>0</Value>
+                  <IsList>false</IsList>
+                </ProcedureDetailFunctionVariable>
+              </FunctionVariables>
+            </ProcedureDetailFunction>
+          </Functions>
+        </TableProcedureViewModel>
+        <TableProcedureViewModel>
+          <ProcedureDetailId>72</ProcedureDetailId>
+          <NumberOder>12</NumberOder>
+          <Title>Correction</Title>
+          <Description />
+          <Variables>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>72</ProcedureDetailId>
+              <ProcedureVariableId>265</ProcedureVariableId>
+              <Value>0</Value>
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>carrier_Freq</Name>
+              <NumberOrder>3</NumberOrder>
+              <Title />
+              <TypeInput />
+              <Required>false</Required>
+              <Report>false</Report>
+            </ProcedureDetaiVariableViewModel>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>72</ProcedureDetailId>
+              <ProcedureVariableId>266</ProcedureVariableId>
+              <Value>0</Value>
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>carrier_Power</Name>
+              <NumberOrder>4</NumberOrder>
+              <Title />
+              <TypeInput />
+              <Required>false</Required>
+              <Report>false</Report>
+            </ProcedureDetaiVariableViewModel>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>72</ProcedureDetailId>
+              <ProcedureVariableId>267</ProcedureVariableId>
+              <Value>C:\Users\ETL-PC\Documents\Correcttion\CorrectionDB.dll</Value>
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>pathDllCorrection</Name>
+              <NumberOrder>1</NumberOrder>
+              <Title />
+              <TypeInput />
+              <Required>false</Required>
+              <Report>false</Report>
+            </ProcedureDetaiVariableViewModel>
+            <ProcedureDetaiVariableViewModel>
+              <ProcedureDetailId>72</ProcedureDetailId>
+              <ProcedureVariableId>268</ProcedureVariableId>
+              <Value>C:\Users\ETL-PC\Documents\Correcttion\calibVSAT.txt</Value>
+              <GetDataFromFreStep>false</GetDataFromFreStep>
+              <Name>pathCorrection</Name>
+              <NumberOrder>2</NumberOrder>
+              <Title />
+              <TypeInput />
+              <Required>false</Required>
+              <Report>false</Report>
+            </ProcedureDetaiVariableViewModel>
+          </Variables>
+          <ProcedureDetailValue2s />
+          <MaskDone>false</MaskDone>
+          <MaskDoneValue xsi:nil="true" />
+          <LoopInput>1</LoopInput>
+          <Required>false</Required>
+          <Done xsi:nil="true" />
+          <PathDll />
+          <PathSource />
+          <StepType>Correction</StepType>
+          <Status>0</Status>
+        </TableProcedureViewModel>
+        <TableProcedureViewModel>
+          <ProcedureDetailId>73</ProcedureDetailId>
+          <NumberOder>13</NumberOder>
+          <Title>Review</Title>
+          <Description />
+          <ProcedureDetailValue2s />
+          <MaskDone>false</MaskDone>
+          <MaskDoneValue xsi:nil="true" />
+          <LoopInput>1</LoopInput>
+          <Required>false</Required>
+          <Done xsi:nil="true" />
+          <PathDll />
+          <PathSource />
+          <StepType>Review</StepType>
+          <Status>0</Status>
+        </TableProcedureViewModel>
+        <TableProcedureViewModel>
+          <ProcedureDetailId>74</ProcedureDetailId>
+          <NumberOder>14</NumberOder>
+          <Title>Report</Title>
+          <Description />
+          <ProcedureDetailValue2s />
+          <MaskDone>false</MaskDone>
+          <MaskDoneValue xsi:nil="true" />
+          <LoopInput>1</LoopInput>
+          <Required>false</Required>
+          <Done xsi:nil="true" />
+          <PathDll />
+          <PathSource />
+          <StepType>Report</StepType>
+          <Status>0</Status>
+        </TableProcedureViewModel>
+      </TableProcedures>
+      <Variables>
+        <ProcedureVariableViewModel>
+          <ProcedureVariableId>237</ProcedureVariableId>
+          <ProcedureId>1</ProcedureId>
+          <Name>frm_Connect</Name>
+          <Title>FormCalibration</Title>
+          <Value>DeviceConnectRun</Value>
+          <Unit />
+          <Min />
+          <Max />
+          <Report>false</Report>
+          <Required>false</Required>
+          <Type>String</Type>
+          <TypeInput>Input</TypeInput>
+          <Items />
+        </ProcedureVariableViewModel>
+        <ProcedureVariableViewModel>
+          <ProcedureVariableId>238</ProcedureVariableId>
+          <ProcedureId>1</ProcedureId>
+          <Name>Ip</Name>
+          <Title>Ip</Title>
+          <Value>192.168.0.252</Value>
+          <Unit />
+          <Min />
+          <Max />
+          <Report>true</Report>
+          <Required>true</Required>
+          <Type>String</Type>
+          <TypeInput>Input</TypeInput>
+          <Items />
+        </ProcedureVariableViewModel>
+        <ProcedureVariableViewModel>
+          <ProcedureVariableId>239</ProcedureVariableId>
+          <ProcedureId>1</ProcedureId>
+          <Name>port</Name>
+          <Title>Port</Title>
+          <Value>4000</Value>
+          <Unit />
+          <Min />
+          <Max />
+          <Report>true</Report>
+          <Required>true</Required>
+          <Type>String</Type>
+          <TypeInput>Input</TypeInput>
+          <Items />
+        </ProcedureVariableViewModel>
+        <ProcedureVariableViewModel>
+          <ProcedureVariableId>240</ProcedureVariableId>
+          <ProcedureId>1</ProcedureId>
+          <Name>_stConnectSATSIM</Name>
+          <Title>Status connect SAT-SIM</Title>
+          <Value>False</Value>
+          <Unit />
+          <Min />
+          <Max />
+          <Report>true</Report>
+          <Required>true</Required>
+          <Type>Boolean</Type>
+          <TypeInput>Input</TypeInput>
+          <Items />
+        </ProcedureVariableViewModel>
+        <ProcedureVariableViewModel>
+          <ProcedureVariableId>241</ProcedureVariableId>
+          <ProcedureId>1</ProcedureId>
+          <Name>P_Tx</Name>
+          <Title>N/A</Title>
+          <Value>0</Value>
+          <Unit>dBm</Unit>
+          <Min>0</Min>
+          <Max>100</Max>
+          <Report>false</Report>
+          <Required>true</Required>
+          <Type>Double</Type>
+          <TypeInput>Input</TypeInput>
+          <Items />
+        </ProcedureVariableViewModel>
+        <ProcedureVariableViewModel>
+          <ProcedureVariableId>242</ProcedureVariableId>
+          <ProcedureId>1</ProcedureId>
+          <Name>L_ant</Name>
+          <Title>N/A</Title>
+          <Value>0</Value>
+          <Unit>dB</Unit>
+          <Min>0</Min>
+          <Max>20</Max>
+          <Report>false</Report>
+          <Required>true</Required>
+          <Type>Double</Type>
+          <TypeInput>Input</TypeInput>
+          <Items />
+        </ProcedureVariableViewModel>
+        <ProcedureVariableViewModel>
+          <ProcedureVariableId>243</ProcedureVariableId>
+          <ProcedureId>1</ProcedureId>
+          <Name>G_Tx_ant</Name>
+          <Title>N/A</Title>
+          <Value>0</Value>
+          <Unit>dBi</Unit>
+          <Min>0</Min>
+          <Max>100</Max>
+          <Report>false</Report>
+          <Required>true</Required>
+          <Type>Double</Type>
+          <TypeInput>Input</TypeInput>
+          <Items />
+        </ProcedureVariableViewModel>
+        <ProcedureVariableViewModel>
+          <ProcedureVariableId>244</ProcedureVariableId>
+          <ProcedureId>1</ProcedureId>
+          <Name>G_Rx_sat</Name>
+          <Title>N/A</Title>
+          <Value>0</Value>
+          <Unit>dBi</Unit>
+          <Min>0</Min>
+          <Max>50</Max>
+          <Report>false</Report>
+          <Required>true</Required>
+          <Type>Double</Type>
+          <TypeInput>Input</TypeInput>
+          <Items />
+        </ProcedureVariableViewModel>
+        <ProcedureVariableViewModel>
+          <ProcedureVariableId>245</ProcedureVariableId>
+          <ProcedureId>1</ProcedureId>
+          <Name>L_sat</Name>
+          <Title>N/A</Title>
+          <Value>0</Value>
+          <Unit>dB</Unit>
+          <Min>0</Min>
+          <Max>200</Max>
+          <Report>false</Report>
+          <Required>true</Required>
+          <Type>Double</Type>
+          <TypeInput>Input</TypeInput>
+          <Items />
+        </ProcedureVariableViewModel>
+        <ProcedureVariableViewModel>
+          <ProcedureVariableId>246</ProcedureVariableId>
+          <ProcedureId>1</ProcedureId>
+          <Name>G_Tx_sat</Name>
+          <Title>N/A</Title>
+          <Value>0</Value>
+          <Unit>dBi</Unit>
+          <Min>0</Min>
+          <Max>50</Max>
+          <Report>false</Report>
+          <Required>true</Required>
+          <Type>Double</Type>
+          <TypeInput>Input</TypeInput>
+          <Items />
+        </ProcedureVariableViewModel>
+        <ProcedureVariableViewModel>
+          <ProcedureVariableId>247</ProcedureVariableId>
+          <ProcedureId>1</ProcedureId>
+          <Name>G_Rx_ant</Name>
+          <Title>N/A</Title>
+          <Value>0</Value>
+          <Unit>dBi</Unit>
+          <Min>0</Min>
+          <Max>100</Max>
+          <Report>false</Report>
+          <Required>true</Required>
+          <Type>Double</Type>
+          <TypeInput>Input</TypeInput>
+          <Items />
+        </ProcedureVariableViewModel>
+        <ProcedureVariableViewModel>
+          <ProcedureVariableId>248</ProcedureVariableId>
+          <ProcedureId>1</ProcedureId>
+          <Name>P_r</Name>
+          <Title>N/A</Title>
+          <Value>0</Value>
+          <Unit>dBm</Unit>
+          <Min>-150</Min>
+          <Max>0</Max>
+          <Report>false</Report>
+          <Required>true</Required>
+          <Type>Double</Type>
+          <TypeInput>Input</TypeInput>
+          <Items />
+        </ProcedureVariableViewModel>
+        <ProcedureVariableViewModel>
+          <ProcedureVariableId>249</ProcedureVariableId>
+          <ProcedureId>1</ProcedureId>
+          <Name>distance</Name>
+          <Title>Actual Distance</Title>
+          <Value />
+          <Unit>km</Unit>
+          <Min>0</Min>
+          <Max>100000</Max>
+          <Report>true</Report>
+          <Required>true</Required>
+          <Type>Double</Type>
+          <TypeInput>Input</TypeInput>
+          <Items />
+        </ProcedureVariableViewModel>
+        <ProcedureVariableViewModel>
+          <ProcedureVariableId>250</ProcedureVariableId>
+          <ProcedureId>1</ProcedureId>
+          <Name>Azimuth</Name>
+          <Title>Azimuth</Title>
+          <Value>10</Value>
+          <Unit />
+          <Min />
+          <Max />
+          <Report>true</Report>
+          <Required>true</Required>
+          <Type>Double</Type>
+          <TypeInput>Input</TypeInput>
+          <Items />
+        </ProcedureVariableViewModel>
+        <ProcedureVariableViewModel>
+          <ProcedureVariableId>251</ProcedureVariableId>
+          <ProcedureId>1</ProcedureId>
+          <Name>Elevation</Name>
+          <Title>Elevation</Title>
+          <Value>10</Value>
+          <Unit />
+          <Min />
+          <Max />
+          <Report>true</Report>
+          <Required>true</Required>
+          <Type>Double</Type>
+          <TypeInput>Input</TypeInput>
+          <Items />
+        </ProcedureVariableViewModel>
+        <ProcedureVariableViewModel>
+          <ProcedureVariableId>252</ProcedureVariableId>
+          <ProcedureId>1</ProcedureId>
+          <Name>frm_ConfigFreq</Name>
+          <Title>FormCalibration</Title>
+          <Value>FormDetailStepSpectrumFreqSpanRBW</Value>
+          <Unit />
+          <Min />
+          <Max />
+          <Report>false</Report>
+          <Required>false</Required>
+          <Type>String</Type>
+          <TypeInput />
+          <Items />
+        </ProcedureVariableViewModel>
+        <ProcedureVariableViewModel>
+          <ProcedureVariableId>253</ProcedureVariableId>
+          <ProcedureId>1</ProcedureId>
+          <Name>centerFreq</Name>
+          <Title>Center_Frequency</Title>
+          <Value>1000</Value>
+          <Unit>MHz</Unit>
+          <Min>1</Min>
+          <Max>4400</Max>
+          <Report>false</Report>
+          <Required>true</Required>
+          <Type>Double</Type>
+          <TypeInput>Input</TypeInput>
+          <Items />
+        </ProcedureVariableViewModel>
+        <ProcedureVariableViewModel>
+          <ProcedureVariableId>254</ProcedureVariableId>
+          <ProcedureId>1</ProcedureId>
+          <Name>span</Name>
+          <Title>Span</Title>
+          <Value>1000</Value>
+          <Unit>MHz</Unit>
+          <Min>1</Min>
+          <Max>4400</Max>
+          <Report>false</Report>
+          <Required>true</Required>
+          <Type>Double</Type>
+          <TypeInput>Input</TypeInput>
+          <Items />
+        </ProcedureVariableViewModel>
+        <ProcedureVariableViewModel>
+          <ProcedureVariableId>255</ProcedureVariableId>
+          <ProcedureId>1</ProcedureId>
+          <Name>rbw</Name>
+          <Title>RBW</Title>
+          <Value>10</Value>
+          <Unit>KHz</Unit>
+          <Min>1</Min>
+          <Max>300000</Max>
+          <Report>false</Report>
+          <Required>true</Required>
+          <Type>Double</Type>
+          <TypeInput>Input</TypeInput>
+          <Items />
+        </ProcedureVariableViewModel>
+        <ProcedureVariableViewModel>
+          <ProcedureVariableId>256</ProcedureVariableId>
+          <ProcedureId>1</ProcedureId>
+          <Name>obw_Enabled</Name>
+          <Title>OBW_Enabled</Title>
+          <Value>true</Value>
+          <Unit />
+          <Min />
+          <Max />
+          <Report>false</Report>
+          <Required>true</Required>
+          <Type>Boolean</Type>
+          <TypeInput>Input</TypeInput>
+          <Items />
+        </ProcedureVariableViewModel>
+        <ProcedureVariableViewModel>
+          <ProcedureVariableId>257</ProcedureVariableId>
+          <ProcedureId>1</ProcedureId>
+          <Name>obw_Percent</Name>
+          <Title>OBW_Percent</Title>
+          <Value>99</Value>
+          <Unit>%</Unit>
+          <Min>1</Min>
+          <Max>100</Max>
+          <Report>false</Report>
+          <Required>true</Required>
+          <Type>Double</Type>
+          <TypeInput>Input</TypeInput>
+          <Items />
+        </ProcedureVariableViewModel>
+        <ProcedureVariableViewModel>
+          <ProcedureVariableId>258</ProcedureVariableId>
+          <ProcedureId>1</ProcedureId>
+          <Name>frm_MonFreq</Name>
+          <Title>FormCalibration</Title>
+          <Value>FormDetailStepSpectrumFreqMonitor</Value>
+          <Unit />
+          <Min />
+          <Max />
+          <Report>false</Report>
+          <Required>false</Required>
+          <Type>String</Type>
+          <TypeInput />
+          <Items />
+        </ProcedureVariableViewModel>
+        <ProcedureVariableViewModel>
+          <ProcedureVariableId>259</ProcedureVariableId>
+          <ProcedureId>1</ProcedureId>
+          <Name>dur</Name>
+          <Title>Duration</Title>
+          <Value>5</Value>
+          <Unit>S</Unit>
+          <Min />
+          <Max />
+          <Report>true</Report>
+          <Required>true</Required>
+          <Type>Double</Type>
+          <TypeInput>Input</TypeInput>
+          <Items />
+        </ProcedureVariableViewModel>
+        <ProcedureVariableViewModel>
+          <ProcedureVariableId>260</ProcedureVariableId>
+          <ProcedureId>1</ProcedureId>
+          <Name>sample</Name>
+          <Title>Sample</Title>
+          <Value>1</Value>
+          <Unit>S</Unit>
+          <Min />
+          <Max />
+          <Report>true</Report>
+          <Required>true</Required>
+          <Type>Double</Type>
+          <TypeInput>Input</TypeInput>
+          <Items />
+        </ProcedureVariableViewModel>
+        <ProcedureVariableViewModel>
+          <ProcedureVariableId>261</ProcedureVariableId>
+          <ProcedureId>1</ProcedureId>
+          <Name>delta_Carrier</Name>
+          <Title>Delta_Carrier</Title>
+          <Value>0</Value>
+          <Unit>dBm</Unit>
+          <Min />
+          <Max />
+          <Report>false</Report>
+          <Required>true</Required>
+          <Type>Double</Type>
+          <TypeInput>Output</TypeInput>
+          <Items />
+        </ProcedureVariableViewModel>
+        <ProcedureVariableViewModel>
+          <ProcedureVariableId>262</ProcedureVariableId>
+          <ProcedureId>1</ProcedureId>
+          <Name>delta_Frequency</Name>
+          <Title>Delta_Frequency</Title>
+          <Value>0</Value>
+          <Unit>Hz</Unit>
+          <Min />
+          <Max />
+          <Report>false</Report>
+          <Required>true</Required>
+          <Type>Double</Type>
+          <TypeInput>Output</TypeInput>
+          <Items />
+        </ProcedureVariableViewModel>
+        <ProcedureVariableViewModel>
+          <ProcedureVariableId>263</ProcedureVariableId>
+          <ProcedureId>1</ProcedureId>
+          <Name>marker_Freq</Name>
+          <Title>Marker_Frequency</Title>
+          <Value>0</Value>
+          <Unit>Hz</Unit>
+          <Min />
+          <Max />
+          <Report>false</Report>
+          <Required>true</Required>
+          <Type>Double</Type>
+          <TypeInput>Output</TypeInput>
+          <Items />
+        </ProcedureVariableViewModel>
+        <ProcedureVariableViewModel>
+          <ProcedureVariableId>264</ProcedureVariableId>
+          <ProcedureId>1</ProcedureId>
+          <Name>marker_Power</Name>
+          <Title>Marker_Power</Title>
+          <Value>0</Value>
+          <Unit>dBm</Unit>
+          <Min />
+          <Max />
+          <Report>false</Report>
+          <Required>true</Required>
+          <Type>Double</Type>
+          <TypeInput>Output</TypeInput>
+          <Items />
+        </ProcedureVariableViewModel>
+        <ProcedureVariableViewModel>
+          <ProcedureVariableId>265</ProcedureVariableId>
+          <ProcedureId>1</ProcedureId>
+          <Name>carrier_Freq</Name>
+          <Title>Carrier_Frequency</Title>
+          <Value>0</Value>
+          <Unit>dBm</Unit>
+          <Min />
+          <Max />
+          <Report>false</Report>
+          <Required>true</Required>
+          <Type>Double</Type>
+          <TypeInput>Output</TypeInput>
+          <Items />
+        </ProcedureVariableViewModel>
+        <ProcedureVariableViewModel>
+          <ProcedureVariableId>266</ProcedureVariableId>
+          <ProcedureId>1</ProcedureId>
+          <Name>carrier_Power</Name>
+          <Title>Carrier_Power</Title>
+          <Value>0</Value>
+          <Unit>dBm</Unit>
+          <Min />
+          <Max />
+          <Report>false</Report>
+          <Required>true</Required>
+          <Type>Double</Type>
+          <TypeInput>Output</TypeInput>
+          <Items />
+        </ProcedureVariableViewModel>
+        <ProcedureVariableViewModel>
+          <ProcedureVariableId>267</ProcedureVariableId>
+          <ProcedureId>1</ProcedureId>
+          <Name>pathDllCorrection</Name>
+          <Title>Path dll Correction</Title>
+          <Value>C:\Users\ETL-PC\Documents\Correcttion\CorrectionDB.dll</Value>
+          <Unit />
+          <Min />
+          <Max />
+          <Report>false</Report>
+          <Required>false</Required>
+          <Type>String</Type>
+          <TypeInput />
+          <Items />
+        </ProcedureVariableViewModel>
+        <ProcedureVariableViewModel>
+          <ProcedureVariableId>268</ProcedureVariableId>
+          <ProcedureId>1</ProcedureId>
+          <Name>pathCorrection</Name>
+          <Title>Path Correction</Title>
+          <Value>C:\Users\ETL-PC\Documents\Correcttion\calibVSAT.txt</Value>
+          <Unit />
+          <Min />
+          <Max />
+          <Report>false</Report>
+          <Required>false</Required>
+          <Type>String</Type>
+          <TypeInput />
+          <Items />
+        </ProcedureVariableViewModel>
+        <ProcedureVariableViewModel>
+          <ProcedureVariableId>269</ProcedureVariableId>
+          <ProcedureId>1</ProcedureId>
+          <Name>frm_Freq_Cac_Run</Name>
+          <Title>FormCalibration</Title>
+          <Value>FrequencyCaculationRun</Value>
+          <Unit />
+          <Min />
+          <Max />
+          <Report>false</Report>
+          <Required>false</Required>
+          <Type>String</Type>
+          <TypeInput />
+          <Items />
+        </ProcedureVariableViewModel>
+        <ProcedureVariableViewModel>
+          <ProcedureVariableId>270</ProcedureVariableId>
+          <ProcedureId>1</ProcedureId>
+          <Name>Band</Name>
+          <Title>Band</Title>
+          <Value>Ku</Value>
+          <Unit />
+          <Min />
+          <Max />
+          <Report>true</Report>
+          <Required>true</Required>
+          <Type>String</Type>
+          <TypeInput>Input</TypeInput>
+          <Items />
+        </ProcedureVariableViewModel>
+        <ProcedureVariableViewModel>
+          <ProcedureVariableId>271</ProcedureVariableId>
+          <ProcedureId>1</ProcedureId>
+          <Name>Mute</Name>
+          <Title>Mute</Title>
+          <Value>true</Value>
+          <Unit />
+          <Min />
+          <Max />
+          <Report>true</Report>
+          <Required>true</Required>
+          <Type>Boolean</Type>
+          <TypeInput>Input</TypeInput>
+          <Items />
+        </ProcedureVariableViewModel>
+        <ProcedureVariableViewModel>
+          <ProcedureVariableId>272</ProcedureVariableId>
+          <ProcedureId>1</ProcedureId>
+          <Name>IN_Freq</Name>
+          <Title>SAT-SIM Frequency In</Title>
+          <Value>13500</Value>
+          <Unit>MHz</Unit>
+          <Min />
+          <Max />
+          <Report>true</Report>
+          <Required>true</Required>
+          <Type>Double</Type>
+          <TypeInput>Input</TypeInput>
+          <Items />
+        </ProcedureVariableViewModel>
+        <ProcedureVariableViewModel>
+          <ProcedureVariableId>273</ProcedureVariableId>
+          <ProcedureId>1</ProcedureId>
+          <Name>Out_Freq</Name>
+          <Title>SAT-SIM Frequency Out</Title>
+          <Value>11750</Value>
+          <Unit>MHz</Unit>
+          <Min />
+          <Max />
+          <Report>true</Report>
+          <Required>true</Required>
+          <Type>Double</Type>
+          <TypeInput>Input</TypeInput>
+          <Items />
+        </ProcedureVariableViewModel>
+        <ProcedureVariableViewModel>
+          <ProcedureVariableId>274</ProcedureVariableId>
+          <ProcedureId>1</ProcedureId>
+          <Name>Att_In</Name>
+          <Title>Attenuator In</Title>
+          <Value>0</Value>
+          <Unit>dB</Unit>
+          <Min>0</Min>
+          <Max>30</Max>
+          <Report>true</Report>
+          <Required>true</Required>
+          <Type>Double</Type>
+          <TypeInput>Input</TypeInput>
+          <Items />
+        </ProcedureVariableViewModel>
+        <ProcedureVariableViewModel>
+          <ProcedureVariableId>275</ProcedureVariableId>
+          <ProcedureId>1</ProcedureId>
+          <Name>Att_Out</Name>
+          <Title>Attenuator Out</Title>
+          <Value>0</Value>
+          <Unit>dB</Unit>
+          <Min>0</Min>
+          <Max>30</Max>
+          <Report>true</Report>
+          <Required>true</Required>
+          <Type>Double</Type>
+          <TypeInput>Input</TypeInput>
+          <Items />
+        </ProcedureVariableViewModel>
+        <ProcedureVariableViewModel>
+          <ProcedureVariableId>276</ProcedureVariableId>
+          <ProcedureId>1</ProcedureId>
+          <Name>TX_Freq</Name>
+          <Title>TX Frequency</Title>
+          <Value>14000</Value>
+          <Unit>MHz</Unit>
+          <Min />
+          <Max />
+          <Report>true</Report>
+          <Required>true</Required>
+          <Type>Double</Type>
+          <TypeInput>Input</TypeInput>
+          <Items />
+        </ProcedureVariableViewModel>
+        <ProcedureVariableViewModel>
+          <ProcedureVariableId>277</ProcedureVariableId>
+          <ProcedureId>1</ProcedureId>
+          <Name>TX_LO_Freq</Name>
+          <Title>TX LO Frequency</Title>
+          <Value>12800</Value>
+          <Unit>MHz</Unit>
+          <Min />
+          <Max />
+          <Report>true</Report>
+          <Required>true</Required>
+          <Type>Double</Type>
+          <TypeInput>Input</TypeInput>
+          <Items />
+        </ProcedureVariableViewModel>
+        <ProcedureVariableViewModel>
+          <ProcedureVariableId>278</ProcedureVariableId>
+          <ProcedureId>1</ProcedureId>
+          <Name>RX_LO_Freq</Name>
+          <Title>RX LO Frequency</Title>
+          <Value>10600</Value>
+          <Unit>MHz</Unit>
+          <Min />
+          <Max />
+          <Report>true</Report>
+          <Required>true</Required>
+          <Type>Double</Type>
+          <TypeInput>Input</TypeInput>
+          <Items />
+        </ProcedureVariableViewModel>
+        <ProcedureVariableViewModel>
+          <ProcedureVariableId>279</ProcedureVariableId>
+          <ProcedureId>1</ProcedureId>
+          <Name>TX_IF_Freq</Name>
+          <Title>Frequency TX IF</Title>
+          <Value>0</Value>
+          <Unit>MHz</Unit>
+          <Min />
+          <Max />
+          <Report>true</Report>
+          <Required>true</Required>
+          <Type>Double</Type>
+          <TypeInput>Output</TypeInput>
+          <Items />
+        </ProcedureVariableViewModel>
+        <ProcedureVariableViewModel>
+          <ProcedureVariableId>280</ProcedureVariableId>
+          <ProcedureId>1</ProcedureId>
+          <Name>RX_Freq</Name>
+          <Title>RX Frequency</Title>
+          <Value>0</Value>
+          <Unit>MHz</Unit>
+          <Min />
+          <Max />
+          <Report>true</Report>
+          <Required>true</Required>
+          <Type>Double</Type>
+          <TypeInput>Output</TypeInput>
+          <Items />
+        </ProcedureVariableViewModel>
+        <ProcedureVariableViewModel>
+          <ProcedureVariableId>281</ProcedureVariableId>
+          <ProcedureId>1</ProcedureId>
+          <Name>RX_IF_Freq</Name>
+          <Title>Frequency RX IF</Title>
+          <Value>0</Value>
+          <Unit>MHz</Unit>
+          <Min />
+          <Max />
+          <Report>true</Report>
+          <Required>true</Required>
+          <Type>Double</Type>
+          <TypeInput>Output</TypeInput>
+          <Items />
+        </ProcedureVariableViewModel>
+        <ProcedureVariableViewModel>
+          <ProcedureVariableId>282</ProcedureVariableId>
+          <ProcedureId>1</ProcedureId>
+          <Name>frm_Freq_Conf_Run</Name>
+          <Title>FormCalibration</Title>
+          <Value>SATSIMconfigRun</Value>
+          <Unit />
+          <Min />
+          <Max />
+          <Report>false</Report>
+          <Required>false</Required>
+          <Type>String</Type>
+          <TypeInput />
+          <Items />
+        </ProcedureVariableViewModel>
+        <ProcedureVariableViewModel>
+          <ProcedureVariableId>283</ProcedureVariableId>
+          <ProcedureId>1</ProcedureId>
+          <Name>Band</Name>
+          <Title>Band</Title>
+          <Value>C</Value>
+          <Unit />
+          <Min />
+          <Max />
+          <Report>true</Report>
+          <Required>true</Required>
+          <Type>String</Type>
+          <TypeInput>Input</TypeInput>
+          <Items />
+        </ProcedureVariableViewModel>
+        <ProcedureVariableViewModel>
+          <ProcedureVariableId>284</ProcedureVariableId>
+          <ProcedureId>1</ProcedureId>
+          <Name>Mute</Name>
+          <Title>Mute</Title>
+          <Value>true</Value>
+          <Unit />
+          <Min />
+          <Max />
+          <Report>true</Report>
+          <Required>true</Required>
+          <Type>Boolean</Type>
+          <TypeInput>Input</TypeInput>
+          <Items />
+        </ProcedureVariableViewModel>
+        <ProcedureVariableViewModel>
+          <ProcedureVariableId>285</ProcedureVariableId>
+          <ProcedureId>1</ProcedureId>
+          <Name>IN_Freq</Name>
+          <Title>SAT-SIM Frequency In</Title>
+          <Value>13500</Value>
+          <Unit>MHz</Unit>
+          <Min />
+          <Max />
+          <Report>true</Report>
+          <Required>true</Required>
+          <Type>Double</Type>
+          <TypeInput>Input</TypeInput>
+          <Items />
+        </ProcedureVariableViewModel>
+        <ProcedureVariableViewModel>
+          <ProcedureVariableId>286</ProcedureVariableId>
+          <ProcedureId>1</ProcedureId>
+          <Name>Out_Freq</Name>
+          <Title>SAT-SIM Frequency Out</Title>
+          <Value>11750</Value>
+          <Unit>MHz</Unit>
+          <Min />
+          <Max />
+          <Report>true</Report>
+          <Required>true</Required>
+          <Type>Double</Type>
+          <TypeInput>Input</TypeInput>
+          <Items />
+        </ProcedureVariableViewModel>
+        <ProcedureVariableViewModel>
+          <ProcedureVariableId>287</ProcedureVariableId>
+          <ProcedureId>1</ProcedureId>
+          <Name>Att_In</Name>
+          <Title>Attenuator In</Title>
+          <Value>0</Value>
+          <Unit>dB</Unit>
+          <Min>0</Min>
+          <Max>30</Max>
+          <Report>true</Report>
+          <Required>true</Required>
+          <Type>Double</Type>
+          <TypeInput>Input</TypeInput>
+          <Items />
+        </ProcedureVariableViewModel>
+        <ProcedureVariableViewModel>
+          <ProcedureVariableId>288</ProcedureVariableId>
+          <ProcedureId>1</ProcedureId>
+          <Name>Att_Out</Name>
+          <Title>Attenuator Out</Title>
+          <Value>0</Value>
+          <Unit>dB</Unit>
+          <Min>0</Min>
+          <Max>30</Max>
+          <Report>true</Report>
+          <Required>true</Required>
+          <Type>Double</Type>
+          <TypeInput>Input</TypeInput>
+          <Items />
+        </ProcedureVariableViewModel>
+        <ProcedureVariableViewModel>
+          <ProcedureVariableId>289</ProcedureVariableId>
+          <ProcedureId>1</ProcedureId>
+          <Name>frm_Graphic</Name>
+          <Title>FormCalibration</Title>
+          <Value>PowerGraphForm</Value>
+          <Unit />
+          <Min />
+          <Max />
+          <Report>false</Report>
+          <Required>false</Required>
+          <Type>String</Type>
+          <TypeInput />
+          <Items />
+        </ProcedureVariableViewModel>
+        <ProcedureVariableViewModel>
+          <ProcedureVariableId>290</ProcedureVariableId>
+          <ProcedureId>1</ProcedureId>
+          <Name>TX_Gain</Name>
+          <Title>TX Gain</Title>
+          <Value />
+          <Unit>dBi</Unit>
+          <Min />
+          <Max />
+          <Report>true</Report>
+          <Required>false</Required>
+          <Type>Double</Type>
+          <TypeInput>Input</TypeInput>
+          <Items />
+        </ProcedureVariableViewModel>
+        <ProcedureVariableViewModel>
+          <ProcedureVariableId>291</ProcedureVariableId>
+          <ProcedureId>1</ProcedureId>
+          <Name>RX_Gain</Name>
+          <Title>RX Gain</Title>
+          <Value />
+          <Unit>dBi</Unit>
+          <Min />
+          <Max />
+          <Report>true</Report>
+          <Required>false</Required>
+          <Type>Double</Type>
+          <TypeInput>Input</TypeInput>
+          <Items />
+        </ProcedureVariableViewModel>
+        <ProcedureVariableViewModel>
+          <ProcedureVariableId>292</ProcedureVariableId>
+          <ProcedureId>1</ProcedureId>
+          <Name>BUC_Power</Name>
+          <Title>TX Power</Title>
+          <Value />
+          <Unit>dBm</Unit>
+          <Min />
+          <Max />
+          <Report>true</Report>
+          <Required>false</Required>
+          <Type>Double</Type>
+          <TypeInput>Input</TypeInput>
+          <Items />
+        </ProcedureVariableViewModel>
+        <ProcedureVariableViewModel>
+          <ProcedureVariableId>293</ProcedureVariableId>
+          <ProcedureId>1</ProcedureId>
+          <Name>f_up</Name>
+          <Title>N/A</Title>
+          <Value>0</Value>
+          <Unit>MHz</Unit>
+          <Min>1000</Min>
+          <Max>30000</Max>
+          <Report>false</Report>
+          <Required>true</Required>
+          <Type>Double</Type>
+          <TypeInput>Input</TypeInput>
+          <Items />
+        </ProcedureVariableViewModel>
+        <ProcedureVariableViewModel>
+          <ProcedureVariableId>294</ProcedureVariableId>
+          <ProcedureId>1</ProcedureId>
+          <Name>f_down</Name>
+          <Title>N/A</Title>
+          <Value>0</Value>
+          <Unit>MHz</Unit>
+          <Min>1000</Min>
+          <Max>30000</Max>
+          <Report>false</Report>
+          <Required>true</Required>
+          <Type>Double</Type>
+          <TypeInput>Input</TypeInput>
+          <Items />
+        </ProcedureVariableViewModel>
+      </Variables>
+      <Description />
+      <Id>2026-1</Id>
+      <ProcedureId>1</ProcedureId>
+      <UserId>0</UserId>
+      <DateCreate>0001-01-01T00:00:00</DateCreate>
+      <DateUpdate>0001-01-01T00:00:00</DateUpdate>
+      <Type>1</Type>
+      <CurrentStep>0</CurrentStep>
+      <Subject>Verify RX</Subject>
+      <MetaData>{}</MetaData>
+      <Version>1.0.0</Version>
+      <Category />
+      <Duration />
+      <DUTIds>
+        <int>1</int>
+      </DUTIds>
+      <DUTName>SatSim;Dso3254a;ETL</DUTName>
+      <DUTNames>SatSim</DUTNames>
+      <DUTModels>Dso3254a</DUTModels>
+      <DUTBrand>ETL</DUTBrand>
+      <StartTime>0001-01-01T00:00:00</StartTime>
+      <EndTime>0001-01-01T00:00:00</EndTime>
+      <Percent>0</Percent>
+      <Status>0</Status>
+      <ReportName>443353f</ReportName>
+      <ReportDate />
+      <ReportOutputPath>D:\Users\tesst</ReportOutputPath>
+      <ExportPDF>true</ExportPDF>
+    </TemplateViewModel>
+  </Procedures>
+</FileExtensionInputViewModel>

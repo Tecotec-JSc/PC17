@@ -1,0 +1,9 @@
+# Khai báo các tham số đầu vào kèm đơn vị và khoảng giá trị {Min; Max}
+INPUT: Ptx (dBm) {0; 100}, Lant (dB) {0; 20}, Gtx_ant (dBi) {0; 100}, Grx_Sat (dBi) {0; 50}, LSat (dB) {0; 200}, Gtx_Sat (dBi) {0; 50}, Grx_ant (dBi) {0; 100}, Pr (dBm) {-150; 0}, fup (MHz) {1000; 30000}, fdown (MHz) {1000; 30000}
+
+# Công thức tính toán trung gian (sử dụng log10 và lũy thừa ^)
+X = Ptx - Lant + Gtx_ant + Grx_Sat - LSat + Gtx_Sat + Grx_ant - Pr - 64.88 - 20 * log10(fup) - 20 * log10(fdown)
+Distance = 10 ^ (X / 40.0)
+
+# Khai báo tham số đầu ra kết quả kèm đơn vị và khoảng giá trị {Min; Max}
+OUTPUT: Distance (km) {0; 100000}

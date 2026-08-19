@@ -1,0 +1,71 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="StepDefault\cc.cs" />
+    <Compile Remove="StepDefault\cc.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="StepDefault\cc.resx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="LibreOfficeLibrary" Version="1.0.7" />
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.4022.49" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\T3ACS.Controls\T3ACS.Controls.csproj" />
+    <ProjectReference Include="..\T3ACS.Model\T3ACS.Model.csproj" />
+    <ProjectReference Include="..\T3ACS.Service\T3ACS.Service.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="CreateStep\FormCreateCalculate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="CreateStep\FormCreateDefault.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="CreateStep\FormCreateReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FormDUTManager.cs" />
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="StepDefault\FormEvaluateCorrection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="StepDefault\FormEvaluateCalculation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="StepDefault\FormEvaluateReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="StepDefault\FormEvaluateReview.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="StepDefault\FormEvaluateParameter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>

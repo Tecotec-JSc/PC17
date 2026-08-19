@@ -1,0 +1,42 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\T3.Configuration\T3.Configuration.csproj" />
+    <ProjectReference Include="..\T3ACS.Model\T3ACS.Model.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="SelectCustoms\FormPopUpMultiAdd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="SelectCustoms\ItemCheckBoxSelect.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Table\RowDUT.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Table\RowDefaultRUN.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Table\RowDefaultVariable.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Table\RowVariableDUT.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Table\TableDefaultRUN.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Table\TableDefaultVariable.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Table\TableVariableDUT.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+  </ItemGroup>
+</Project>

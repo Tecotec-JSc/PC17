@@ -1,0 +1,64 @@
+{
+  "Variables": [
+    {
+      "Name": "CenterFreq",
+      "Title": "Center Frequency",
+      "Value": "1 GHz",
+      "Unit": "Hz",
+      "Min": 1,
+      "Max": 4400000000,
+      "Type": "Double",
+      "TypeImport": "Input",
+      "Required": true,
+      "Report": true
+    },
+    {
+      "Name": "SpanFreq",
+      "Title": "Span Frequency",
+      "Value": "10 MHz",
+      "Unit": "Hz",
+      "Min": 1000,
+      "Max": 4400000000,
+      "Type": "Double",
+      "TypeImport": "Input",
+      "Required": true,
+      "Report": true
+    },
+    {
+      "Name": "RBW",
+      "Title": "RBW",
+      "Value": "100 kHz",
+      "Unit": "Hz",
+      "Min": 1,
+      "Max": 300000000,
+      "Type": "Double",
+      "TypeImport": "Input",
+      "Required": true,
+      "Report": true
+    },
+    {
+      "Name": "OBWEnabled",
+      "Title": "OBW Enabled",
+      "Value": "False",
+      "Unit": "",
+      "Min": 0,
+      "Max": 0,
+      "Type": "Boolean",
+      "TypeImport": "Input",
+      "Required": true,
+      "Report": true
+    },
+    {
+      "Name": "OBWPercent",
+      "Title": "OBW Percent",
+      "Value": "99",
+      "Unit": "%",
+      "Min": 0,
+      "Max": 100,
+      "Type": "Double",
+      "TypeImport": "Input",
+      "Required": true,
+      "Report": true
+    }
+  ]
+}

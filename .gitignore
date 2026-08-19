@@ -1,0 +1,19 @@
+# ==========================================================
+# .gitignore gốc cho repository PC17
+# ==========================================================
+
+# Build output .NET
+[Bb]in/
+[Oo]bj/
+[Oo]ut/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# Cache trình duyệt WebView2 (rác)
+**/*.WebView2/
+
+# Native runtimes sinh ra khi build
+**/bin/**/runtimes/

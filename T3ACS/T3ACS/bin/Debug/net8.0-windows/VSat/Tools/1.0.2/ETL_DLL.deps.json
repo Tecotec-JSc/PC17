@@ -1,0 +1,39 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "ETL_DLL/1.0.0": {
+        "dependencies": {
+          "ETL_FUNCTION": "1.0.0"
+        },
+        "runtime": {
+          "ETL_DLL.dll": {}
+        }
+      },
+      "ETL_FUNCTION/1.0.0": {
+        "runtime": {
+          "ETL_FUNCTION.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "ETL_DLL/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "ETL_FUNCTION/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

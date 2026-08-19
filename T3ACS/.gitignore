@@ -1,0 +1,183 @@
+## ==========================================================
+## Visual Studio / .NET
+## ==========================================================
+
+# ----------------------------------------------------------
+# User-specific files
+# ----------------------------------------------------------
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.userprefs
+mono_crash.*
+
+# ----------------------------------------------------------
+# Build folders
+# ----------------------------------------------------------
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Oo]ut/
+[Ll]og/
+[Ll]ogs/
+
+# Re-include bin so selected resources can be tracked
+!**/bin/
+!**/bin/**/
+
+# Loại bỏ rác build nặng nằm trong bin (không phải resource cần theo dõi):
+# cache trình duyệt WebView2 và thư mục native runtimes
+**/*.WebView2/
+**/bin/**/runtimes/
+
+# ----------------------------------------------------------
+# Visual Studio
+# ----------------------------------------------------------
+.vs/
+Generated\ Files/
+
+# ----------------------------------------------------------
+# Test / Benchmark
+# ----------------------------------------------------------
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+BenchmarkDotNet.Artifacts/
+
+# ----------------------------------------------------------
+# NuGet
+# ----------------------------------------------------------
+*.nupkg
+*.snupkg
+**/[Pp]ackages/*
+!**/[Pp]ackages/build/
+
+# ----------------------------------------------------------
+# Node / Python
+# ----------------------------------------------------------
+node_modules/
+__pycache__/
+*.pyc
+
+# ----------------------------------------------------------
+# Build generated files
+# ----------------------------------------------------------
+*.ilk
+*.meta
+*.obj
+*.iobj
+*.pch
+*.pdb
+*.ipdb
+*.pgc
+*.pgd
+*.rsp
+*.sbr
+*.tlb
+*.tli
+*.tlh
+*.tmp
+*.tmp_proj
+*.cache
+*.binlog
+*.coverage
+*.coveragexml
+*.log
+
+# ----------------------------------------------------------
+# Database
+# ----------------------------------------------------------
+*.mdf
+*.ldf
+*.ndf
+
+## ==========================================================
+## Project build outputs
+## ==========================================================
+
+# Project assemblies
+T3.CallDevices/bin/**/T3.CallDevices.*
+T3.Configuration/bin/**/T3.Configuration.*
+
+T3ACS.Controls/bin/**/T3ACS.Controls.*
+T3ACS.Controls/bin/**/T3ACS.Data.*
+T3ACS.Controls/bin/**/T3ACS.Model.*
+T3ACS.Controls/bin/**/T3ACS.Util.*
+T3ACS.Controls/bin/**/T3.Configuration.*
+
+T3ACS.Data/bin/**/T3ACS.Data.*
+T3ACS.Data/bin/**/T3.Configuration.*
+
+T3ACS.Model/bin/**/T3ACS.Model.*
+T3ACS.Model/bin/**/T3ACS.Data.*
+T3ACS.Model/bin/**/T3ACS.Util.*
+T3ACS.Model/bin/**/T3.Configuration.*
+
+T3ACS.Util/bin/**/T3ACS.Util.*
+
+T3ACS/bin/**/T3ACS.*
+T3ACS/bin/**/T3.CallDevices.*
+T3ACS/bin/**/T3.Configuration.*
+T3ACS/bin/**/T3.ServerHost.*
+
+T3.ServerHost/bin/**/*
+
+## ==========================================================
+## Ignore generated build outputs
+## ==========================================================
+
+# Resource assemblies
+**/bin/**/*.resources.dll
+
+# Runtime
+**/bin/**/*.runtimeconfig.json
+**/bin/**/*.deps.json
+**/bin/**/*.pdb
+
+# Platform folders
+**/bin/**/x64/
+**/bin/**/x86/
+
+# Generated data
+**/bin/**/SpectrumData/
+
+# Generated logs
+**/bin/**/CrashLog*.txt
+**/bin/**/browser_log.txt
+**/bin/**/control_hierarchy.txt
+
+# Setup output
+T3ACS-SW/Debug/
+
+## ==========================================================
+## Keep required resources (must be committed)
+## ==========================================================
+
+# Configuration
+!**/bin/**/Configuration.xml
+
+# Excel template
+!**/bin/**/TemplateExcel.xlsx
+
+# Images
+!**/bin/**/Image/**
+
+# VSat resources
+!**/bin/**/VSat/**
+<<<<<<< HEAD
+/browser_log.txt
+/control_hierarchy.txt
+=======
+
+!**/bin/**/T3.db
+>>>>>>> a9d56576879db3f5b9dc78c1a3e51b76a070b19b
