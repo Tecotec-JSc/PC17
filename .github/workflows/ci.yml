@@ -1,0 +1,380 @@
+name: PC17 CI
+
+on:
+  push:
+    branches-ignore:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      skip_build:
+        description: 'Bỏ qua build'
+        type: boolean
+        default: false
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref_name }}
+  cancel-in-progress: true
+
+env:
+  DOTNET_VERSION:   "8.0.x"
+  SOLUTION_PATH:    "T3ACS/T3ACS.sln"
+  PROJECT_PATH:     "T3ACS/T3ACS/T3ACS.csproj"
+  TEST_PATH:        "T3ACS/T3ACS.Tests/T3ACS.Tests.csproj"
+  INT_TEST_PATH:    "T3ACS/T3ACS.IntegrationTests/T3ACS.IntegrationTests.csproj"
+  UI_TEST_PATH:     "T3ACS/T3ACS.UITests/T3ACS.UITests.csproj"
+
+jobs:
+  # ═══════════════════════════════════════════════════════════════
+  # JOB 0: Skip Check
+  # ═══════════════════════════════════════════════════════════════
+  skip-check:
+    name: Skip Check
+    runs-on: windows-latest
+    outputs:
+      no_ci:                ${{ steps.check.outputs.no_ci }}
+      no_build:             ${{ steps.check.outputs.no_build }}
+      short_sha:            ${{ steps.check.outputs.short_sha }}
+      actor:                ${{ steps.check.outputs.actor }}
+      has_tests:            ${{ steps.check.outputs.has_tests }}
+      has_integration_tests: ${{ steps.check.outputs.has_integration_tests }}
+      has_ui_tests:         ${{ steps.check.outputs.has_ui_tests }}
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Show GitHub context
+        shell: pwsh
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: Write-Host $env:GITHUB_CONTEXT
+
+      - name: Read commit message & set flags
+        id: check
+        shell: pwsh
+        run: |
+          $msg      = git log -1 --pretty=%B
+          $shortSha = git rev-parse --short HEAD
+          Write-Host "Commit: $msg"
+
+          "short_sha=$shortSha"         | Out-File $env:GITHUB_OUTPUT -Append
+          "actor=${{ github.actor }}"   | Out-File $env:GITHUB_OUTPUT -Append
+
+          if ($msg -match "no-ci") {
+            Write-Host "no-ci — dừng pipeline"
+            "no_ci=true" | Out-File $env:GITHUB_OUTPUT -Append
+          } else {
+            "no_ci=false" | Out-File $env:GITHUB_OUTPUT -Append
+          }
+
+          $skipBuild = "${{ inputs.skip_build }}" -eq "true" -or $msg -match "no-build"
+          if ($skipBuild) {
+            Write-Host "no-build — bỏ qua build"
+            "no_build=true" | Out-File $env:GITHUB_OUTPUT -Append
+          } else {
+            "no_build=false" | Out-File $env:GITHUB_OUTPUT -Append
+          }
+
+          # Kiểm tra từng test project có tồn tại trong checkout không
+          $flags = @{
+            "has_tests"             = "${{ env.TEST_PATH }}"
+            "has_integration_tests" = "${{ env.INT_TEST_PATH }}"
+            "has_ui_tests"          = "${{ env.UI_TEST_PATH }}"
+          }
+          foreach ($key in $flags.Keys) {
+            if (Test-Path $flags[$key]) {
+              Write-Host "$key = true ($($flags[$key]))"
+              "$key=true" | Out-File $env:GITHUB_OUTPUT -Append
+            } else {
+              Write-Host "$key = false (không tìm thấy $($flags[$key]))"
+              "$key=false" | Out-File $env:GITHUB_OUTPUT -Append
+            }
+          }
+
+  # ═══════════════════════════════════════════════════════════════
+  # JOB 1: Unit Tests
+  # ═══════════════════════════════════════════════════════════════
+  test:
+    name: Unit Tests
+    runs-on: windows-latest
+    needs: skip-check
+    if: |
+      needs.skip-check.outputs.no_ci    != 'true' &&
+      needs.skip-check.outputs.no_build != 'true' &&
+      needs.skip-check.outputs.has_tests == 'true'
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Cache NuGet packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.nuget/packages
+          key: nuget-${{ runner.os }}-${{ hashFiles('**/*.csproj', '**/packages.config') }}
+          restore-keys: nuget-${{ runner.os }}-
+
+      - name: Run unit tests
+        shell: pwsh
+        run: |
+          dotnet test ${{ env.TEST_PATH }} `
+            --configuration Release `
+            --logger "trx;LogFileName=unit-test-results.trx" `
+            --results-directory ./test-results
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: unit-test-results
+          path: ./test-results/*.trx
+
+  # ═══════════════════════════════════════════════════════════════
+  # JOB 2: Integration Tests
+  # Chạy song song với build — không cần EXE đã publish
+  # ═══════════════════════════════════════════════════════════════
+  integration-test:
+    name: Integration Tests
+    runs-on: windows-latest
+    needs: skip-check
+    if: |
+      needs.skip-check.outputs.no_ci                != 'true' &&
+      needs.skip-check.outputs.no_build             != 'true' &&
+      needs.skip-check.outputs.has_integration_tests == 'true'
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Cache NuGet packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.nuget/packages
+          key: nuget-${{ runner.os }}-${{ hashFiles('**/*.csproj', '**/packages.config') }}
+          restore-keys: nuget-${{ runner.os }}-
+
+      - name: Run integration tests
+        shell: pwsh
+        run: |
+          dotnet test ${{ env.INT_TEST_PATH }} `
+            --configuration Release `
+            --logger "trx;LogFileName=integration-test-results.trx" `
+            --results-directory ./test-results
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: integration-test-results
+          path: ./test-results/*.trx
+
+  # ═══════════════════════════════════════════════════════════════
+  # JOB 3: Build Windows EXE
+  # ═══════════════════════════════════════════════════════════════
+  build:
+    name: Build Windows EXE
+    runs-on: windows-latest
+    needs: [skip-check]
+    if: |
+      needs.skip-check.outputs.no_ci    != 'true' &&
+      needs.skip-check.outputs.no_build != 'true'
+    outputs:
+      artifact_name: ${{ steps.meta.outputs.artifact_name }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Cache NuGet packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.nuget/packages
+          key: nuget-${{ runner.os }}-${{ hashFiles('**/*.csproj', '**/packages.config') }}
+          restore-keys: nuget-${{ runner.os }}-
+
+      - name: Restore dependencies
+        shell: pwsh
+        run: dotnet restore ${{ env.SOLUTION_PATH }}
+
+      - name: Check for vulnerable packages
+        shell: pwsh
+        run: dotnet list ${{ env.PROJECT_PATH }} package --vulnerable --include-transitive
+
+      - name: Publish self-contained EXE
+        shell: pwsh
+        run: |
+          $version = "1.0.${{ github.run_number }}.0"
+          dotnet publish ${{ env.PROJECT_PATH }} `
+            --configuration Release `
+            --runtime win-x64 `
+            --self-contained true `
+            -p:PublishSingleFile=true `
+            -p:EnableCompressionInSingleFile=true `
+            -p:AssemblyVersion=$version `
+            -p:FileVersion=$version `
+            --output publish/ `
+            2>&1 | Tee-Object build-output.txt
+
+      - name: Set artifact metadata
+        id: meta
+        shell: pwsh
+        run: |
+          $short  = "${{ needs.skip-check.outputs.short_sha }}"
+          $branch = "${{ github.ref_name }}" -replace "/", "-"
+          $name   = "PC17-${branch}-${short}"
+          "artifact_name=$name" | Out-File $env:GITHUB_OUTPUT -Append
+
+      - name: Upload EXE artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.meta.outputs.artifact_name }}
+          path: publish/
+          retention-days: 14
+
+      - name: Upload build log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-log
+          path: build-output.txt
+
+      - name: Write Step Summary
+        if: always()
+        shell: pwsh
+        run: |
+          $short    = "${{ needs.skip-check.outputs.short_sha }}"
+          $artifact = "${{ steps.meta.outputs.artifact_name }}"
+          $version  = "1.0.${{ github.run_number }}.0"
+          @"
+          ## 🏗️ Build Result
+
+          | | |
+          |---|---|
+          | Branch   | ``${{ github.ref_name }}`` |
+          | Commit   | ``$short`` |
+          | Actor    | ``${{ needs.skip-check.outputs.actor }}`` |
+          | Artifact | ``$artifact`` |
+          | Version  | ``$version`` |
+          | Runtime  | win-x64 self-contained |
+          | Retention | 14 ngày |
+          "@ | Out-File $env:GITHUB_STEP_SUMMARY -Append
+
+  # ═══════════════════════════════════════════════════════════════
+  # JOB 4: UI Automation Tests (FlaUI)
+  # Chạy SAU build — cần EXE đã được publish
+  # ═══════════════════════════════════════════════════════════════
+  ui-test:
+    name: UI Automation Tests
+    runs-on: windows-latest
+    needs: [skip-check, build]
+    if: |
+      needs.skip-check.outputs.no_ci    != 'true'  &&
+      needs.skip-check.outputs.no_build != 'true'  &&
+      needs.skip-check.outputs.has_ui_tests == 'true' &&
+      needs.build.result == 'success'
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Cache NuGet packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.nuget/packages
+          key: nuget-${{ runner.os }}-${{ hashFiles('**/*.csproj', '**/packages.config') }}
+          restore-keys: nuget-${{ runner.os }}-
+
+      - name: Download EXE artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ needs.build.outputs.artifact_name }}
+          path: ./app
+
+      - name: Run UI automation tests
+        env:
+          T3ACS_EXE_PATH: ${{ github.workspace }}\app\T3ACS.exe
+        shell: pwsh
+        run: |
+          dotnet test ${{ env.UI_TEST_PATH }} `
+            --configuration Release `
+            --logger "trx;LogFileName=ui-test-results.trx" `
+            --results-directory ./test-results
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ui-test-results
+          path: ./test-results/*.trx
+
+  # ═══════════════════════════════════════════════════════════════
+  # JOB 5: Pipeline Summary — luôn chạy
+  # ═══════════════════════════════════════════════════════════════
+  report:
+    name: Pipeline Summary
+    runs-on: windows-latest
+    needs: [skip-check, test, integration-test, build, ui-test]
+    if: always() && needs.skip-check.outputs.no_ci != 'true'
+
+    steps:
+      - name: Write final summary
+        shell: pwsh
+        run: |
+          $buildResult       = "${{ needs.build.result }}"
+          $testResult        = "${{ needs.test.result }}"
+          $integrationResult = "${{ needs.integration-test.result }}"
+          $uiResult          = "${{ needs.ui-test.result }}"
+          $artifact          = "${{ needs.build.outputs.artifact_name }}"
+          $short             = "${{ needs.skip-check.outputs.short_sha }}"
+
+          $allPassed = ($buildResult -eq "success") -and
+                       ($testResult        -eq "success" -or $testResult        -eq "skipped") -and
+                       ($integrationResult -eq "success" -or $integrationResult -eq "skipped") -and
+                       ($uiResult          -eq "success" -or $uiResult          -eq "skipped")
+
+          $overall = if ($allPassed) { "✅ PASSED" } else { "❌ FAILED" }
+
+          $badge = @{
+            "success" = "✅ success"
+            "failure" = "❌ failed"
+            "skipped" = "⏭️ skipped"
+          }
+
+          @"
+          ---
+          ## $overall — PC17 Pipeline
+
+          | Job | Kết quả |
+          |-----|---------|
+          | Unit Tests        | $($badge[$testResult]        ?? "⚠️ $testResult") |
+          | Integration Tests | $($badge[$integrationResult] ?? "⚠️ $integrationResult") |
+          | UI Automation     | $($badge[$uiResult]          ?? "⚠️ $uiResult") |
+          | Build Windows EXE | $($badge[$buildResult]       ?? "⚠️ $buildResult") |
+
+          **Artifact:** ``$artifact``
+          **Commit:** ``$short`` by ``${{ needs.skip-check.outputs.actor }}``
+          **Branch:** ``${{ github.ref_name }}``
+
+          ### Tải EXE
+          > Actions tab → chọn run này → kéo xuống **Artifacts** → tải ``$artifact``
+          "@ | Out-File $env:GITHUB_STEP_SUMMARY -Append
