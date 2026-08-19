@@ -32,9 +32,34 @@ namespace T3ACS.UITests.Core
         {
             var automation = new UIA3Automation();
             var app = Application.Launch(exePath);
-            var mainWindow = app.GetMainWindow(automation, TimeSpan.FromSeconds(30));
-            Thread.Sleep(1000); // let the main window finish laying out before driving it
 
+            // Poll cho đến khi FormMain xuất hiện (AutomationId = "FormMain")
+            // App hiển thị FormLoadScreen ~5 giây trước FormMain, nên không thể
+            // dùng GetMainWindow() trực tiếp vì nó trả về window đầu tiên (loading screen)
+            AutomationElement mainWindow = null;
+            var deadline = DateTime.UtcNow.AddSeconds(30);
+            while (DateTime.UtcNow < deadline && mainWindow == null)
+            {
+                Thread.Sleep(500);
+                try
+                {
+                    foreach (var w in app.GetAllTopLevelWindows(automation))
+                    {
+                        if (w.AutomationId == "FormMain")
+                        {
+                            mainWindow = w;
+                            break;
+                        }
+                    }
+                }
+                catch { /* process đang khởi động — bỏ qua lỗi tạm thời */ }
+            }
+
+            // Fallback: nếu không tìm thấy FormMain sau 30 giây, lấy window hiện tại
+            if (mainWindow == null)
+                mainWindow = app.GetMainWindow(automation, TimeSpan.FromSeconds(5));
+
+            Thread.Sleep(1000); // đợi layout FormMain render xong
             var session = new T3AcsSession(app, automation, mainWindow, new Screenshotter(shotsDir, testName));
             session.Shots.Take(mainWindow, "app-started");
             return session;
