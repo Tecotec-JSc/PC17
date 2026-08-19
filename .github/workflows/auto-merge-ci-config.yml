@@ -35,8 +35,8 @@ jobs:
           echo "Files changed:"
           echo "$CHANGED"
 
-          # Lọc ra file không phải .github/workflows/
-          NON_CI=$(echo "$CHANGED" | grep -v "^\.github/workflows/" | grep -v "^$" || true)
+          # Lọc ra file không phải .github/workflows/ hoặc .github/actions/
+          NON_CI=$(echo "$CHANGED" | grep -v "^\.github/workflows/" | grep -v "^\.github/actions/" | grep -v "^$" || true)
 
           if [ -z "$CHANGED" ]; then
             echo "Không có file thay đổi so với main — skip"
