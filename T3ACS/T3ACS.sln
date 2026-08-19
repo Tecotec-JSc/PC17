@@ -23,8 +23,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "T3.ServerHost", "T3.ServerH
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "T3ACS.Service", "T3ACS.Service\T3ACS.Service.csproj", "{2E2E406B-7F1E-4D52-B3B4-39E29E1A0B3F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "T3ACS.Tests", "T3ACS.Tests\T3ACS.Tests.csproj", "{AC892864-CBCB-4730-8F61-6CAC5BBCF178}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,10 +67,6 @@ Global
 		{2E2E406B-7F1E-4D52-B3B4-39E29E1A0B3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2E2E406B-7F1E-4D52-B3B4-39E29E1A0B3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2E2E406B-7F1E-4D52-B3B4-39E29E1A0B3F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AC892864-CBCB-4730-8F61-6CAC5BBCF178}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AC892864-CBCB-4730-8F61-6CAC5BBCF178}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AC892864-CBCB-4730-8F61-6CAC5BBCF178}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AC892864-CBCB-4730-8F61-6CAC5BBCF178}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
