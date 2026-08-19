@@ -310,9 +310,16 @@ jobs:
           name: ${{ needs.build.outputs.artifact_name }}
           path: ./app
 
+      - name: Copy seed database vào thư mục app
+        shell: pwsh
+        run: |
+          # T3.db phải tồn tại trong app dir trước khi test chạy
+          # TestDataSeeder đọc DUT từ DB này, sau đó tự seed template
+          Copy-Item "T3ACS\T3ACS.UITests\SeedData\T3.db" -Destination "app\T3.db"
+
       - name: Run UI automation tests
         env:
-          T3ACS_EXE_PATH: ${{ github.workspace }}\app\T3ACS.exe
+          T3ACS_UI_TEST_APP_DIR: ${{ github.workspace }}\app
         shell: pwsh
         run: |
           dotnet test ${{ env.UI_TEST_PATH }} `
@@ -326,6 +333,14 @@ jobs:
         with:
           name: ui-test-results
           path: ./test-results/*.trx
+
+      - name: Upload screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ui-test-screenshots
+          path: ./app/_screens/
+          if-no-files-found: ignore
 
   # ═══════════════════════════════════════════════════════════════
   # JOB 5: Pipeline Summary — luôn chạy
