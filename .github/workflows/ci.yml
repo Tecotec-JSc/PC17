@@ -119,8 +119,16 @@ jobs:
       - name: Get changed .cs files
         id: changed
         shell: pwsh
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
         run: |
-          $files = git diff --name-only HEAD~1 HEAD | Where-Object { $_ -match "\.cs$" }
+          # Lấy base SHA để diff đúng cho cả push lẫn PR
+          $base = $env:BASE_SHA
+          $head = $env:HEAD_SHA
+          Write-Host "Base: $base | Head: $head"
+
+          $files = git diff --name-only $base $head | Where-Object { $_ -match "\.cs$" }
           if (-not $files) {
             Write-Host "Khong co file .cs nao thay doi - skip convention"
             "has_changes=false" | Out-File $env:GITHUB_OUTPUT -Append
