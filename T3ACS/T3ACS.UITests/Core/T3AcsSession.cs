@@ -17,13 +17,15 @@ namespace T3ACS.UITests.Core
         public UIA3Automation Automation { get; }
         public AutomationElement MainWindow { get; }
         public Screenshotter Shots { get; }
+        private readonly string _testName;
 
-        private T3AcsSession(Application app, UIA3Automation automation, AutomationElement mainWindow, Screenshotter shots)
+        private T3AcsSession(Application app, UIA3Automation automation, AutomationElement mainWindow, Screenshotter shots, string testName)
         {
             App = app;
             Automation = automation;
             MainWindow = mainWindow;
             Shots = shots;
+            _testName = testName;
         }
 
         /// <summary>testName namespaces this run's screenshots (see Screenshotter) - pass the
@@ -60,7 +62,9 @@ namespace T3ACS.UITests.Core
                 mainWindow = app.GetMainWindow(automation, TimeSpan.FromSeconds(5));
 
             Thread.Sleep(1000); // đợi layout FormMain render xong
-            var session = new T3AcsSession(app, automation, mainWindow, new Screenshotter(shotsDir, testName));
+            // In timestamp để đối chiếu với video recording trên CI
+            Console.WriteLine($"[RECORD] {testName} BẮT ĐẦU lúc {DateTime.UtcNow:HH:mm:ss.fff} UTC");
+            var session = new T3AcsSession(app, automation, mainWindow, new Screenshotter(shotsDir, testName), testName);
             session.Shots.Take(mainWindow, "app-started");
             return session;
         }
@@ -75,6 +79,7 @@ namespace T3ACS.UITests.Core
         /// </summary>
         public void Dispose()
         {
+            Console.WriteLine($"[RECORD] {_testName} KẾT THÚC lúc {DateTime.UtcNow:HH:mm:ss.fff} UTC");
             try
             {
                 App.Close();
