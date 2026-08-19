@@ -22,6 +22,7 @@ env:
   DOTNET_VERSION: "8.0.x"
   SOLUTION_PATH: "T3ACS/T3ACS.sln"
   PROJECT_PATH:  "T3ACS/T3ACS/T3ACS.csproj"
+  TEST_PATH:     "T3ACS/T3ACS.Tests/T3ACS.Tests.csproj"
 
 jobs:
   # ═══════════════════════════════════════════════════════════════
@@ -74,12 +75,87 @@ jobs:
           }
 
   # ═══════════════════════════════════════════════════════════════
-  # JOB 1: Build Windows EXE
+  # JOB 1: Format Check
+  # ═══════════════════════════════════════════════════════════════
+  format-check:
+    name: Format Check
+    runs-on: windows-latest
+    needs: skip-check
+    if: needs.skip-check.outputs.no_ci != 'true'
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Cache NuGet packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.nuget/packages
+          key: nuget-${{ runner.os }}-${{ hashFiles('**/*.csproj', '**/packages.config') }}
+          restore-keys: nuget-${{ runner.os }}-
+
+      - name: Restore dependencies
+        shell: pwsh
+        run: dotnet restore ${{ env.SOLUTION_PATH }}
+
+      - name: Check code format
+        shell: pwsh
+        run: dotnet format ${{ env.SOLUTION_PATH }} --verify-no-changes --verbosity diagnostic
+
+  # ═══════════════════════════════════════════════════════════════
+  # JOB 2: Unit Tests
+  # Yêu cầu tạo project T3ACS/T3ACS.Tests trước khi bật job này
+  # ═══════════════════════════════════════════════════════════════
+  test:
+    name: Unit Tests
+    runs-on: windows-latest
+    needs: skip-check
+    if: |
+      needs.skip-check.outputs.no_ci != 'true' &&
+      needs.skip-check.outputs.no_build != 'true'
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Cache NuGet packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.nuget/packages
+          key: nuget-${{ runner.os }}-${{ hashFiles('**/*.csproj', '**/packages.config') }}
+          restore-keys: nuget-${{ runner.os }}-
+
+      - name: Run tests
+        shell: pwsh
+        run: |
+          dotnet test ${{ env.TEST_PATH }} `
+            --configuration Release `
+            --logger "trx;LogFileName=test-results.trx" `
+            --results-directory ./test-results
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: ./test-results/*.trx
+
+  # ═══════════════════════════════════════════════════════════════
+  # JOB 3: Build Windows EXE
+  # Chờ format-check pass trước khi build
   # ═══════════════════════════════════════════════════════════════
   build:
     name: Build Windows EXE
     runs-on: windows-latest
-    needs: skip-check
+    needs: [skip-check, format-check]
     if: |
       needs.skip-check.outputs.no_ci != 'true' &&
       needs.skip-check.outputs.no_build != 'true'
@@ -94,19 +170,33 @@ jobs:
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
+      - name: Cache NuGet packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.nuget/packages
+          key: nuget-${{ runner.os }}-${{ hashFiles('**/*.csproj', '**/packages.config') }}
+          restore-keys: nuget-${{ runner.os }}-
+
       - name: Restore dependencies
         shell: pwsh
         run: dotnet restore ${{ env.SOLUTION_PATH }}
 
+      - name: Check for vulnerable packages
+        shell: pwsh
+        run: dotnet list ${{ env.SOLUTION_PATH }} package --vulnerable --include-transitive
+
       - name: Publish self-contained EXE
         shell: pwsh
         run: |
+          $version = "1.0.${{ github.run_number }}.0"
           dotnet publish ${{ env.PROJECT_PATH }} `
             --configuration Release `
             --runtime win-x64 `
             --self-contained true `
             -p:PublishSingleFile=true `
             -p:EnableCompressionInSingleFile=true `
+            -p:AssemblyVersion=$version `
+            -p:FileVersion=$version `
             --output publish/ `
             2>&1 | Tee-Object build-output.txt
 
@@ -139,6 +229,7 @@ jobs:
         run: |
           $short    = "${{ needs.skip-check.outputs.short_sha }}"
           $artifact = "${{ steps.meta.outputs.artifact_name }}"
+          $version  = "1.0.${{ github.run_number }}.0"
           @"
           ## 🏗️ Build Result
 
@@ -148,38 +239,40 @@ jobs:
           | Commit   | ``$short`` |
           | Actor    | ``${{ needs.skip-check.outputs.actor }}`` |
           | Artifact | ``$artifact`` |
+          | Version  | ``$version`` |
           | Runtime  | win-x64 self-contained |
           | Retention | 14 ngày |
           "@ | Out-File $env:GITHUB_STEP_SUMMARY -Append
 
   # ═══════════════════════════════════════════════════════════════
-  # JOB 2: Pipeline Summary — luôn chạy
+  # JOB 4: Pipeline Summary — luôn chạy
   # ═══════════════════════════════════════════════════════════════
   report:
     name: Pipeline Summary
     runs-on: windows-latest
-    needs: [skip-check, build]
+    needs: [skip-check, format-check, test, build]
     if: always() && needs.skip-check.outputs.no_ci != 'true'
 
     steps:
       - name: Write final summary
         shell: pwsh
         run: |
-          $buildResult = "${{ needs.build.result }}"
-          $artifact    = "${{ needs.build.outputs.artifact_name }}"
-          $short       = "${{ needs.skip-check.outputs.short_sha }}"
+          $buildResult  = "${{ needs.build.result }}"
+          $formatResult = "${{ needs.format-check.result }}"
+          $testResult   = "${{ needs.test.result }}"
+          $artifact     = "${{ needs.build.outputs.artifact_name }}"
+          $short        = "${{ needs.skip-check.outputs.short_sha }}"
 
-          $overall = switch ($buildResult) {
-            "success" { "✅ PASSED" }
-            "failure" { "❌ FAILED" }
-            "skipped" { "⏭️ SKIPPED" }
-            default   { "⚠️ WARNING" }
-          }
+          $allPassed = ($buildResult -eq "success") -and
+                       ($formatResult -eq "success" -or $formatResult -eq "skipped") -and
+                       ($testResult   -eq "success" -or $testResult   -eq "skipped")
 
-          $buildBadge = switch ($buildResult) {
-            "success" { "✅ success" }
-            "skipped" { "⏭️ skipped" }
-            default   { "❌ failed" }
+          $overall = if ($allPassed) { "✅ PASSED" } else { "❌ FAILED" }
+
+          $badge = @{
+            "success" = "✅ success"
+            "failure" = "❌ failed"
+            "skipped" = "⏭️ skipped"
           }
 
           @"
@@ -188,7 +281,9 @@ jobs:
 
           | Job | Kết quả |
           |-----|---------|
-          | Build Windows EXE | $buildBadge |
+          | Format Check      | $($badge[$formatResult] ?? "⚠️ $formatResult") |
+          | Unit Tests        | $($badge[$testResult]   ?? "⚠️ $testResult") |
+          | Build Windows EXE | $($badge[$buildResult]  ?? "⚠️ $buildResult") |
 
           **Artifact:** ``$artifact``
           **Commit:** ``$short`` by ``${{ needs.skip-check.outputs.actor }}``
