@@ -66,7 +66,8 @@ namespace T3ACS.UITests.Screens
             for (int attempt = 0; attempt < 4; attempt++)
             {
                 chooseBtn.Click();
-                var window = WindowFinder.FindWindowByTitle(_session.App, _session.Automation, "Configure your new procedure", TimeSpan.FromSeconds(4));
+                // Tăng timeout lên 10s mỗi lần retry vì dialog mở chậm hơn trên CI
+                var window = WindowFinder.FindWindowByTitle(_session.App, _session.Automation, "Configure your new procedure", TimeSpan.FromSeconds(10));
                 if (window != null)
                 {
                     _session.Shots.Take(window, "configure-procedure-empty");
