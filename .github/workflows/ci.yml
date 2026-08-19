@@ -16,7 +16,8 @@ on:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref_name }}
-  cancel-in-progress: true
+  # false để không hủy UI test đang chạy giữa chừng khi có commit mới
+  cancel-in-progress: false
 
 env:
   DOTNET_VERSION:   "8.0.x"
@@ -186,6 +187,7 @@ jobs:
   build:
     name: Build Windows EXE
     runs-on: windows-latest
+    timeout-minutes: 20
     needs: [skip-check]
     if: |
       needs.skip-check.outputs.no_ci    != 'true' &&
@@ -282,6 +284,7 @@ jobs:
   ui-test:
     name: UI Automation Tests
     runs-on: windows-latest
+    timeout-minutes: 30
     needs: [skip-check, build]
     if: |
       needs.skip-check.outputs.no_ci    != 'true'  &&
@@ -324,7 +327,7 @@ jobs:
           # (T3.Configuration.Registry lưu bằng UTF8Encoding.GetBytes nên phải ghi Binary)
           $keyPath = "HKCU:\SOFTWARE\T3"
           if (-not (Test-Path $keyPath)) { New-Item -Path $keyPath -Force | Out-Null }
-          $bytes = [System.Text.Encoding]::UTF8.GetBytes("AKLYG-G157T-L46ZY-D158S-NRU45")
+          $bytes = [System.Text.Encoding]::UTF8.GetBytes("${{ secrets.T3ACS_LICENSE_KEY }}")
           Set-ItemProperty -Path $keyPath -Name "KeyLicenseT3ACS" -Value $bytes -Type Binary
           Write-Host "Đã ghi KeyLicenseT3ACS ($($bytes.Length) bytes) vào $keyPath"
 
@@ -358,7 +361,7 @@ jobs:
   # ═══════════════════════════════════════════════════════════════
   report:
     name: Pipeline Summary
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     needs: [skip-check, test, integration-test, build, ui-test]
     if: always() && needs.skip-check.outputs.no_ci != 'true'
 
