@@ -324,28 +324,35 @@ jobs:
           if (-not $ffmpegExe) { $ffmpegExe = "C:\ProgramData\chocolatey\bin\ffmpeg.exe" }
           Write-Host "ffmpeg: $ffmpegExe | tồn tại: $(Test-Path $ffmpegExe)"
 
+          # Dùng absolute path để tránh nhầm working directory
+          $recordingPath = "$env:GITHUB_WORKSPACE\ui-test-recording.mp4"
+          $ffmpegLog     = "$env:GITHUB_WORKSPACE\ffmpeg-stderr.log"
+
           # Khởi động recording nếu ffmpeg có sẵn
-          $ffmpegProc  = $null
-          $stderrTask  = $null
+          $ffmpegProc = $null
+          $stderrTask = $null
           if (Test-Path $ffmpegExe) {
             $proc = [System.Diagnostics.Process]::new()
-            $proc.StartInfo.FileName             = $ffmpegExe
-            $proc.StartInfo.Arguments            = "-f gdigrab -framerate 5 -video_size 1920x1080 -i desktop -vf scale=1280:720 -vcodec libx264 -preset ultrafast -pix_fmt yuv420p ui-test-recording.mp4"
-            $proc.StartInfo.UseShellExecute      = $false
+            $proc.StartInfo.FileName               = $ffmpegExe
+            $proc.StartInfo.Arguments              = "-f gdigrab -framerate 5 -video_size 1920x1080 -i desktop -vf scale=1280:720 -vcodec libx264 -preset ultrafast -pix_fmt yuv420p `"$recordingPath`""
+            $proc.StartInfo.UseShellExecute        = $false
             $proc.StartInfo.RedirectStandardInput  = $true
             $proc.StartInfo.RedirectStandardError  = $true
             $proc.Start() | Out-Null
             $stderrTask = $proc.StandardError.ReadToEndAsync()
             Start-Sleep -Seconds 3
             if ($proc.HasExited) {
-              Write-Host "⚠️ ffmpeg thoát ngay (exit $($proc.ExitCode)) — không record:"
-              try { Write-Host $stderrTask.Result } catch {}
+              $stderr = try { $stderrTask.Result } catch { "N/A" }
+              Write-Host "⚠️ ffmpeg thoát ngay (exit $($proc.ExitCode)) — stderr:"
+              Write-Host $stderr
+              $stderr | Out-File $ffmpegLog -Encoding utf8
             } else {
-              Write-Host "✅ ffmpeg đang ghi (PID $($proc.Id))"
+              Write-Host "✅ ffmpeg đang ghi (PID $($proc.Id)) → $recordingPath"
               $ffmpegProc = $proc
             }
           } else {
             Write-Host "⚠️ ffmpeg không tìm thấy — bỏ qua recording"
+            "ffmpeg not found at: $ffmpegExe" | Out-File $ffmpegLog -Encoding utf8
           }
 
           $testExitCode = 0
@@ -361,8 +368,10 @@ jobs:
               # Gửi 'q' để ffmpeg finalize MP4 đúng cách (không bị corrupt)
               try { $ffmpegProc.StandardInput.WriteLine("q"); $ffmpegProc.WaitForExit(15000) } catch {}
               if (-not $ffmpegProc.HasExited) { $ffmpegProc.Kill() }
-              try { Write-Host "ffmpeg log:`n$($stderrTask.Result)" } catch {}
             }
+            # Lưu stderr ra file để upload artifact (dùng để debug)
+            try { $stderrTask.Result | Out-File $ffmpegLog -Encoding utf8 } catch {}
+            Write-Host "Recording file tồn tại: $(Test-Path $recordingPath)"
           }
 
           exit $testExitCode
@@ -380,9 +389,18 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ui-test-recording
-          path: ui-test-recording.mp4
+          path: ${{ github.workspace }}/ui-test-recording.mp4
           if-no-files-found: ignore
           retention-days: 7
+
+      - name: Upload ffmpeg log (debug)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ffmpeg-debug-log
+          path: ${{ github.workspace }}/ffmpeg-stderr.log
+          if-no-files-found: ignore
+          retention-days: 3
 
       - name: Upload screenshots
         if: always()
