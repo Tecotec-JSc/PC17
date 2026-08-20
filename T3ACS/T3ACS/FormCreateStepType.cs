@@ -1,16 +1,5 @@
-﻿using Microsoft.Win32;
-using T3ACS.Model;
+﻿using T3ACS.Model;
 using T3ACS.Util;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace T3ACS
 {
@@ -20,17 +9,17 @@ namespace T3ACS
         {
             InitializeComponent();
         }
-        string pathDll;
-        private void button1_Click(object sender, EventArgs e)
+        private string _pathDll;
+        private void btnCreateStepType_Click(object sender, EventArgs e)
         {
-            FileExtensionInputViewModel EX = new FileExtensionInputViewModel();
-            EX.Category = txtCategory.Text;
-            EX.Name = txtCategory.Text;
-            EX.Type = (int)EnumTypeExtension.StepType;         
-            EX.Version = txtVersion.Text;
-            EX.TypeFrame = 1;
+            FileExtensionInputViewModel ex = new FileExtensionInputViewModel();
+            ex.Category = txtCategory.Text;
+            ex.Name = txtCategory.Text;
+            ex.Type = (int)EnumTypeExtension.StepType;         
+            ex.Version = txtVersion.Text;
+            ex.TypeFrame = 1;
             TemplateViewModel vm = new TemplateViewModel();
-            vm.Subject = txtTieuDe.Text;
+            vm.Subject = txtTitle.Text;
             vm.TableProcedures = new List<TableProcedureViewModel>();
             vm.Variables = new List<ProcedureVariableViewModel>();            
             var strFileName = txtFileName.Text;
@@ -38,7 +27,7 @@ namespace T3ACS
             if (!string.IsNullOrEmpty(strFileDll) && File.Exists(strFileDll))
             {
                 var filename = strFileDll.Substring(strFileDll.LastIndexOf("\\") + 1);
-                pathDll = "\\" + EX.Category + "\\Tools\\" + EX.Version + "\\" + filename;
+                _pathDll = "\\" + ex.Category + "\\Tools\\" + ex.Version + "\\" + filename;
             }
             var strStepType = txtStepType.Text;
             var strLoadViewRun = txtLoadViewRun.Text.Replace("\n","");
@@ -61,7 +50,7 @@ namespace T3ACS
             if (!string.IsNullOrEmpty(strLoadViewRun))
             {
                 ProcedureDetailFunction functionLoadViewRun = new ProcedureDetailFunction();
-                functionLoadViewRun.PathDll = pathDll;
+                functionLoadViewRun.PathDll = _pathDll;
                 functionLoadViewRun.Assembly = strAssembly;
                 functionLoadViewRun.FunctionName = "LoadView";
                 functionLoadViewRun.AssemblyType = strAssemblyType;
@@ -183,7 +172,7 @@ namespace T3ACS
             if (!string.IsNullOrEmpty(strLoadViewCreate))
             {
                 ProcedureDetailFunction functionLoadViewCreate = new ProcedureDetailFunction();
-                functionLoadViewCreate.PathDll = pathDll;
+                functionLoadViewCreate.PathDll = _pathDll;
                 functionLoadViewCreate.Assembly = strAssembly;
                 functionLoadViewCreate.AssemblyType = strAssemblyType;
                 functionLoadViewCreate.FunctionName = "LoadViewCreate";
@@ -325,7 +314,7 @@ namespace T3ACS
             if (!string.IsNullOrEmpty(strSaveData))
             {
                 ProcedureDetailFunction functionLoadSaveData = new ProcedureDetailFunction();
-                functionLoadSaveData.PathDll = pathDll;
+                functionLoadSaveData.PathDll = _pathDll;
                 functionLoadSaveData.Assembly = strAssembly;
                 functionLoadSaveData.FunctionName = "SaveData";
                 functionLoadSaveData.AssemblyType = strAssemblyType;
@@ -447,7 +436,7 @@ namespace T3ACS
             if (!string.IsNullOrEmpty(strSaveDataCreate))
             {
                 ProcedureDetailFunction functionLoadSaveDataCreate = new ProcedureDetailFunction();
-                functionLoadSaveDataCreate.PathDll = pathDll;
+                functionLoadSaveDataCreate.PathDll = _pathDll;
                 functionLoadSaveDataCreate.Assembly = strAssembly;
                 functionLoadSaveDataCreate.FunctionName = "SaveDataCreate";
                 functionLoadSaveDataCreate.AssemblyType = strAssemblyType;
@@ -569,7 +558,7 @@ namespace T3ACS
             if (!string.IsNullOrEmpty(strMonitor))
             {
                 ProcedureDetailFunction functionLoadMonitor = new ProcedureDetailFunction();
-                functionLoadMonitor.PathDll = pathDll;
+                functionLoadMonitor.PathDll = _pathDll;
                 functionLoadMonitor.Assembly = strAssembly;
                 functionLoadMonitor.FunctionName = "Monitor";
                 functionLoadMonitor.AssemblyType = strAssemblyType;
@@ -689,15 +678,15 @@ namespace T3ACS
                 step.Functions.Add(functionLoadMonitor);
             }
             vm.TableProcedures.Add(step);
-            EX.Procedures = new List<TemplateViewModel>() { vm };
+            ex.Procedures = new List<TemplateViewModel>() { vm };
             var filePath = AppDomain.CurrentDomain.BaseDirectory + strFileName + ".xml";
-            FileXML.SaveToXml(EX, filePath);
+            FileXML.SaveToXml(ex, filePath);
             FormNotiAll frm = new FormNotiAll();
             frm.LoadData("notificatoin", "OK", 1);
             frm.ShowDialog();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void btnBrowseDll_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = openFileDialog.Filter = "(*.dll) | *.dll";

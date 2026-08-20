@@ -261,7 +261,7 @@ namespace T3ACS
                         }
                         numberOrder++;
                     }
-                    DUTModel modeldut = new DUTModel();
+                    IDUTModel modeldut = new DUTModel();
                     modeldut.UpdateDUTOption(_dutId, JsonConvert.SerializeObject(lstv));
                 }
                 else if (_step.StepType == "URL Configuration")

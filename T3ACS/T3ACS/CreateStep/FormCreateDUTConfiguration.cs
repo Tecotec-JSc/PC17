@@ -31,7 +31,7 @@ namespace T3ACS.CreateStep
             if (varis == null) varis = new List<ProcedureVariableViewModel>();
             _variableAll = varis.ToList();
             _variable = varis.ToList();
-            DUTModel model = new DUTModel();
+            IDUTModel model = new DUTModel();
             var dut = model.GetByID(dutId);
             List<ProcedureVariableViewModel> vselect = new List<ProcedureVariableViewModel>();
             if (dut.Options != null && dut.Options.Count > 0)

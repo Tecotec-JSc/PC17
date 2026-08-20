@@ -29,48 +29,48 @@ namespace T3ACS
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormAbout));
-            label1 = new Label();
-            ButtonCustom1 = new Controls.Buttons.ButtonCustom();
+            lblCloseIcon = new Label();
+            btnClose = new Controls.Buttons.ButtonCustom();
             SuspendLayout();
             // 
-            // label1
+            // lblCloseIcon
             // 
-            label1.AutoSize = true;
-            label1.BackColor = Color.Transparent;
-            label1.Image = Properties.Resources.ChromeClose;
-            label1.Location = new Point(1886, 4);
-            label1.Name = "label1";
-            label1.Size = new Size(29, 19);
-            label1.TabIndex = 0;
-            label1.Text = "     ";
-            label1.Click += label1_Click;
+            lblCloseIcon.AutoSize = true;
+            lblCloseIcon.BackColor = Color.Transparent;
+            lblCloseIcon.Image = Properties.Resources.ChromeClose;
+            lblCloseIcon.Location = new Point(1886, 4);
+            lblCloseIcon.Name = "lblCloseIcon";
+            lblCloseIcon.Size = new Size(29, 19);
+            lblCloseIcon.TabIndex = 0;
+            lblCloseIcon.Text = "     ";
+            lblCloseIcon.Click += lblCloseIcon_Click;
             // 
-            // ButtonCustom1
+            // btnClose
             // 
-            ButtonCustom1.BackColor = Color.FromArgb(10, 66, 79);
-            ButtonCustom1.BackColorG = Color.FromArgb(10, 66, 79);
-            ButtonCustom1.BorderColorG = Color.FromArgb(48, 100, 112);
-            ButtonCustom1.BorderSize = 1;
-            ButtonCustom1.Font = new Font("Segoe UI", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            ButtonCustom1.FontG = new Font("Segoe UI", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            ButtonCustom1.ForeColor = Color.FromArgb(0, 32, 77);
-            ButtonCustom1.ForeColorG = Color.FromArgb(0, 32, 77);
-            ButtonCustom1.HoverG = false;
-            ButtonCustom1.HoverColor = Color.Empty;
-            ButtonCustom1.iConLocation = new Point(6, 5);
-            ButtonCustom1.ImageAd = (Image)resources.GetObject("ButtonCustom1.ImageAd");
-            ButtonCustom1.Location = new Point(422, 37);
-            ButtonCustom1.Name = "ButtonCustom1";
-            ButtonCustom1.RadiusBottomLeft = 5;
-            ButtonCustom1.RadiusBottomRight = 5;
-            ButtonCustom1.RadiusTopLeft = 5;
-            ButtonCustom1.RadiusTopRight = 5;
-            ButtonCustom1.Size = new Size(28, 28);
-            ButtonCustom1.TabIndex = 1;
-            ButtonCustom1.TextAlign = ContentAlignment.MiddleLeft;
-            ButtonCustom1.TextLocation = new Point(35, 4);
-            ButtonCustom1.Texts = "label2";
-            ButtonCustom1._EventSelect += ButtonCustom1__EventSelect;
+            btnClose.BackColor = Color.FromArgb(10, 66, 79);
+            btnClose.BackColorG = Color.FromArgb(10, 66, 79);
+            btnClose.BorderColorG = Color.FromArgb(48, 100, 112);
+            btnClose.BorderSize = 1;
+            btnClose.Font = new Font("Segoe UI", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnClose.FontG = new Font("Segoe UI", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnClose.ForeColor = Color.FromArgb(0, 32, 77);
+            btnClose.ForeColorG = Color.FromArgb(0, 32, 77);
+            btnClose.HoverG = false;
+            btnClose.HoverColor = Color.Empty;
+            btnClose.iConLocation = new Point(6, 5);
+            btnClose.ImageAd = (Image)resources.GetObject("btnClose.ImageAd");
+            btnClose.Location = new Point(422, 37);
+            btnClose.Name = "btnClose";
+            btnClose.RadiusBottomLeft = 5;
+            btnClose.RadiusBottomRight = 5;
+            btnClose.RadiusTopLeft = 5;
+            btnClose.RadiusTopRight = 5;
+            btnClose.Size = new Size(28, 28);
+            btnClose.TabIndex = 1;
+            btnClose.TextAlign = ContentAlignment.MiddleLeft;
+            btnClose.TextLocation = new Point(35, 4);
+            btnClose.Texts = "label2";
+            btnClose._EventSelect += btnClose__EventSelect;
             // 
             // FormAbout
             // 
@@ -79,8 +79,8 @@ namespace T3ACS
             BackColor = Color.FromArgb(10, 66, 79);
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             ClientSize = new Size(480, 377);
-            Controls.Add(ButtonCustom1);
-            Controls.Add(label1);
+            Controls.Add(btnClose);
+            Controls.Add(lblCloseIcon);
             Font = new Font("Segoe UI", 10.5F);
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(3, 4, 3, 4);
@@ -94,7 +94,7 @@ namespace T3ACS
 
         #endregion
 
-        private Label label1;
-        private Controls.Buttons.ButtonCustom ButtonCustom1;
+        private Label lblCloseIcon;
+        private Controls.Buttons.ButtonCustom btnClose;
     }
 }

@@ -1,13 +1,3 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
 namespace T3ACS
 {
     public partial class FormRunLog : Form
@@ -18,25 +8,26 @@ namespace T3ACS
         }
 
         #region hover control
-        // hover 
-        private Color originalColor;
-        private void UserControl_MouseEnter(object sender, EventArgs e)
-        {
-            if (sender is Label item)
-            {
-                originalColor = item.BackColor;
-                item.BackColor = DarkerColor(originalColor, 0.90f);
-            }
-        }
+        private Color _originalColor;
         public bool _hover;
-        private void UserControl_MouseLeave(object sender, EventArgs e)
+
+        private void lblClose_MouseEnter(object sender, EventArgs e)
         {
             if (sender is Label item)
             {
-                if (originalColor != null)
-                    item.BackColor = originalColor;
+                _originalColor = item.BackColor;
+                item.BackColor = DarkerColor(_originalColor, 0.90f);
             }
         }
+
+        private void lblClose_MouseLeave(object sender, EventArgs e)
+        {
+            if (sender is Label item)
+            {
+                item.BackColor = _originalColor;
+            }
+        }
+
         private Color DarkerColor(Color color, float factor)
         {
             return Color.FromArgb(
@@ -48,21 +39,18 @@ namespace T3ACS
         }
         #endregion
 
-
-
-        private void btnClose_Click_1(object sender, EventArgs e)
+        private void lblClose_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void buttonControl1_btnClick(object sender, EventArgs e)
+        private void btnCancel_btnClick(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void buttonCustomIcon1_btnClick(object sender, EventArgs e)
+        private void btnExportReport_btnClick(object sender, EventArgs e)
         {
-
         }
     }
 }

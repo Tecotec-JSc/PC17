@@ -10,7 +10,7 @@ using System.Xml.Serialization;
 
 namespace T3ACS.Model
 {
-    public class LicenseModel
+    public class LicenseModel : ILicenseModel
     {
         public LicenseModel() { }
         public bool CheckKeyLicense()

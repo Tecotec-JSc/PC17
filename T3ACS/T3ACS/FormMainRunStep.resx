@@ -155,25 +155,25 @@
     <value>0</value>
   </data>
   <data name="lblSwName.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 10.5pt, style=Bold</value>
+    <value>Segoe UI, 14.25pt, style=Bold</value>
   </data>
   <data name="lblSwName.Location" type="System.Drawing.Point, System.Drawing">
-    <value>61, 11</value>
+    <value>73, 9</value>
   </data>
   <data name="lblSwName.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>5, 0, 5, 0</value>
   </data>
   <data name="lblSwName.Size" type="System.Drawing.Size, System.Drawing">
-    <value>135, 22</value>
+    <value>86, 22</value>
   </data>
   <data name="lblSwName.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
   <data name="lblSwName.Text" xml:space="preserve">
-    <value>Satellite Simulator</value>
+    <value>  T3</value>
   </data>
   <data name="lblSwName.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleCenter</value>
+    <value>MiddleLeft</value>
   </data>
   <data name="&gt;&gt;lblSwName.Name" xml:space="preserve">
     <value>lblSwName</value>
@@ -233,7 +233,7 @@
     <value>Segoe UI Variable Display, 10pt</value>
   </data>
   <data name="runWorkInspectionToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>104, 24</value>
+    <value>180, 24</value>
   </data>
   <data name="runWorkInspectionToolStripMenuItem.Text" xml:space="preserve">
     <value>Quit</value>
@@ -248,13 +248,13 @@
     <value>File</value>
   </data>
   <data name="MenuUserCreate.Size" type="System.Drawing.Size, System.Drawing">
-    <value>164, 24</value>
+    <value>180, 24</value>
   </data>
   <data name="MenuUserCreate.Text" xml:space="preserve">
     <value>Create</value>
   </data>
   <data name="MenuUserLstUser.Size" type="System.Drawing.Size, System.Drawing">
-    <value>164, 24</value>
+    <value>180, 24</value>
   </data>
   <data name="MenuUserLstUser.Text" xml:space="preserve">
     <value>Managerment</value>
@@ -392,7 +392,7 @@
     <value>False</value>
   </data>
   <data name="menuSw.Location" type="System.Drawing.Point, System.Drawing">
-    <value>201, 0</value>
+    <value>180, 0</value>
   </data>
   <data name="menuSw.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 0</value>

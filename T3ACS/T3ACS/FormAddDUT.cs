@@ -28,7 +28,7 @@ namespace T3ACS
 
         public int _id;
 
-        DUTModel _model;
+        IDUTModel _model;
 
 
         private void loadData(int id)

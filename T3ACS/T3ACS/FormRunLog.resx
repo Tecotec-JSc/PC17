@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="btnClose.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="lblClose.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
         DAAACwwBP0AiyAAAAGtJREFUOE9jYBh2IIyBgSEFXRAJgORC0QWRAUjBUwYGhiJ0CagYSA6fBWBQjMUQ
@@ -126,7 +126,7 @@
         ACe9HbJl/uMOAAAAAElFTkSuQmCC
 </value>
   </data>
-  <data name="label1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="lblIcon.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAYAAAA71pVKAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
         DAAACwwBP0AiyAAAAA50RVh0U29mdHdhcmUARmlnbWGesZZjAAAA5ElEQVQ4T6WS3Q2CMBCAGYE3aaux
@@ -136,7 +136,7 @@
         BVA9fmGMwO4l8iGezK1IsKU75B2zHR088Ze4AyMt4BpBVWb8AAAAAElFTkSuQmCC
 </value>
   </data>
-  <data name="panelBorderRadiusCustom1.VerticalPoints" mimetype="application/x-microsoft.net.object.binary.base64">
+  <data name="pnlHeader.VerticalPoints" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAEAQAAAH5TeXN0ZW0uQ29sbGVjdGlvbnMuR2VuZXJpYy5MaXN0YDFbW1N5
         c3RlbS5JbnQzMiwgbXNjb3JsaWIsIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJs
@@ -144,7 +144,7 @@
         CAkCAAAAAAAAAAAAAAAPAgAAAAAAAAAICw==
 </value>
   </data>
-  <data name="panelBorderRadiusCustom2.VerticalPoints" mimetype="application/x-microsoft.net.object.binary.base64">
+  <data name="pnlInfo.VerticalPoints" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAEAQAAAH5TeXN0ZW0uQ29sbGVjdGlvbnMuR2VuZXJpYy5MaXN0YDFbW1N5
         c3RlbS5JbnQzMiwgbXNjb3JsaWIsIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJs
@@ -152,7 +152,7 @@
         CAkCAAAAAAAAAAAAAAAPAgAAAAAAAAAICw==
 </value>
   </data>
-  <data name="buttonCustomIcon1.Images" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="btnExportReport.Images" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
         EAAACxABrSO9dQAAAA50RVh0U29mdHdhcmUARmlnbWGesZZjAAAAb0lEQVQoU72R0RGAIAxD2RQ3cARH
@@ -160,7 +160,7 @@
         GwujBotJDxos8jLQBw6T/ktD9HGWotWX8yFvVHbzC+m3MWIxC806AAAAAElFTkSuQmCC
 </value>
   </data>
-  <data name="panelBorderRadiusCustom3.VerticalPoints" mimetype="application/x-microsoft.net.object.binary.base64">
+  <data name="pnlFooter.VerticalPoints" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAEAQAAAH5TeXN0ZW0uQ29sbGVjdGlvbnMuR2VuZXJpYy5MaXN0YDFbW1N5
         c3RlbS5JbnQzMiwgbXNjb3JsaWIsIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJs

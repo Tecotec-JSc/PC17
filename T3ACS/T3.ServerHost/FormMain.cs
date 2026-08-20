@@ -31,18 +31,20 @@ namespace T3.ServerHost
 
 
             var request = new InvokeRequest() { DllPath = "C:\\CTMT2025\\CTMT2025\\Micran\\Dll\\MicranModel.dll", ClassName = "MicranModel.VNAModel", MethodName = "Connect", Parameters = new object[] { "", "", "", "" } };
+
+            // Chuẩn hoá path tuyệt đối để cache không nạp trùng do khác cách viết đường dẫn.
+            string dllPath = PluginLoader.Normalize(request.DllPath);
+
             Assembly assembly;
 
             if (!_assemblies.TryGetValue(
-                request.DllPath,
+                dllPath,
                 out assembly))
             {
-                assembly =
-                    Assembly.LoadFrom(
-                        request.DllPath);
+                assembly = PluginLoader.Load(dllPath);
 
                 _assemblies.Add(
-                    request.DllPath,
+                    dllPath,
                     assembly);
             }
 
@@ -51,7 +53,7 @@ namespace T3.ServerHost
                     request.ClassName);
 
             string key =
-                request.DllPath +
+                dllPath +
                 "|" +
                 request.ClassName;
 

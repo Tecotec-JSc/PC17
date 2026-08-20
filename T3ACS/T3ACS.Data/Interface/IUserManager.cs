@@ -13,6 +13,7 @@ namespace T3ACS.Data
         bool Check2Delete(int userId);
         bool Delete(int userId);
         DataTable GetById(int userId);
+        DataTable GetByUserName(string userName);
         bool CheckIsExistUserName(string userName, int userId);
         bool Update(string userName, string password, string fullName, string permission, int userId);
         DataTable Gets();

@@ -23,7 +23,6 @@ namespace T3ACS.Data
             try
             {
                 // Tham số hoá toàn bộ giá trị người dùng nhập để chống SQL injection.
-                var str = "INSERT INTO User(UserName,PassWord,Email,Phone,FullName,Department,Permission) VALUES (@UserName,@PassWord,@Email,@Phone,@FullName,@Department,@Permission)";
                 var parameters = new Dictionary<string, object>
                 {
                     { "@UserName", userName },
@@ -34,6 +33,9 @@ namespace T3ACS.Data
                     { "@Department", department },
                     { "@Permission", permission }
                 };
+                // Gắn audit (người tạo/sửa + thời điểm) từ Session.
+                var audit = AuditStamp.ForInsert(parameters);
+                var str = "INSERT INTO User(UserName,PassWord,Email,Phone,FullName,Department,Permission" + audit.Columns + ") VALUES (@UserName,@PassWord,@Email,@Phone,@FullName,@Department,@Permission" + audit.Values + ")";
                 return int.Parse(_sqlite.ExecuteInsert(str, parameters).ToString());
             }
             catch (Exception ex)
@@ -78,6 +80,26 @@ namespace T3ACS.Data
 
             }
         }
+        /// <summary>
+        /// Lấy bản ghi người dùng theo tên đăng nhập (phục vụ xác thực đăng nhập).
+        /// </summary>
+        /// <param name="userName">Tên đăng nhập cần tìm.</param>
+        /// <returns>DataTable chứa bản ghi khớp; rỗng nếu không có.</returns>
+        public DataTable GetByUserName(string userName)
+        {
+            try
+            {
+                // Tham số hoá userName (dữ liệu người dùng nhập).
+                string query = "select * from [User] where UserName = @UserName";
+                var parameters = new Dictionary<string, object> { { "@UserName", userName } };
+                return _sqlite.GetDataTableParam(query, parameters);
+            }
+            catch (Exception ex)
+            {
+                Logger.Log("UserManager.GetByUserName", ex);
+                return null;
+            }
+        }
         public bool CheckIsExistUserName(string userName, int userId)
         {
             // Tham số hoá userName (dữ liệu người dùng nhập).
@@ -95,7 +117,6 @@ namespace T3ACS.Data
         {
             try
             {
-                string query = "Update User Set UserName=@UserName, PassWord=@PassWord, FullName=@FullName, Permission=@Permission Where UserId = @UserId";
                 var parameters = new Dictionary<string, object>
                 {
                     { "@UserName", userName },
@@ -104,6 +125,9 @@ namespace T3ACS.Data
                     { "@Permission", permission },
                     { "@UserId", userId }
                 };
+                // Gắn audit người/thời điểm sửa cuối (chèn trước mệnh đề WHERE).
+                var auditSet = AuditStamp.ForUpdate(parameters);
+                string query = "Update User Set UserName=@UserName, PassWord=@PassWord, FullName=@FullName, Permission=@Permission" + auditSet + " Where UserId = @UserId";
                 if(_sqlite.ExecuteNonQuery(query, parameters) > 0) return true;
                 return false;
             }
@@ -118,5 +142,6 @@ namespace T3ACS.Data
             var str = "select * from [User] Order by FullName";
             return _sqlite.GetDataTable(str);
         }
+   
     }
 }

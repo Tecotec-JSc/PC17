@@ -13,7 +13,7 @@ using static SQLite.SQLite3;
 
 namespace T3ACS.Model
 {
-    public class ProcedureModel
+    public class ProcedureModel : IProcedureModel
     {
         IProcedureManager _manager;
         IProcedureDetailManager _detailManager;
@@ -518,7 +518,7 @@ namespace T3ACS.Model
                     dut = dut.Substring(0, dut.LastIndexOf(";"));
                     var model = dut.Substring(dut.LastIndexOf(";") + 1);
                     var namedut = dut.Substring(0, dut.LastIndexOf(";"));
-                    DUTModel dUTModel = new DUTModel();
+                    IDUTModel dUTModel = new DUTModel();
 
                     var idDUT = dUTModel.GetIdBy(namedut, model, bran);
                     if (idDUT > 0)
@@ -716,7 +716,7 @@ namespace T3ACS.Model
                             model = dut.Substring(dut.LastIndexOf("-") + 1);
                             namedut = dut.Substring(0, dut.LastIndexOf("-"));
                         }
-                        DUTModel dUTModel = new DUTModel();
+                        IDUTModel dUTModel = new DUTModel();
 
                         var idDUT = dUTModel.GetIdBy(namedut, model, bran);
                         if (idDUT > 0)

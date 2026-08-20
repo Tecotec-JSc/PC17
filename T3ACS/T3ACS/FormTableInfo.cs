@@ -1,21 +1,12 @@
-﻿using T3ACS.Model;
-
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Windows.Forms;
+using T3ACS.Model;
 
 namespace T3ACS
 {
     public partial class FormTableInfo : Form
     {
-        TableProcedureViewModel _vm;
-        int _startCycle;
+        private TableProcedureViewModel _vm;
+        private int _startCycle;
+
         public FormTableInfo(TableProcedureViewModel vm, int startCycle)
         {
             InitializeComponent();
@@ -27,6 +18,5 @@ namespace T3ACS
             else lblCheck.Image = Properties.Resources.rdonocheck;
             txaDescription.ReadOnly = true;
         }
-
     }
 }

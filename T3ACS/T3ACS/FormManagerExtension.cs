@@ -18,7 +18,7 @@ namespace T3ACS
 {
     public partial class FormManagerExtension : Form
     {
-        PackageModel _model;
+        IPackageModel _model;
         public FormManagerExtension()
         {
             InitializeComponent();
@@ -142,7 +142,7 @@ namespace T3ACS
                 //vm.Procedures[1] = replayvm;
                 //var filePath = AppDomain.CurrentDomain.BaseDirectory + "ExtensionProcedureSpectrumF.xml";
                 //FileXML.SaveToXml(vm, filePath);
-                PackageModel model = new PackageModel();
+                IPackageModel model = new PackageModel();
                 if (model.CheckIsExist(vm.Name,vm.Version))
                 {
                     var strnoti = "Package " + vm.Name + " with version "+vm.Version+" already exists.";

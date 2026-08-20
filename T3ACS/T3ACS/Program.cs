@@ -43,7 +43,7 @@ namespace T3ACS
 
 
             //Application.AddMessageFilter(new MouseClickFilter());
-            LicenseModel model = new LicenseModel();
+            ILicenseModel model = new LicenseModel();
             //bool checkLicense = true;
             bool checkLicense = model.CheckKeyLicense();
             if (!checkLicense)
@@ -62,7 +62,16 @@ namespace T3ACS
                 them.LoadThemeDefault();
                 them.LoadThemeSelected();
                Application.Run(new VSat.Spectrum.FormLoadScreen());
-             Application.Run(new FormMain());
+
+                // Yêu cầu đăng nhập trước khi vào màn hình chính. Đăng nhập thành công sẽ set
+                // Session.CurrentUserId để tầng Data ghi audit (người tạo/sửa) cho mỗi bản ghi.
+                using (var frmLogin = new FormLogin())
+                {
+                    if (frmLogin.ShowDialog() != DialogResult.OK)
+                        return; // Không đăng nhập -> thoát ứng dụng.
+                }
+
+                Application.Run(new FormMain());
            //  Application.Run(new FormTest1());
             }
 
