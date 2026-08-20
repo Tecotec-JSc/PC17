@@ -31,9 +31,9 @@ namespace T3ACS
         {
             lblStepNumber = new Label();
             lblCheck = new Label();
-            label1 = new Label();
+            lblRequiresPrev = new Label();
             txtStepName = new Controls.RJTextBox32();
-            label2 = new Label();
+            lblDescriptionCaption = new Label();
             txaDescription = new Controls.RJEditor();
             SuspendLayout();
             // 
@@ -56,16 +56,16 @@ namespace T3ACS
             lblCheck.Size = new Size(20, 20);
             lblCheck.TabIndex = 3;
             // 
-            // label1
+            // lblRequiresPrev
             // 
-            label1.Font = new Font("Segoe UI Variable Display", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(245, 12);
-            label1.Margin = new Padding(0);
-            label1.Name = "label1";
-            label1.Size = new Size(171, 21);
-            label1.TabIndex = 0;
-            label1.Text = "REQUIRES PREVIOUS STEP";
-            label1.TextAlign = ContentAlignment.MiddleLeft;
+            lblRequiresPrev.Font = new Font("Segoe UI Variable Display", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblRequiresPrev.Location = new Point(245, 12);
+            lblRequiresPrev.Margin = new Padding(0);
+            lblRequiresPrev.Name = "lblRequiresPrev";
+            lblRequiresPrev.Size = new Size(171, 21);
+            lblRequiresPrev.TabIndex = 0;
+            lblRequiresPrev.Text = "REQUIRES PREVIOUS STEP";
+            lblRequiresPrev.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // txtStepName
             // 
@@ -89,16 +89,16 @@ namespace T3ACS
             txtStepName.Texts = "";
             txtStepName.UnderlinedStyle = false;
             // 
-            // label2
+            // lblDescriptionCaption
             // 
-            label2.Font = new Font("Segoe UI Variable Display Semib", 10.5F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.Location = new Point(12, 89);
-            label2.Margin = new Padding(0);
-            label2.Name = "label2";
-            label2.Size = new Size(97, 21);
-            label2.TabIndex = 0;
-            label2.Text = "Description";
-            label2.TextAlign = ContentAlignment.MiddleLeft;
+            lblDescriptionCaption.Font = new Font("Segoe UI Variable Display Semib", 10.5F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblDescriptionCaption.Location = new Point(12, 89);
+            lblDescriptionCaption.Margin = new Padding(0);
+            lblDescriptionCaption.Name = "lblDescriptionCaption";
+            lblDescriptionCaption.Size = new Size(97, 21);
+            lblDescriptionCaption.TabIndex = 0;
+            lblDescriptionCaption.Text = "Description";
+            lblDescriptionCaption.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // txaDescription
             // 
@@ -131,8 +131,8 @@ namespace T3ACS
             Controls.Add(txaDescription);
             Controls.Add(txtStepName);
             Controls.Add(lblCheck);
-            Controls.Add(label1);
-            Controls.Add(label2);
+            Controls.Add(lblRequiresPrev);
+            Controls.Add(lblDescriptionCaption);
             Controls.Add(lblStepNumber);
             Font = new Font("Segoe UI Variable Display", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 0);
             ForeColor = Color.FromArgb(0, 32, 77);
@@ -147,9 +147,9 @@ namespace T3ACS
 
         private Label lblStepNumber;
         private Label lblCheck;
-        private Label label1;
+        private Label lblRequiresPrev;
         private Controls.RJTextBox32 txtStepName;
-        private Label label2;
+        private Label lblDescriptionCaption;
         private Controls.RJEditor txaDescription;
     }
 }

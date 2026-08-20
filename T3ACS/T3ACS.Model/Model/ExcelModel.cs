@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace T3ACS.Model
 {
-    public class ExcelModel
+    public class ExcelModel : IExcelModel
     {
         public bool DrawTemplateExcel(TemplateViewModel vm1, string pathTemplate, string fileExport, out string error)
         {

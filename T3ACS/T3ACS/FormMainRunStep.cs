@@ -75,7 +75,7 @@ namespace T3ACS
                             return;
                         }
                         frm.TopLevel = true;
-                        frm.ShowDialog();
+                        frm.Show();
                     }
                     catch (Exception ex)
                     {
@@ -142,11 +142,51 @@ namespace T3ACS
             ClearFormMain();
             _frmRunProcedure = new FormRunMain();
             _frmRunProcedure.TopLevel = false;
-            await _frmRunProcedure.RunProcedureId(id);
-            _frmRunProcedure._SendAction += _SendAction;
-            panelMain.Controls.Add(_frmRunProcedure);
-            lstForms.Add(_frmCreateProcedure);
-            _frmRunProcedure.Show();
+
+            // Lớp mờ nền: tái sử dụng cùng cơ chế FormBlur như hàm ShowFormDialog.
+            // Không gọi trực tiếp ShowFormDialog vì hàm đó dùng ShowDialog() (modal/chặn luồng),
+            // trong khi loading cần Show() non-modal để await công việc chạy nền.
+            FormBlur blur = new FormBlur();
+            blur.Size = new Size(1920, 1030);
+            blur.Location = this.Location;
+            blur.StartPosition = FormStartPosition.Manual;
+            blur.Owner = this;
+            blur.Show();
+
+            // Hiển thị form loading (progress + status) trong lúc đọc DB và dựng giao diện.
+            // Reporter chạy trên UI thread (Progress<T>) nên cập nhật control an toàn.
+            FormRunLoading loading = new FormRunLoading();
+            loading.Show(this);
+            loading.BringToFront();
+            var progress = new Progress<(int percent, string status)>(p =>
+            {
+                loading.SetProgress(p.percent);
+                loading.SetStatus(p.status);
+            });
+            // Thời gian hiển thị tối thiểu để tránh nháy: nếu load xong <1.5s thì vẫn giữ
+            // đủ 1.5s mới đóng; nếu load lâu hơn thì đóng ngay khi xong (không kéo dài thêm).
+            const int MIN_SHOW_MS = 1500;
+            var sw = System.Diagnostics.Stopwatch.StartNew();
+            try
+            {
+                await _frmRunProcedure.RunProcedureId(id, progress);
+                _frmRunProcedure._SendAction += _SendAction;
+                panelMain.Controls.Add(_frmRunProcedure);
+                lstForms.Add(_frmCreateProcedure);
+                _frmRunProcedure.Show();
+            }
+            finally
+            {
+                // Bù cho đủ thời gian tối thiểu trước khi đóng loading.
+                int remaining = MIN_SHOW_MS - (int)sw.ElapsedMilliseconds;
+                if (remaining > 0)
+                    await Task.Delay(remaining);
+                // Luôn đóng loading và lớp mờ dù thành công hay lỗi.
+                loading.Close();
+                loading.Dispose();
+                blur.Close();
+                blur.Dispose();
+            }
         }
 
 
@@ -236,8 +276,7 @@ namespace T3ACS
 
         private void testToolStripMenuItem2_Click(object sender, EventArgs e)
         {
-         FormTest1 formTest1 = new FormTest1();
-            formTest1.Show();
+
         }
         private void test2ToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -246,8 +285,7 @@ namespace T3ACS
         }
         private void test3ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FormTest1 frm = new FormTest1();
-            frm.ShowDialog();
+  
         }
         private void testFormURLToolStripMenuItem_Click(object sender, EventArgs e)
         {

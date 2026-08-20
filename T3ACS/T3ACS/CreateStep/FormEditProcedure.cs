@@ -19,7 +19,7 @@ namespace T3ACS
         public event EventHandler _SendAction;
         #region propertiss
         TemplateViewModel _vm;
-        ProcedureModel _model;
+        IProcedureModel _model;
         public string _stepClick;
         public List<ContenStepTypeControl> _contenSteps;
 
@@ -159,7 +159,7 @@ namespace T3ACS
                 str = str.Substring(0, str.LastIndexOf(";"));
                 var model = str.Substring(str.LastIndexOf(";") + 1);
                 var namedut = str.Substring(0, str.LastIndexOf(";"));
-                DUTModel dUTModel = new DUTModel();
+                IDUTModel dUTModel = new DUTModel();
 
                 var idDUT = dUTModel.GetIdBy(namedut, model, bran);
                 if (_vm.DUTIds == null)

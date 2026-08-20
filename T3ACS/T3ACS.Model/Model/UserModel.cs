@@ -10,7 +10,7 @@ using static SQLite.SQLite3;
 
 namespace T3ACS.Model
 {
-    public class UserModel
+    public class UserModel : IUserModel
     {
         IUserManager _manager;
         public UserModel()
@@ -99,9 +99,26 @@ namespace T3ACS.Model
             }
             return lstToReturn;
         }
-        //public UserViewModel GetBy(string userName, string password)
-        //{
-        //    return _manager.GetBy(userName, password);
-        //}
+        /// <summary>
+        /// Xác thực đăng nhập: tìm người dùng theo tên đăng nhập rồi kiểm tra mật khẩu.
+        /// </summary>
+        /// <param name="userName">Tên đăng nhập.</param>
+        /// <param name="password">Mật khẩu người dùng nhập (plaintext).</param>
+        /// <returns>Thông tin người dùng nếu hợp lệ; null nếu sai tên hoặc mật khẩu.</returns>
+        public UserViewModel GetBy(string userName, string password)
+        {
+            var dt = _manager.GetByUserName(userName);
+            if (dt == null || dt.Rows.Count == 0)
+            {
+                return null;
+            }
+            var vm = ConvertDt2Vm(dt.Rows[0]);
+            // So khớp mật khẩu với giá trị đã lưu (hỗ trợ hash mới và plaintext cũ).
+            if (!VerifyPassword(password, vm.PassWord))
+            {
+                return null;
+            }
+            return vm;
+        }
     }
 }

@@ -10,7 +10,7 @@ using System.Net.WebSockets;
 
 namespace T3ACS.Model
 {
-    public class DUTModel
+    public class DUTModel : IDUTModel
     {
         IDUTManager _manager;
         public DUTModel()

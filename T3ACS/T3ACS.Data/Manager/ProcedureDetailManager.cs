@@ -34,7 +34,6 @@ namespace T3ACS.Data
             {
                 if (des == null) des = "";
                 // Tham số hoá toàn bộ giá trị chuỗi để chống SQL injection.
-                var str = "INSERT INTO ProcedureDetail(ProcedureId,Name,Cycle,NumberOrder,Description,Type,RequiredStep,JsonString,URL,PathFileDll,PathFileCalibration) VALUES (@ProcedureId,@Name,@Cycle,@NumberOrder,@Description,@Type,@RequiredStep,@JsonString,@URL,@PathFileDll,@PathFileCalibration)";
                 var parameters = new Dictionary<string, object>
                 {
                     { "@ProcedureId", procedureId },
@@ -49,6 +48,9 @@ namespace T3ACS.Data
                     { "@PathFileDll", pathFileDll },
                     { "@PathFileCalibration", pathFileCalibration }
                 };
+                // Gắn audit (người tạo/sửa + thời điểm) từ Session.
+                var audit = AuditStamp.ForInsert(parameters);
+                var str = "INSERT INTO ProcedureDetail(ProcedureId,Name,Cycle,NumberOrder,Description,Type,RequiredStep,JsonString,URL,PathFileDll,PathFileCalibration" + audit.Columns + ") VALUES (@ProcedureId,@Name,@Cycle,@NumberOrder,@Description,@Type,@RequiredStep,@JsonString,@URL,@PathFileDll,@PathFileCalibration" + audit.Values + ")";
                 return int.Parse(_sqlite.ExecuteInsert(str, parameters).ToString());
             }
             catch (Exception ex)

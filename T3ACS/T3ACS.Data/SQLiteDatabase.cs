@@ -11,9 +11,40 @@ namespace T3ACS.Data
 {
     public class SQLiteDataBase : IDataBase
     {
+        // Đảm bảo migration cột audit chỉ chạy một lần cho cả tiến trình.
+        private static bool _auditMigrated;
+        private static readonly object _migrationLock = new object();
+
         public SQLiteDataBase()
         {
             _connectionString = "Data Source=" + Main.ConnectionStringSQLite;
+            EnsureAuditMigration();
+        }
+
+        // Chạy auto-migration bổ sung cột audit lần đầu tiên một SQLiteDataBase được tạo.
+        // Bọc lỗi để dù migration thất bại vẫn không chặn hoạt động DB (đã ghi log).
+        private void EnsureAuditMigration()
+        {
+            if (_auditMigrated)
+            {
+                return;
+            }
+            lock (_migrationLock)
+            {
+                if (_auditMigrated)
+                {
+                    return;
+                }
+                try
+                {
+                    SchemaMigration.EnsureAuditColumns(this);
+                }
+                catch (Exception ex)
+                {
+                    Logger.Log("SQLiteDataBase.EnsureAuditMigration", ex);
+                }
+                _auditMigrated = true;
+            }
         }
 
         #region Field-Member

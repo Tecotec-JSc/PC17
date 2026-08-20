@@ -22,7 +22,6 @@ namespace T3ACS.Data
         {
             string datestr = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff");
             // Tham số hoá toàn bộ giá trị chuỗi để chống SQL injection.
-            var str = "INSERT into Packages(PackageName,PackageTitle,Version,DateCreate,Category,Type,Description,PathSource,Model,TypeFrame) VALUES(@PackageName,@PackageTitle,@Version,@DateCreate,@Category,@Type,@Description,@PathSource,@Model,@TypeFrame)";
             var parameters = new Dictionary<string, object>
             {
                 { "@PackageName", packageName },
@@ -36,6 +35,9 @@ namespace T3ACS.Data
                 { "@Model", model },
                 { "@TypeFrame", typeFrame }
             };
+            // Gắn thêm cột audit chuẩn (song song với DateCreate sẵn có).
+            var audit = AuditStamp.ForInsert(parameters);
+            var str = "INSERT into Packages(PackageName,PackageTitle,Version,DateCreate,Category,Type,Description,PathSource,Model,TypeFrame" + audit.Columns + ") VALUES(@PackageName,@PackageTitle,@Version,@DateCreate,@Category,@Type,@Description,@PathSource,@Model,@TypeFrame" + audit.Values + ")";
             return int.Parse(_sqlite.ExecuteInsert(str, parameters).ToString());
         }
         public int InsertPackageDetails(int packageId, string name,int type, string description,string title,string hashtag, string pathFile,string content)

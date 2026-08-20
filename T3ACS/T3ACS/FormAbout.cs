@@ -10,7 +10,7 @@ namespace T3ACS
 
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        private void lblCloseIcon_Click(object sender, EventArgs e)
         {
             this.Close();
         }
@@ -67,7 +67,7 @@ namespace T3ACS
             SetFormRadius(5);
         }
 
-        private void ButtonCustom1__EventSelect(object sender, EventArgs e)
+        private void btnClose__EventSelect(object sender, EventArgs e)
         {
             this.Close();
         }

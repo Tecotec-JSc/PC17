@@ -16,7 +16,6 @@ namespace T3ACS.Data
         public int InsertDUT(string dutName, string model, string category, string sensorNumber, string brand, string calibrationDate, string calibrationDue, string shipmentDate, string userUnit)
         {
             // Tham số hoá toàn bộ giá trị chuỗi để chống SQL injection.
-            var str = "INSERT INTO DUT(DUTName,Model,Category,SensorNumber,Brand,CalibrationDate,CalibrationDue,ShipmentDate,UserUnit) VALUES (@DUTName,@Model,@Category,@SensorNumber,@Brand,@CalibrationDate,@CalibrationDue,@ShipmentDate,@UserUnit)";
             var parameters = new Dictionary<string, object>
             {
                 { "@DUTName", dutName },
@@ -29,6 +28,9 @@ namespace T3ACS.Data
                 { "@ShipmentDate", shipmentDate },
                 { "@UserUnit", userUnit }
             };
+            // Gắn audit (người tạo/sửa + thời điểm) từ Session.
+            var audit = AuditStamp.ForInsert(parameters);
+            var str = "INSERT INTO DUT(DUTName,Model,Category,SensorNumber,Brand,CalibrationDate,CalibrationDue,ShipmentDate,UserUnit" + audit.Columns + ") VALUES (@DUTName,@Model,@Category,@SensorNumber,@Brand,@CalibrationDate,@CalibrationDue,@ShipmentDate,@UserUnit" + audit.Values + ")";
             return int.Parse(_sqlite.ExecuteInsert(str, parameters).ToString());
         }
         public DataTable GetDUTs()
@@ -161,7 +163,6 @@ namespace T3ACS.Data
         {
             try
             {
-                string str = "Update DUT Set DUTName=@DUTName,Model=@Model,Category=@Category,SensorNumber=@SensorNumber,Brand=@Brand,CalibrationDate=@CalibrationDate,CalibrationDue=@CalibrationDue,ShipmentDate=@ShipmentDate,UserUnit=@UserUnit Where DUTID = @DUTId";
                 var parameters = new Dictionary<string, object>
                 {
                     { "@DUTName", DUTName },
@@ -175,6 +176,9 @@ namespace T3ACS.Data
                     { "@UserUnit", userUnit },
                     { "@DUTId", dutId }
                 };
+                // Gắn audit người/thời điểm sửa cuối (chèn trước mệnh đề WHERE).
+                var auditSet = AuditStamp.ForUpdate(parameters);
+                string str = "Update DUT Set DUTName=@DUTName,Model=@Model,Category=@Category,SensorNumber=@SensorNumber,Brand=@Brand,CalibrationDate=@CalibrationDate,CalibrationDue=@CalibrationDue,ShipmentDate=@ShipmentDate,UserUnit=@UserUnit" + auditSet + " Where DUTID = @DUTId";
                 if (_sqlite.ExecuteNonQuery(str, parameters) > 0)
                     return true;
                 return false;

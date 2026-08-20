@@ -97,5 +97,14 @@ namespace T3ACS
             _progress = 0;
             Invalidate();
         }
+
+        /// <summary>
+        /// Đặt tiến trình dạng xác định (determinate). value nằm trong khoảng 0..1.
+        /// </summary>
+        public void SetValue(double value)
+        {
+            _progress = Math.Max(0, Math.Min(1, value));
+            Invalidate();
+        }
     }
 }

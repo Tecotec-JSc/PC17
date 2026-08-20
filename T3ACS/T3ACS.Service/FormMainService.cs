@@ -19,10 +19,11 @@ namespace T3ACS.Service
         }
         public List<ToolsViewModel> GetTools()
         {
-            return _pModel.GetTools();
+            _tools= _pModel.GetTools();
+            return _tools;
         }
         #region properties
-        PackageModel _pModel;
+        IPackageModel _pModel;
         IT3Call _t3Call;
         List<ToolsViewModel> _tools;
 

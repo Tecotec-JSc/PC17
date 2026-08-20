@@ -32,26 +32,26 @@ namespace T3ACS
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormBlank));
-            panel1 = new Panel();
+            pnlBody = new Panel();
             lblTitle = new Label();
-            panel2 = new Panel();
+            pnlTitle = new Panel();
             lblClose = new Label();
-            label2 = new Label();
+            lblExtra = new Label();
             btnSave = new Button();
             btnCancel = new Button();
-            panelControlbottom1 = new PanelBorderRadiusCustom();
-            panel2.SuspendLayout();
+            pnlBottom = new PanelBorderRadiusCustom();
+            pnlTitle.SuspendLayout();
             SuspendLayout();
             // 
-            // panel1
+            // pnlBody
             // 
-            panel1.BackColor = Color.FromArgb(243, 245, 249);
-            panel1.Dock = DockStyle.Fill;
-            panel1.Font = new Font("Segoe UI Variable Display", 10.5F);
-            panel1.Location = new Point(0, 32);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(540, 437);
-            panel1.TabIndex = 39;
+            pnlBody.BackColor = Color.FromArgb(243, 245, 249);
+            pnlBody.Dock = DockStyle.Fill;
+            pnlBody.Font = new Font("Segoe UI Variable Display", 10.5F);
+            pnlBody.Location = new Point(0, 32);
+            pnlBody.Name = "pnlBody";
+            pnlBody.Size = new Size(540, 437);
+            pnlBody.TabIndex = 39;
             // 
             // lblTitle
             // 
@@ -63,19 +63,19 @@ namespace T3ACS
             lblTitle.TabIndex = 2;
             lblTitle.Text = "New Users";
             // 
-            // panel2
+            // pnlTitle
             // 
-            panel2.BackColor = SystemColors.Window;
-            panel2.Controls.Add(lblClose);
-            panel2.Controls.Add(label2);
-            panel2.Controls.Add(lblTitle);
-            panel2.Dock = DockStyle.Top;
-            panel2.Font = new Font("Segoe UI Variable Display", 10.5F);
-            panel2.Location = new Point(0, 0);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(540, 32);
-            panel2.TabIndex = 37;
-            panel2.MouseDown += panel2_MouseDown;
+            pnlTitle.BackColor = SystemColors.Window;
+            pnlTitle.Controls.Add(lblClose);
+            pnlTitle.Controls.Add(lblExtra);
+            pnlTitle.Controls.Add(lblTitle);
+            pnlTitle.Dock = DockStyle.Top;
+            pnlTitle.Font = new Font("Segoe UI Variable Display", 10.5F);
+            pnlTitle.Location = new Point(0, 0);
+            pnlTitle.Name = "pnlTitle";
+            pnlTitle.Size = new Size(540, 32);
+            pnlTitle.TabIndex = 37;
+            pnlTitle.MouseDown += pnlTitle_MouseDown;
             // 
             // lblClose
             // 
@@ -88,14 +88,14 @@ namespace T3ACS
             lblClose.TabIndex = 3;
             lblClose.Click += lblClose_Click;
             // 
-            // label2
+            // lblExtra
             // 
-            label2.Font = new Font("Segoe UI Variable Display", 10.5F);
-            label2.Image = (Image)resources.GetObject("label2.Image");
-            label2.Location = new Point(1031, 3);
-            label2.Name = "label2";
-            label2.Size = new Size(35, 24);
-            label2.TabIndex = 2;
+            lblExtra.Font = new Font("Segoe UI Variable Display", 10.5F);
+            lblExtra.Image = (Image)resources.GetObject("lblExtra.Image");
+            lblExtra.Location = new Point(1031, 3);
+            lblExtra.Name = "lblExtra";
+            lblExtra.Size = new Size(35, 24);
+            lblExtra.TabIndex = 2;
             // 
             // btnSave
             // 
@@ -129,19 +129,19 @@ namespace T3ACS
             btnCancel.UseVisualStyleBackColor = false;
             btnCancel.Click += btnCancel_Click;
             // 
-            // panelControlbottom1
+            // pnlBottom
             // 
-            panelControlbottom1.BackColor = SystemColors.Window;
-            panelControlbottom1.BorderColor = Color.LightGray;
-            panelControlbottom1.BorderSize = 1;
-            panelControlbottom1.Dock = DockStyle.Bottom;
-            panelControlbottom1.Font = new Font("Segoe UI Variable Display", 10.5F);
-            panelControlbottom1.Location = new Point(0, 469);
-            panelControlbottom1.Margin = new Padding(3, 4, 3, 4);
-            panelControlbottom1.Name = "panelControlbottom1";
-            panelControlbottom1.Padding = new Padding(3, 4, 3, 4);
-            panelControlbottom1.Size = new Size(540, 60);
-            panelControlbottom1.TabIndex = 38;
+            pnlBottom.BackColor = SystemColors.Window;
+            pnlBottom.BorderColor = Color.LightGray;
+            pnlBottom.BorderSize = 1;
+            pnlBottom.Dock = DockStyle.Bottom;
+            pnlBottom.Font = new Font("Segoe UI Variable Display", 10.5F);
+            pnlBottom.Location = new Point(0, 469);
+            pnlBottom.Margin = new Padding(3, 4, 3, 4);
+            pnlBottom.Name = "pnlBottom";
+            pnlBottom.Padding = new Padding(3, 4, 3, 4);
+            pnlBottom.Size = new Size(540, 60);
+            pnlBottom.TabIndex = 38;
             // 
             // FormBlank
             // 
@@ -150,9 +150,9 @@ namespace T3ACS
             ClientSize = new Size(540, 529);
             Controls.Add(btnSave);
             Controls.Add(btnCancel);
-            Controls.Add(panel1);
-            Controls.Add(panelControlbottom1);
-            Controls.Add(panel2);
+            Controls.Add(pnlBody);
+            Controls.Add(pnlBottom);
+            Controls.Add(pnlTitle);
             Font = new Font("Segoe UI Variable Display", 10.5F);
             FormBorderStyle = FormBorderStyle.None;
             Icon = (Icon)resources.GetObject("$this.Icon");
@@ -160,8 +160,8 @@ namespace T3ACS
             Name = "FormBlank";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Blank";
-            panel2.ResumeLayout(false);
-            panel2.PerformLayout();
+            pnlTitle.ResumeLayout(false);
+            pnlTitle.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -169,11 +169,11 @@ namespace T3ACS
 
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnCancel;
-        private System.Windows.Forms.Panel panel1;
-        private PanelBorderRadiusCustom panelControlbottom1;
+        private System.Windows.Forms.Panel pnlBody;
+        private PanelBorderRadiusCustom pnlBottom;
         private System.Windows.Forms.Label lblClose;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblExtra;
         private System.Windows.Forms.Label lblTitle;
-        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel pnlTitle;
     }
 }

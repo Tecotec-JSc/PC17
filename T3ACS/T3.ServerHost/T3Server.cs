@@ -96,27 +96,31 @@ namespace T3.ServerHost
         {
             try
             {
+                // Chuẩn hoá path tuyệt đối để cache không nạp trùng do khác cách viết đường dẫn.
+                string dllPath = PluginLoader.Normalize(request.DllPath);
+
                 Assembly assembly;
 
                 if (!_assemblies.TryGetValue(
-                    request.DllPath,
+                    dllPath,
                     out assembly))
                 {
-                    assembly =
-                        Assembly.LoadFrom(
-                            request.DllPath);
+                    assembly = PluginLoader.Load(dllPath);
 
                     _assemblies.Add(
-                        request.DllPath,
+                        dllPath,
                         assembly);
                 }
 
                 Type type =
                     assembly.GetType(
                         request.ClassName);
+                if (type == null)
+                    throw new TypeLoadException(
+                        "Không tìm thấy type '" + request.ClassName + "' trong DLL: " + dllPath);
 
                 string key =
-                    request.DllPath +
+                    dllPath +
                     "|" +
                     request.ClassName;
 
@@ -160,6 +164,96 @@ namespace T3.ServerHost
                     Error = ex.ToString()
                 };
             }
+        }
+    }
+
+    /// <summary>
+    /// Nạp assembly plugin ổn định theo phong cách PluginManager của OpenTAP (bản .NET Framework 4.8):
+    /// resolver trung tâm dò dependency theo thư mục driver, chuẩn hoá path, an toàn đa luồng.
+    /// (.NET Framework không có AssemblyLoadContext nên dùng AppDomain.AssemblyResolve.)
+    /// </summary>
+    internal static class PluginLoader
+    {
+        private static readonly object _sync = new object();
+
+        // Tập thư mục của mọi driver đã nạp, để resolver dò dependency đi kèm.
+        private static readonly HashSet<string> _probeDirs =
+            new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+        private static bool _resolverRegistered;
+
+        // Chuẩn hoá thành đường dẫn tuyệt đối để cache không nạp trùng.
+        public static string Normalize(string path)
+        {
+            return Path.GetFullPath((path ?? string.Empty).Replace("\\\\", "\\"));
+        }
+
+        public static Assembly Load(string fullPath)
+        {
+            EnsureResolver();
+
+            if (!File.Exists(fullPath))
+                throw new FileNotFoundException("Không tìm thấy DLL thiết bị: " + fullPath, fullPath);
+
+            string dir = Path.GetDirectoryName(fullPath);
+            lock (_sync)
+            {
+                if (!string.IsNullOrEmpty(dir))
+                    _probeDirs.Add(dir);
+            }
+
+            try
+            {
+                return Assembly.LoadFrom(fullPath);
+            }
+            catch (Exception ex)
+            {
+                // Bọc lỗi kèm ngữ cảnh để dễ truy vết DLL/dependency nào hỏng.
+                throw new InvalidOperationException(
+                    "Nạp DLL thiết bị thất bại: " + fullPath + ". Chi tiết: " + ex.Message, ex);
+            }
+        }
+
+        // Đăng ký resolver trung tâm một lần cho cả tiến trình.
+        private static void EnsureResolver()
+        {
+            if (_resolverRegistered) return;
+            lock (_sync)
+            {
+                if (_resolverRegistered) return;
+                AppDomain.CurrentDomain.AssemblyResolve += OnAssemblyResolve;
+                _resolverRegistered = true;
+            }
+        }
+
+        private static Assembly OnAssemblyResolve(object sender, ResolveEventArgs args)
+        {
+            var requested = new AssemblyName(args.Name);
+
+            // 1) Đã nạp sẵn trong tiến trình -> tái dùng, tránh nạp 2 bản cùng tên (lệch identity type).
+            foreach (var a in AppDomain.CurrentDomain.GetAssemblies())
+            {
+                if (string.Equals(a.GetName().Name, requested.Name, StringComparison.OrdinalIgnoreCase))
+                    return a;
+            }
+
+            // 2) Dò file <tên>.dll trong các thư mục driver đã biết.
+            string[] dirs;
+            lock (_sync)
+            {
+                dirs = new string[_probeDirs.Count];
+                _probeDirs.CopyTo(dirs);
+            }
+            foreach (var dir in dirs)
+            {
+                string candidate = Path.Combine(dir, requested.Name + ".dll");
+                if (File.Exists(candidate))
+                {
+                    try { return Assembly.LoadFrom(candidate); }
+                    catch { /* thử thư mục kế tiếp */ }
+                }
+            }
+            return null; // Không tìm được -> để runtime báo lỗi gốc.
         }
     }
 }

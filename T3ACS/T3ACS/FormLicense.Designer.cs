@@ -32,69 +32,69 @@ namespace T3ACS
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormLicense));
-            panelControl1 = new PanelBorderRadiusCustom();
-            panelControlbottom1 = new PanelBorderRadiusCustom();
-            panel1 = new Panel();
+            pnlTop = new PanelBorderRadiusCustom();
+            pnlBottom = new PanelBorderRadiusCustom();
+            pnlBody = new Panel();
             txt5 = new TextBox();
             txt4 = new TextBox();
             txt3 = new TextBox();
             txt2 = new TextBox();
             txt1 = new TextBox();
-            label6 = new Label();
-            label5 = new Label();
-            label4 = new Label();
-            label3 = new Label();
-            label2 = new Label();
-            label1 = new Label();
+            lblDash4 = new Label();
+            lblDash3 = new Label();
+            lblDash2 = new Label();
+            lblDash1 = new Label();
+            lblDescription = new Label();
+            lblTitle = new Label();
             btnNext = new Button();
-            button1 = new Button();
-            panel1.SuspendLayout();
+            btnSave = new Button();
+            pnlBody.SuspendLayout();
             SuspendLayout();
             // 
-            // panelControl1
+            // pnlTop
             // 
-            panelControl1.BackColor = SystemColors.Window;
-            panelControl1.BorderColor = Color.LightGray;
-            panelControl1.BorderSize = 1;
-            panelControl1.Dock = DockStyle.Top;
-            panelControl1.Location = new Point(0, 0);
-            panelControl1.Margin = new Padding(2);
-            panelControl1.Name = "panelControl1";
-            panelControl1.Padding = new Padding(3);
-            panelControl1.Size = new Size(540, 32);
-            panelControl1.TabIndex = 1;
+            pnlTop.BackColor = SystemColors.Window;
+            pnlTop.BorderColor = Color.LightGray;
+            pnlTop.BorderSize = 1;
+            pnlTop.Dock = DockStyle.Top;
+            pnlTop.Location = new Point(0, 0);
+            pnlTop.Margin = new Padding(2);
+            pnlTop.Name = "pnlTop";
+            pnlTop.Padding = new Padding(3);
+            pnlTop.Size = new Size(540, 32);
+            pnlTop.TabIndex = 1;
             // 
-            // panelControlbottom1
+            // pnlBottom
             // 
-            panelControlbottom1.BackColor = SystemColors.Control;
-            panelControlbottom1.BorderColor = Color.LightGray;
-            panelControlbottom1.BorderSize = 1;
-            panelControlbottom1.Dock = DockStyle.Bottom;
-            panelControlbottom1.Location = new Point(0, 208);
-            panelControlbottom1.Margin = new Padding(2);
-            panelControlbottom1.Name = "panelControlbottom1";
-            panelControlbottom1.Padding = new Padding(3);
-            panelControlbottom1.Size = new Size(540, 80);
-            panelControlbottom1.TabIndex = 2;
+            pnlBottom.BackColor = SystemColors.Control;
+            pnlBottom.BorderColor = Color.LightGray;
+            pnlBottom.BorderSize = 1;
+            pnlBottom.Dock = DockStyle.Bottom;
+            pnlBottom.Location = new Point(0, 208);
+            pnlBottom.Margin = new Padding(2);
+            pnlBottom.Name = "pnlBottom";
+            pnlBottom.Padding = new Padding(3);
+            pnlBottom.Size = new Size(540, 80);
+            pnlBottom.TabIndex = 2;
             // 
-            // panel1
+            // pnlBody
             // 
-            panel1.Controls.Add(txt5);
-            panel1.Controls.Add(txt4);
-            panel1.Controls.Add(txt3);
-            panel1.Controls.Add(txt2);
-            panel1.Controls.Add(txt1);
-            panel1.Controls.Add(label6);
-            panel1.Controls.Add(label5);
-            panel1.Controls.Add(label4);
-            panel1.Controls.Add(label3);
-            panel1.Controls.Add(label2);
-            panel1.Controls.Add(label1);
-            panel1.Dock = DockStyle.Fill;
-            panel1.Location = new Point(0, 32);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(540, 176);
-            panel1.TabIndex = 3;
+            pnlBody.Controls.Add(txt5);
+            pnlBody.Controls.Add(txt4);
+            pnlBody.Controls.Add(txt3);
+            pnlBody.Controls.Add(txt2);
+            pnlBody.Controls.Add(txt1);
+            pnlBody.Controls.Add(lblDash4);
+            pnlBody.Controls.Add(lblDash3);
+            pnlBody.Controls.Add(lblDash2);
+            pnlBody.Controls.Add(lblDash1);
+            pnlBody.Controls.Add(lblDescription);
+            pnlBody.Controls.Add(lblTitle);
+            pnlBody.Dock = DockStyle.Fill;
+            pnlBody.Location = new Point(0, 32);
+            pnlBody.Name = "pnlBody";
+            pnlBody.Size = new Size(540, 176);
+            pnlBody.TabIndex = 3;
             // 
             // txt5
             // 
@@ -134,66 +134,66 @@ namespace T3ACS
             txt1.Name = "txt1";
             txt1.Size = new Size(69, 26);
             txt1.TabIndex = 8;
-            txt1.TextChanged += txt1_TextChanged_1;
+            txt1.TextChanged += txt1_TextChanged;
             // 
-            // label6
+            // lblDash4
             // 
-            label6.AutoSize = true;
-            label6.Font = new Font("Segoe UI Variable Display", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label6.Location = new Point(382, 118);
-            label6.Name = "label6";
-            label6.Size = new Size(19, 26);
-            label6.TabIndex = 4;
-            label6.Text = "-";
+            lblDash4.AutoSize = true;
+            lblDash4.Font = new Font("Segoe UI Variable Display", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblDash4.Location = new Point(382, 118);
+            lblDash4.Name = "lblDash4";
+            lblDash4.Size = new Size(19, 26);
+            lblDash4.TabIndex = 4;
+            lblDash4.Text = "-";
             // 
-            // label5
+            // lblDash3
             // 
-            label5.AutoSize = true;
-            label5.Font = new Font("Segoe UI Variable Display", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label5.Location = new Point(286, 118);
-            label5.Name = "label5";
-            label5.Size = new Size(19, 26);
-            label5.TabIndex = 4;
-            label5.Text = "-";
+            lblDash3.AutoSize = true;
+            lblDash3.Font = new Font("Segoe UI Variable Display", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblDash3.Location = new Point(286, 118);
+            lblDash3.Name = "lblDash3";
+            lblDash3.Size = new Size(19, 26);
+            lblDash3.TabIndex = 4;
+            lblDash3.Text = "-";
             // 
-            // label4
+            // lblDash2
             // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Segoe UI Variable Display", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label4.Location = new Point(190, 118);
-            label4.Name = "label4";
-            label4.Size = new Size(19, 26);
-            label4.TabIndex = 4;
-            label4.Text = "-";
+            lblDash2.AutoSize = true;
+            lblDash2.Font = new Font("Segoe UI Variable Display", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblDash2.Location = new Point(190, 118);
+            lblDash2.Name = "lblDash2";
+            lblDash2.Size = new Size(19, 26);
+            lblDash2.TabIndex = 4;
+            lblDash2.Text = "-";
             // 
-            // label3
+            // lblDash1
             // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Segoe UI Variable Display", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label3.Location = new Point(96, 118);
-            label3.Name = "label3";
-            label3.Size = new Size(19, 26);
-            label3.TabIndex = 4;
-            label3.Text = "-";
+            lblDash1.AutoSize = true;
+            lblDash1.Font = new Font("Segoe UI Variable Display", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblDash1.Location = new Point(96, 118);
+            lblDash1.Name = "lblDash1";
+            lblDash1.Size = new Size(19, 26);
+            lblDash1.TabIndex = 4;
+            lblDash1.Text = "-";
             // 
-            // label2
+            // lblDescription
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(24, 48);
-            label2.Name = "label2";
-            label2.Size = new Size(391, 57);
-            label2.TabIndex = 2;
-            label2.Text = "Enter your license key below.\nThe key will unlock T3ACSSW on the operating system: Windows.\nThe software is licensed permanently.";
+            lblDescription.AutoSize = true;
+            lblDescription.Location = new Point(24, 48);
+            lblDescription.Name = "lblDescription";
+            lblDescription.Size = new Size(391, 57);
+            lblDescription.TabIndex = 2;
+            lblDescription.Text = "Enter your license key below.\nThe key will unlock T3ACSSW on the operating system: Windows.\nThe software is licensed permanently.";
             // 
-            // label1
+            // lblTitle
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI Variable Display", 15F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(24, 8);
-            label1.Name = "label1";
-            label1.Size = new Size(135, 27);
-            label1.TabIndex = 1;
-            label1.Text = "Enter License";
+            lblTitle.AutoSize = true;
+            lblTitle.Font = new Font("Segoe UI Variable Display", 15F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTitle.Location = new Point(24, 8);
+            lblTitle.Name = "lblTitle";
+            lblTitle.Size = new Size(135, 27);
+            lblTitle.TabIndex = 1;
+            lblTitle.Text = "Enter License";
             // 
             // btnNext
             // 
@@ -209,19 +209,19 @@ namespace T3ACS
             btnNext.UseVisualStyleBackColor = false;
             btnNext.Click += btnNext_Click;
             // 
-            // button1
+            // btnSave
             // 
-            button1.BackColor = SystemColors.Control;
-            button1.FlatAppearance.BorderSize = 0;
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.Image = (Image)resources.GetObject("button1.Image");
-            button1.Location = new Point(289, 231);
-            button1.Margin = new Padding(0);
-            button1.Name = "button1";
-            button1.Size = new Size(243, 33);
-            button1.TabIndex = 9;
-            button1.UseVisualStyleBackColor = false;
-            button1.Click += button1_Click;
+            btnSave.BackColor = SystemColors.Control;
+            btnSave.FlatAppearance.BorderSize = 0;
+            btnSave.FlatStyle = FlatStyle.Flat;
+            btnSave.Image = (Image)resources.GetObject("btnSave.Image");
+            btnSave.Location = new Point(289, 231);
+            btnSave.Margin = new Padding(0);
+            btnSave.Name = "btnSave";
+            btnSave.Size = new Size(243, 33);
+            btnSave.TabIndex = 9;
+            btnSave.UseVisualStyleBackColor = false;
+            btnSave.Click += btnSave_Click;
             // 
             // FormLicense
             // 
@@ -229,34 +229,34 @@ namespace T3ACS
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(540, 288);
-            Controls.Add(button1);
+            Controls.Add(btnSave);
             Controls.Add(btnNext);
-            Controls.Add(panel1);
-            Controls.Add(panelControlbottom1);
-            Controls.Add(panelControl1);
+            Controls.Add(pnlBody);
+            Controls.Add(pnlBottom);
+            Controls.Add(pnlTop);
             Font = new Font("Segoe UI Variable Display", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 0);
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(3, 4, 3, 4);
             Name = "FormLicense";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Enter License";
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
+            pnlBody.ResumeLayout(false);
+            pnlBody.PerformLayout();
             ResumeLayout(false);
         }
 
         #endregion
-        private PanelBorderRadiusCustom panelControl1;
-        private PanelBorderRadiusCustom panelControlbottom1;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label4;
+        private PanelBorderRadiusCustom pnlTop;
+        private PanelBorderRadiusCustom pnlBottom;
+        private System.Windows.Forms.Panel pnlBody;
+        private System.Windows.Forms.Label lblTitle;
+        private System.Windows.Forms.Label lblDescription;
+        private System.Windows.Forms.Label lblDash1;
+        private System.Windows.Forms.Label lblDash4;
+        private System.Windows.Forms.Label lblDash3;
+        private System.Windows.Forms.Label lblDash2;
         private System.Windows.Forms.Button btnNext;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnSave;
         private TextBox txt1;
         private TextBox txt5;
         private TextBox txt4;

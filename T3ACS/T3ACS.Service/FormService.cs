@@ -15,7 +15,7 @@ namespace T3ACS.Service
     public class FormService:IFormService
     {
         #region properties
-        ProcedureModel _model;
+        IProcedureModel _model;
         IT3Call _t3Call;
         #endregion
         public FormService()
@@ -31,7 +31,7 @@ namespace T3ACS.Service
         }
         public string ExportReport(string ext, TemplateViewModel vm)
         {
-            ExcelModel model = new ExcelModel();
+            IExcelModel model = new ExcelModel();
             var newFileName = vm.ReportOutputPath + "\\" + vm.ReportName + ext;
             int newId = 0;
 

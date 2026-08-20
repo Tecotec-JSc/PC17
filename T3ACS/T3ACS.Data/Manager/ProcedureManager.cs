@@ -29,7 +29,6 @@ namespace T3ACS.Data
         public int InsertStepType(string stepType, string description, string category, string version,string GroupName,int repeat, string content)
         {
             // Tham số hoá toàn bộ giá trị chuỗi để chống SQL injection.
-            var str = "INSERT INTO StepType (StepTypeName,Description,Category,Version,GroupName,RepeatCount,Content) VALUES(@StepTypeName,@Description,@Category,@Version,@GroupName,@RepeatCount,@Content)";
             var parameters = new Dictionary<string, object>
             {
                 { "@StepTypeName", stepType },
@@ -40,6 +39,9 @@ namespace T3ACS.Data
                 { "@RepeatCount", repeat },
                 { "@Content", content }
             };
+            // Gắn audit (người tạo/sửa + thời điểm) từ Session.
+            var audit = AuditStamp.ForInsert(parameters);
+            var str = "INSERT INTO StepType (StepTypeName,Description,Category,Version,GroupName,RepeatCount,Content" + audit.Columns + ") VALUES(@StepTypeName,@Description,@Category,@Version,@GroupName,@RepeatCount,@Content" + audit.Values + ")";
             return int.Parse(_sqlite.ExecuteInsert(str, parameters).ToString());
         }
 
@@ -50,7 +52,6 @@ namespace T3ACS.Data
                 if (description == null) description = "";
                 if (version == null) version = "1.0";
                 string datestr = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff");
-                var str = "INSERT INTO Procedure(ProcedureName,Type,Description,CreateBy,DateCreate,LastModified,UserLastModified,UniqueId,Version,Category,Duration,MetaData) VALUES (@ProcedureName,@Type,@Description,@CreateBy,@DateCreate,@LastModified,@UserLastModified,@UniqueId,@Version,@Category,@Duration,@MetaData)";
                 var parameters = new Dictionary<string, object>
                 {
                     { "@ProcedureName", procedureName },
@@ -66,6 +67,9 @@ namespace T3ACS.Data
                     { "@Duration", duration },
                     { "@MetaData", metaData }
                 };
+                // Gắn thêm cột audit chuẩn (song song với các cột CreateBy/DateCreate cũ).
+                var audit = AuditStamp.ForInsert(parameters);
+                var str = "INSERT INTO Procedure(ProcedureName,Type,Description,CreateBy,DateCreate,LastModified,UserLastModified,UniqueId,Version,Category,Duration,MetaData" + audit.Columns + ") VALUES (@ProcedureName,@Type,@Description,@CreateBy,@DateCreate,@LastModified,@UserLastModified,@UniqueId,@Version,@Category,@Duration,@MetaData" + audit.Values + ")";
                 return int.Parse(_sqlite.ExecuteInsert(str, parameters).ToString());
             }
             catch (Exception ex)
@@ -79,7 +83,6 @@ namespace T3ACS.Data
         {
             try
             {
-                var str = "INSERT INTO ProcedureVariable (ProcedureId,VariableName,VariableTitle,VariableValue,VariableUnit,VariableMin,VariableMax,VariableType,VariableTypeImport,VariableRequired,VariableReport,Items) VALUES (@ProcedureId,@VariableName,@VariableTitle,@VariableValue,@VariableUnit,@VariableMin,@VariableMax,@VariableType,@VariableTypeImport,@VariableRequired,@VariableReport,@Items)";
                 var parameters = new Dictionary<string, object>
                 {
                     { "@ProcedureId", procedureId },
@@ -95,6 +98,9 @@ namespace T3ACS.Data
                     { "@VariableReport", report },
                     { "@Items", items }
                 };
+                // Gắn audit (người tạo/sửa + thời điểm) từ Session.
+                var audit = AuditStamp.ForInsert(parameters);
+                var str = "INSERT INTO ProcedureVariable (ProcedureId,VariableName,VariableTitle,VariableValue,VariableUnit,VariableMin,VariableMax,VariableType,VariableTypeImport,VariableRequired,VariableReport,Items" + audit.Columns + ") VALUES (@ProcedureId,@VariableName,@VariableTitle,@VariableValue,@VariableUnit,@VariableMin,@VariableMax,@VariableType,@VariableTypeImport,@VariableRequired,@VariableReport,@Items" + audit.Values + ")";
                 return int.Parse(_sqlite.ExecuteInsert(str, parameters).ToString());
             }
             catch (Exception ex)
@@ -189,7 +195,6 @@ namespace T3ACS.Data
             try
             {
                 string datestr = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff");
-                var str = "INSERT INTO ResultProcedure (Title,UserId,Description,ProcedureId,DateCreate,Status,LogReport,Percent,StartTime,EndTime) VALUES(@Title,@UserId,@Description,@ProcedureId,@DateCreate,@Status,@LogReport,@Percent,@StartTime,@EndTime)";
                 var parameters = new Dictionary<string, object>
                 {
                     { "@Title", title },
@@ -203,6 +208,9 @@ namespace T3ACS.Data
                     { "@StartTime", startTime },
                     { "@EndTime", endTime }
                 };
+                // Gắn thêm cột audit chuẩn (song song với UserId/DateCreate sẵn có).
+                var audit = AuditStamp.ForInsert(parameters);
+                var str = "INSERT INTO ResultProcedure (Title,UserId,Description,ProcedureId,DateCreate,Status,LogReport,Percent,StartTime,EndTime" + audit.Columns + ") VALUES(@Title,@UserId,@Description,@ProcedureId,@DateCreate,@Status,@LogReport,@Percent,@StartTime,@EndTime" + audit.Values + ")";
                 return int.Parse(_sqlite.ExecuteInsert(str, parameters).ToString());
             }
             catch (Exception ex)
@@ -434,7 +442,6 @@ namespace T3ACS.Data
         {
             try
             {
-                var str = "UPDATE Procedure set ProcedureName=@ProcedureName,Description=@Description,Version=@Version,Category=@Category,Duration=@Duration,MetaData=@MetaData,URL=@URL,ReportName=@ReportName,ReportDate=@ReportDate,OutputPath=@OutputPath,ExportPDF=@ExportPDF WHERE ProcedureId=@ProcedureId";
                 var parameters = new Dictionary<string, object>
                 {
                     { "@ProcedureName", procedureName },
@@ -450,6 +457,9 @@ namespace T3ACS.Data
                     { "@ExportPDF", exportPDF },
                     { "@ProcedureId", procedureId }
                 };
+                // Gắn audit người/thời điểm sửa cuối (chèn trước mệnh đề WHERE).
+                var auditSet = AuditStamp.ForUpdate(parameters);
+                var str = "UPDATE Procedure set ProcedureName=@ProcedureName,Description=@Description,Version=@Version,Category=@Category,Duration=@Duration,MetaData=@MetaData,URL=@URL,ReportName=@ReportName,ReportDate=@ReportDate,OutputPath=@OutputPath,ExportPDF=@ExportPDF" + auditSet + " WHERE ProcedureId=@ProcedureId";
                 if (_sqlite.ExecuteNonQuery(str, parameters) > 0)
                     return true;
                 return false;

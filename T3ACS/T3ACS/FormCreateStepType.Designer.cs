@@ -28,65 +28,65 @@
         /// </summary>
         private void InitializeComponent()
         {
-            label1 = new Label();
-            label2 = new Label();
-            label3 = new Label();
+            lblLoadViewRun = new Label();
+            lblLoadViewCreate = new Label();
+            lblSaveData = new Label();
             txtLoadViewRun = new TextBox();
             txtLoadViewCreate = new TextBox();
             txtSaveData = new TextBox();
-            button1 = new Button();
-            label4 = new Label();
+            btnCreateStepType = new Button();
+            lblFileName = new Label();
             txtFileName = new TextBox();
             chkDefault = new CheckBox();
-            label5 = new Label();
+            lblFileDll = new Label();
             txtFileDll = new TextBox();
-            button2 = new Button();
-            label6 = new Label();
+            btnBrowseDll = new Button();
+            lblStepType = new Label();
             txtStepType = new TextBox();
-            label7 = new Label();
+            lblDescription = new Label();
             txtDescription = new TextBox();
-            label8 = new Label();
+            lblCategory = new Label();
             txtCategory = new TextBox();
             txtVersion = new TextBox();
-            label9 = new Label();
-            label10 = new Label();
-            txtTieuDe = new TextBox();
-            label11 = new Label();
+            lblVersion = new Label();
+            lblTitle = new Label();
+            txtTitle = new TextBox();
+            lblAssembly = new Label();
             txtAssembly = new TextBox();
-            label12 = new Label();
+            lblAssemblyType = new Label();
             txtAssemblyType = new TextBox();
-            label13 = new Label();
+            lblSaveDataCreate = new Label();
             txtSaveDataCreate = new TextBox();
-            label14 = new Label();
+            lblMonitor = new Label();
             txtMonitor = new TextBox();
             SuspendLayout();
             // 
-            // label1
+            // lblLoadViewRun
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(41, 342);
-            label1.Name = "label1";
-            label1.Size = new Size(79, 15);
-            label1.TabIndex = 0;
-            label1.Text = "LoadViewRun";
+            lblLoadViewRun.AutoSize = true;
+            lblLoadViewRun.Location = new Point(41, 342);
+            lblLoadViewRun.Name = "lblLoadViewRun";
+            lblLoadViewRun.Size = new Size(79, 15);
+            lblLoadViewRun.TabIndex = 0;
+            lblLoadViewRun.Text = "LoadViewRun";
             // 
-            // label2
+            // lblLoadViewCreate
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(41, 379);
-            label2.Name = "label2";
-            label2.Size = new Size(88, 15);
-            label2.TabIndex = 1;
-            label2.Text = "LoadViewCeate";
+            lblLoadViewCreate.AutoSize = true;
+            lblLoadViewCreate.Location = new Point(41, 379);
+            lblLoadViewCreate.Name = "lblLoadViewCreate";
+            lblLoadViewCreate.Size = new Size(88, 15);
+            lblLoadViewCreate.TabIndex = 1;
+            lblLoadViewCreate.Text = "LoadViewCeate";
             // 
-            // label3
+            // lblSaveData
             // 
-            label3.AutoSize = true;
-            label3.Location = new Point(42, 492);
-            label3.Name = "label3";
-            label3.Size = new Size(55, 15);
-            label3.TabIndex = 2;
-            label3.Text = "SaveData";
+            lblSaveData.AutoSize = true;
+            lblSaveData.Location = new Point(42, 492);
+            lblSaveData.Name = "lblSaveData";
+            lblSaveData.Size = new Size(55, 15);
+            lblSaveData.TabIndex = 2;
+            lblSaveData.Text = "SaveData";
             // 
             // txtLoadViewRun
             // 
@@ -109,24 +109,24 @@
             txtSaveData.Size = new Size(982, 23);
             txtSaveData.TabIndex = 5;
             // 
-            // button1
+            // btnCreateStepType
             // 
-            button1.Location = new Point(1035, 641);
-            button1.Name = "button1";
-            button1.Size = new Size(75, 23);
-            button1.TabIndex = 6;
-            button1.Text = "CreateStepType";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            btnCreateStepType.Location = new Point(1035, 641);
+            btnCreateStepType.Name = "btnCreateStepType";
+            btnCreateStepType.Size = new Size(75, 23);
+            btnCreateStepType.TabIndex = 6;
+            btnCreateStepType.Text = "CreateStepType";
+            btnCreateStepType.UseVisualStyleBackColor = true;
+            btnCreateStepType.Click += btnCreateStepType_Click;
             // 
-            // label4
+            // lblFileName
             // 
-            label4.AutoSize = true;
-            label4.Location = new Point(41, 208);
-            label4.Name = "label4";
-            label4.Size = new Size(57, 15);
-            label4.TabIndex = 0;
-            label4.Text = "FileName";
+            lblFileName.AutoSize = true;
+            lblFileName.Location = new Point(41, 208);
+            lblFileName.Name = "lblFileName";
+            lblFileName.Size = new Size(57, 15);
+            lblFileName.TabIndex = 0;
+            lblFileName.Text = "FileName";
             // 
             // txtFileName
             // 
@@ -145,14 +145,14 @@
             chkDefault.Text = "checkBox1";
             chkDefault.UseVisualStyleBackColor = true;
             // 
-            // label5
+            // lblFileDll
             // 
-            label5.AutoSize = true;
-            label5.Location = new Point(41, 15);
-            label5.Name = "label5";
-            label5.Size = new Size(39, 15);
-            label5.TabIndex = 0;
-            label5.Text = "FileDll";
+            lblFileDll.AutoSize = true;
+            lblFileDll.Location = new Point(41, 15);
+            lblFileDll.Name = "lblFileDll";
+            lblFileDll.Size = new Size(39, 15);
+            lblFileDll.TabIndex = 0;
+            lblFileDll.Text = "FileDll";
             // 
             // txtFileDll
             // 
@@ -161,25 +161,25 @@
             txtFileDll.Size = new Size(931, 23);
             txtFileDll.TabIndex = 3;
             // 
-            // button2
+            // btnBrowseDll
             // 
-            button2.Location = new Point(1086, 12);
-            button2.Name = "button2";
-            button2.Size = new Size(31, 23);
-            button2.TabIndex = 8;
-            button2.Text = "...";
-            button2.TextAlign = ContentAlignment.TopCenter;
-            button2.UseVisualStyleBackColor = true;
-            button2.Click += button2_Click;
+            btnBrowseDll.Location = new Point(1086, 12);
+            btnBrowseDll.Name = "btnBrowseDll";
+            btnBrowseDll.Size = new Size(31, 23);
+            btnBrowseDll.TabIndex = 8;
+            btnBrowseDll.Text = "...";
+            btnBrowseDll.TextAlign = ContentAlignment.TopCenter;
+            btnBrowseDll.UseVisualStyleBackColor = true;
+            btnBrowseDll.Click += btnBrowseDll_Click;
             // 
-            // label6
+            // lblStepType
             // 
-            label6.AutoSize = true;
-            label6.Location = new Point(41, 248);
-            label6.Name = "label6";
-            label6.Size = new Size(55, 15);
-            label6.TabIndex = 0;
-            label6.Text = "StepType";
+            lblStepType.AutoSize = true;
+            lblStepType.Location = new Point(41, 248);
+            lblStepType.Name = "lblStepType";
+            lblStepType.Size = new Size(55, 15);
+            lblStepType.TabIndex = 0;
+            lblStepType.Text = "StepType";
             // 
             // txtStepType
             // 
@@ -188,14 +188,14 @@
             txtStepType.Size = new Size(982, 23);
             txtStepType.TabIndex = 3;
             // 
-            // label7
+            // lblDescription
             // 
-            label7.AutoSize = true;
-            label7.Location = new Point(43, 294);
-            label7.Name = "label7";
-            label7.Size = new Size(67, 15);
-            label7.TabIndex = 0;
-            label7.Text = "Description";
+            lblDescription.AutoSize = true;
+            lblDescription.Location = new Point(43, 294);
+            lblDescription.Name = "lblDescription";
+            lblDescription.Size = new Size(67, 15);
+            lblDescription.TabIndex = 0;
+            lblDescription.Text = "Description";
             // 
             // txtDescription
             // 
@@ -204,14 +204,14 @@
             txtDescription.Size = new Size(982, 23);
             txtDescription.TabIndex = 3;
             // 
-            // label8
+            // lblCategory
             // 
-            label8.AutoSize = true;
-            label8.Location = new Point(41, 107);
-            label8.Name = "label8";
-            label8.Size = new Size(55, 15);
-            label8.TabIndex = 0;
-            label8.Text = "Category";
+            lblCategory.AutoSize = true;
+            lblCategory.Location = new Point(41, 107);
+            lblCategory.Name = "lblCategory";
+            lblCategory.Size = new Size(55, 15);
+            lblCategory.TabIndex = 0;
+            lblCategory.Text = "Category";
             // 
             // txtCategory
             // 
@@ -227,39 +227,39 @@
             txtVersion.Size = new Size(931, 23);
             txtVersion.TabIndex = 10;
             // 
-            // label9
+            // lblVersion
             // 
-            label9.AutoSize = true;
-            label9.Location = new Point(41, 145);
-            label9.Name = "label9";
-            label9.Size = new Size(45, 15);
-            label9.TabIndex = 9;
-            label9.Text = "Version";
+            lblVersion.AutoSize = true;
+            lblVersion.Location = new Point(41, 145);
+            lblVersion.Name = "lblVersion";
+            lblVersion.Size = new Size(45, 15);
+            lblVersion.TabIndex = 9;
+            lblVersion.Text = "Version";
             // 
-            // label10
+            // lblTitle
             // 
-            label10.AutoSize = true;
-            label10.Location = new Point(41, 179);
-            label10.Name = "label10";
-            label10.Size = new Size(46, 15);
-            label10.TabIndex = 9;
-            label10.Text = "Tiêu đề";
+            lblTitle.AutoSize = true;
+            lblTitle.Location = new Point(41, 179);
+            lblTitle.Name = "lblTitle";
+            lblTitle.Size = new Size(46, 15);
+            lblTitle.TabIndex = 9;
+            lblTitle.Text = "Tiêu đề";
             // 
-            // txtTieuDe
+            // txtTitle
             // 
-            txtTieuDe.Location = new Point(135, 176);
-            txtTieuDe.Name = "txtTieuDe";
-            txtTieuDe.Size = new Size(931, 23);
-            txtTieuDe.TabIndex = 10;
+            txtTitle.Location = new Point(135, 176);
+            txtTitle.Name = "txtTitle";
+            txtTitle.Size = new Size(931, 23);
+            txtTitle.TabIndex = 10;
             // 
-            // label11
+            // lblAssembly
             // 
-            label11.AutoSize = true;
-            label11.Location = new Point(41, 44);
-            label11.Name = "label11";
-            label11.Size = new Size(58, 15);
-            label11.TabIndex = 0;
-            label11.Text = "Assembly";
+            lblAssembly.AutoSize = true;
+            lblAssembly.Location = new Point(41, 44);
+            lblAssembly.Name = "lblAssembly";
+            lblAssembly.Size = new Size(58, 15);
+            lblAssembly.TabIndex = 0;
+            lblAssembly.Text = "Assembly";
             // 
             // txtAssembly
             // 
@@ -268,14 +268,14 @@
             txtAssembly.Size = new Size(931, 23);
             txtAssembly.TabIndex = 3;
             // 
-            // label12
+            // lblAssemblyType
             // 
-            label12.AutoSize = true;
-            label12.Location = new Point(41, 73);
-            label12.Name = "label12";
-            label12.Size = new Size(83, 15);
-            label12.TabIndex = 0;
-            label12.Text = "AssemblyType";
+            lblAssemblyType.AutoSize = true;
+            lblAssemblyType.Location = new Point(41, 73);
+            lblAssemblyType.Name = "lblAssemblyType";
+            lblAssemblyType.Size = new Size(83, 15);
+            lblAssemblyType.TabIndex = 0;
+            lblAssemblyType.Text = "AssemblyType";
             // 
             // txtAssemblyType
             // 
@@ -284,14 +284,14 @@
             txtAssemblyType.Size = new Size(931, 23);
             txtAssemblyType.TabIndex = 3;
             // 
-            // label13
+            // lblSaveDataCreate
             // 
-            label13.AutoSize = true;
-            label13.Location = new Point(42, 438);
-            label13.Name = "label13";
-            label13.Size = new Size(89, 15);
-            label13.TabIndex = 2;
-            label13.Text = "SaveDataCreate";
+            lblSaveDataCreate.AutoSize = true;
+            lblSaveDataCreate.Location = new Point(42, 438);
+            lblSaveDataCreate.Name = "lblSaveDataCreate";
+            lblSaveDataCreate.Size = new Size(89, 15);
+            lblSaveDataCreate.TabIndex = 2;
+            lblSaveDataCreate.Text = "SaveDataCreate";
             // 
             // txtSaveDataCreate
             // 
@@ -300,14 +300,14 @@
             txtSaveDataCreate.Size = new Size(982, 23);
             txtSaveDataCreate.TabIndex = 5;
             // 
-            // label14
+            // lblMonitor
             // 
-            label14.AutoSize = true;
-            label14.Location = new Point(41, 543);
-            label14.Name = "label14";
-            label14.Size = new Size(50, 15);
-            label14.TabIndex = 0;
-            label14.Text = "Monitor";
+            lblMonitor.AutoSize = true;
+            lblMonitor.Location = new Point(41, 543);
+            lblMonitor.Name = "lblMonitor";
+            lblMonitor.Size = new Size(50, 15);
+            lblMonitor.TabIndex = 0;
+            lblMonitor.Text = "Monitor";
             // 
             // txtMonitor
             // 
@@ -321,13 +321,13 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1129, 819);
-            Controls.Add(txtTieuDe);
-            Controls.Add(label10);
+            Controls.Add(txtTitle);
+            Controls.Add(lblTitle);
             Controls.Add(txtVersion);
-            Controls.Add(label9);
-            Controls.Add(button2);
+            Controls.Add(lblVersion);
+            Controls.Add(btnBrowseDll);
             Controls.Add(chkDefault);
-            Controls.Add(button1);
+            Controls.Add(btnCreateStepType);
             Controls.Add(txtSaveDataCreate);
             Controls.Add(txtMonitor);
             Controls.Add(txtSaveData);
@@ -338,20 +338,20 @@
             Controls.Add(txtFileDll);
             Controls.Add(txtDescription);
             Controls.Add(txtStepType);
-            Controls.Add(label12);
+            Controls.Add(lblAssemblyType);
             Controls.Add(txtFileName);
-            Controls.Add(label11);
+            Controls.Add(lblAssembly);
             Controls.Add(txtLoadViewRun);
-            Controls.Add(label13);
-            Controls.Add(label8);
-            Controls.Add(label3);
-            Controls.Add(label5);
-            Controls.Add(label7);
-            Controls.Add(label6);
-            Controls.Add(label2);
-            Controls.Add(label4);
-            Controls.Add(label14);
-            Controls.Add(label1);
+            Controls.Add(lblSaveDataCreate);
+            Controls.Add(lblCategory);
+            Controls.Add(lblSaveData);
+            Controls.Add(lblFileDll);
+            Controls.Add(lblDescription);
+            Controls.Add(lblStepType);
+            Controls.Add(lblLoadViewCreate);
+            Controls.Add(lblFileName);
+            Controls.Add(lblMonitor);
+            Controls.Add(lblLoadViewRun);
             Name = "FormCreateStepType";
             Text = "FormCreateStepType";
             ResumeLayout(false);
@@ -360,36 +360,36 @@
 
         #endregion
 
-        private Label label1;
-        private Label label2;
-        private Label label3;
+        private Label lblLoadViewRun;
+        private Label lblLoadViewCreate;
+        private Label lblSaveData;
         private TextBox txtLoadViewRun;
         private TextBox txtLoadViewCreate;
         private TextBox txtSaveData;
-        private Button button1;
-        private Label label4;
+        private Button btnCreateStepType;
+        private Label lblFileName;
         private TextBox txtFileName;
         private CheckBox chkDefault;
-        private Label label5;
+        private Label lblFileDll;
         private TextBox txtFileDll;
-        private Button button2;
-        private Label label6;
+        private Button btnBrowseDll;
+        private Label lblStepType;
         private TextBox txtStepType;
-        private Label label7;
+        private Label lblDescription;
         private TextBox txtDescription;
-        private Label label8;
+        private Label lblCategory;
         private TextBox txtCategory;
         private TextBox txtVersion;
-        private Label label9;
-        private Label label10;
-        private TextBox txtTieuDe;
-        private Label label11;
+        private Label lblVersion;
+        private Label lblTitle;
+        private TextBox txtTitle;
+        private Label lblAssembly;
         private TextBox txtAssembly;
-        private Label label12;
+        private Label lblAssemblyType;
         private TextBox txtAssemblyType;
-        private Label label13;
+        private Label lblSaveDataCreate;
         private TextBox txtSaveDataCreate;
-        private Label label14;
+        private Label lblMonitor;
         private TextBox txtMonitor;
     }
 }

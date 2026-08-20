@@ -19,7 +19,7 @@ namespace T3ACS
 {
     public partial class FormConfigureNewProcedure : Form
     {
-        ProcedureModel _model;
+        IProcedureModel _model;
         int _procedureId;
         public FormConfigureNewProcedure()
         {
@@ -91,7 +91,7 @@ namespace T3ACS
         public List<ProcedureVariableViewModel> _variables;
         private void LoadComboDUT()
         {
-            DUTModel model = new DUTModel();
+            IDUTModel model = new DUTModel();
             var dt = model.GetTenDUTs();
             if (dt != null && dt.Count > 0)
             {

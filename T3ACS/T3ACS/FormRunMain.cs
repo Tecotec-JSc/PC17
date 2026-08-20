@@ -37,9 +37,8 @@ namespace T3ACS
         private FormShowLog _frmShowLog;
         private FormTableInfo _frmTableInfo;
         FormEvaluateParameter _frmEvaluateParameter;
-        FormEvaluateNumber _frmEvaluateNumber;
-        FormEvaluateBoolean _frmEvaluateBoolean;
-        FormEvaluateString _frmEvaluateString;
+
+ 
         FormEvaluateFileAttach _frmEvaluateFileAttach;
         FormEvaluateCorrection _frmEvaluateCorrection;
         FormEvaluateReview _frmEvaluateReview;
@@ -170,15 +169,16 @@ namespace T3ACS
 
         // async Task để nơi gọi có thể await: dựng xong nội dung RỒI mới Show() (tránh nháy trống),
         // trong khi phần đọc DB vẫn chạy nền (không treo UI).
-        public async Task RunProcedureId(int procedureId)
+        public async Task RunProcedureId(int procedureId, IProgress<(int percent, string status)> progress = null)
         {
             LoadBtn();
             _sortCart = new List<SortCardViewModel>();
             _statusAction = 1;
             _statusActionStep = 0;
-            ProcedureModel model = new ProcedureModel();
+            IProcedureModel model = new ProcedureModel();
             // Đọc procedure từ DB (nặng, thuần dữ liệu) chạy nền để không treo UI.
             // Sau await, luồng quay lại UI thread nên phần dựng giao diện bên dưới vẫn an toàn.
+            progress?.Report((10, "Đang đọc dữ liệu procedure..."));
             _Vm = await UiTask.RunAsync(() => model.GetProcedureById(procedureId));
             _variables = _Vm.Variables;
             _Vm.CurrentStep = 1;
@@ -189,6 +189,7 @@ namespace T3ACS
             lblHugIDProcedure.Text = "ID: " + _Vm.Id;
             lblHugVersionProcedure.Text = "Ver " + _Vm.Version;
             lblTextDescription.Text = _Vm.Description;
+            progress?.Report((60, "Đang dựng danh sách bước..."));
             if (_Vm.TableProcedures.Count > 0)
             {
                 _Vm.CurrentStep = 1;
@@ -215,6 +216,7 @@ namespace T3ACS
                 _frmShowLog.Show();
                 addLog("Run procedure: " + _Vm.Subject);
                 addLog("Load Step " + _Vm.CurrentStep + ": " + _Vm.TableProcedures[0].Title);
+                progress?.Report((80, "Đang tải nội dung bước..."));
                 // Panel Modem
                 // Panel info
                 LoadPanelInfo(_Vm.TableProcedures[0], 0);
@@ -226,6 +228,7 @@ namespace T3ACS
                 //LoadStepContent
                 loadEvaluateStep(_Vm.CurrentStep);
             }
+            progress?.Report((100, "Hoàn tất"));
         }
 
         public bool SaveProcedure(bool done)
@@ -240,7 +243,7 @@ namespace T3ACS
             {
                 Directory.CreateDirectory(pathTemplate);
             }        
-            ProcedureModel model = new ProcedureModel();
+            IProcedureModel model = new ProcedureModel();
             _Vm.UserId = 2;
             _Vm.Type = 0;
             _Vm.ProcedureJson = JsonConvert.SerializeObject(_Vm);

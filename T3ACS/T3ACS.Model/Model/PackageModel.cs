@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace T3ACS.Model
 {
-    public class PackageModel
+    public class PackageModel : IPackageModel
     {
         IPackageManager _manager;
         public PackageModel()
@@ -86,7 +86,7 @@ namespace T3ACS.Model
                         strValue = vm.FunctionCalls[0].Assembly + "," + vm.FunctionCalls[0].AssemblyType + "," + vm.FunctionCalls[0].Name;
                     }
                     _manager.InsertPackageDetails(newId2vz, vm.Name, vm.Type, vm.Description, vm.Name, vm.Category, newstr, strValue);
-                    ProcedureModel pm = new ProcedureModel();
+                    IProcedureModel pm = new ProcedureModel();
                     if (vm.Procedures != null && vm.Procedures.Count > 0)
                     {
                         foreach (var procedure in vm.Procedures)
@@ -155,7 +155,7 @@ namespace T3ACS.Model
                         strValue = vm.FunctionCalls[0].Assembly + "," + vm.FunctionCalls[0].AssemblyType + "," + vm.FunctionCalls[0].Name;
                     }
                     _manager.InsertPackageDetails(newId2vz, vm.Name, vm.Type, vm.Description, vm.Name, vm.Category, newstr, strValue);
-                    ProcedureModel pm = new ProcedureModel();
+                    IProcedureModel pm = new ProcedureModel();
                     if (vm.Procedures != null && vm.Procedures.Count > 0)
                     {
                         foreach (var procedure in vm.Procedures)

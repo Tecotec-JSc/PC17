@@ -20,7 +20,7 @@ namespace T3ACS
         }
 
 
-        ProcedureModel _model;
+        IProcedureModel _model;
         IMain _imain;
         int _dutId;
         bool _viewProcedure;
@@ -282,7 +282,7 @@ namespace T3ACS
         }
         private void Duplicate(int procedureId)
         {
-            ProcedureModel model = new ProcedureModel();
+            IProcedureModel model = new ProcedureModel();
             var vm = model.GetProcedureById(procedureId);
             vm.ProcedureId = 0;
             var str = "Duplicate " + vm.Subject;
@@ -304,7 +304,7 @@ namespace T3ACS
 
         private void Delete(int procedureId)
         {
-            ProcedureModel model = new ProcedureModel();
+            IProcedureModel model = new ProcedureModel();
             if (model.CheckToDelete(procedureId))
             {
                 FormOKCancelAll formOKCancelAll = new FormOKCancelAll();
@@ -334,7 +334,7 @@ namespace T3ACS
 
         private void DeleteResult(int resultId)
         {
-            ProcedureModel model = new ProcedureModel();
+            IProcedureModel model = new ProcedureModel();
 
             FormOKCancelAll formOKCancelAll = new FormOKCancelAll();
             formOKCancelAll.LoadData("Delete", "Are you sure you want to delete this measurement result?", "Delete", "Cancel", 2);
@@ -376,7 +376,7 @@ namespace T3ACS
             //    var fileName = open.FileName;
             //    var str = File.ReadAllText(fileName);
             //    var vm = JsonConvert.DeserializeObject<TemplateViewModel>(str);
-            //    ProcedureModel model = new ProcedureModel();
+            //    IProcedureModel model = new ProcedureModel();
             //    var currentFolder = fileName.Substring(0, fileName.LastIndexOf("\\"));
             //    var namenewFile = fileName.Substring(fileName.LastIndexOf("\\") + 1);
             //    var newpath = currentFolder + "\\" + namenewFile.Replace(" ", "_").Replace(".", "_");
@@ -484,7 +484,7 @@ namespace T3ACS
                 var newpatha = AppDomain.CurrentDomain.BaseDirectory + "TemplateInspectionExport\\";
                 if (!Directory.Exists(newpatha)) Directory.CreateDirectory(newpatha);
                 exportInspection.InitialDirectory = newpatha;
-                ProcedureModel model = new ProcedureModel();
+                IProcedureModel model = new ProcedureModel();
                 var vm = model.GetProcedureById(lstId[0]);
                 if (exportInspection.ShowDialog() == DialogResult.OK)
                 {
@@ -978,7 +978,7 @@ namespace T3ACS
                         var sourf = oldDirection + vm.PathDll.Substring(0, vm.PathDll.LastIndexOf("\\"));
                         FileXML.DirectoryCopy(sourf, newDirection, true);
                     }
-                    ProcedureModel pm = new ProcedureModel();
+                    IProcedureModel pm = new ProcedureModel();
                     if (vm.Procedures != null && vm.Procedures.Count > 0)
                     {
                         string noti = "";

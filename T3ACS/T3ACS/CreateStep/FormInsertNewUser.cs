@@ -17,7 +17,7 @@ namespace T3ACS
     public partial class FormInsertNewUser : Form
     {
         int _id;
-        UserModel _model;
+        IUserModel _model;
         public FormInsertNewUser(int userId)
         {
             InitializeComponent();

@@ -40,7 +40,7 @@ namespace T3ACS
         }
         private void GetTemplates()
         {
-            ProcedureModel model = new ProcedureModel();
+            IProcedureModel model = new ProcedureModel();
             _lstData = model.GetTemplates();
         }
         private void SearchTemplate(string strSearch)
@@ -149,7 +149,7 @@ namespace T3ACS
             }
             else
             {
-                ProcedureModel model = new ProcedureModel();
+                IProcedureModel model = new ProcedureModel();
                 FormConfigureNewProcedure frm = new FormConfigureNewProcedure();
                 var item = _lstData.Where(t => t.ProcedureId == procedureId).FirstOrDefault();
                 TemplateViewModel _vm = new TemplateViewModel();

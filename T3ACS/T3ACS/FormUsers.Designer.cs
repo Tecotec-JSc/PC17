@@ -36,84 +36,84 @@ namespace T3ACS
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.panelControl1 = new PanelBorderRadiusCustom();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.tabProcedureList = new System.Windows.Forms.Button();
+            this.pnlTop = new PanelBorderRadiusCustom();
+            this.pnlTitle = new System.Windows.Forms.Panel();
+            this.lblClose = new System.Windows.Forms.Label();
+            this.lblTitle = new System.Windows.Forms.Label();
+            this.btnProcedureList = new System.Windows.Forms.Button();
             this.btnAddNew = new System.Windows.Forms.Button();
             this.cboActionHistory = new System.Windows.Forms.ComboBox();
             this.btnAction = new System.Windows.Forms.Button();
-            this.paneltableH = new System.Windows.Forms.Panel();
-            this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmAttachFile = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.panelBorderControl2 = new PanelBorderRadiusCustom();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.label19 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
-            this.panel2.SuspendLayout();
-            this.paneltableH.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
+            this.pnlTable = new System.Windows.Forms.Panel();
+            this.dgvUsers = new System.Windows.Forms.DataGridView();
+            this.clmUserId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmAction = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.clmUserName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmFullName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmPermission = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pnlHeader = new PanelBorderRadiusCustom();
+            this.chkSelectAll = new System.Windows.Forms.CheckBox();
+            this.lblPermission = new System.Windows.Forms.Label();
+            this.lblFullName = new System.Windows.Forms.Label();
+            this.lblUserName = new System.Windows.Forms.Label();
+            this.pnlTitle.SuspendLayout();
+            this.pnlTable.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvUsers)).BeginInit();
             this.SuspendLayout();
             // 
-            // panelControl1
+            // pnlTop
             // 
-            this.panelControl1.BackColor = System.Drawing.SystemColors.Window;
-            this.panelControl1.BorderColor = System.Drawing.Color.LightGray;
-            this.panelControl1.BorderSize = 1;
-            this.panelControl1.Location = new System.Drawing.Point(0, 0);
-            this.panelControl1.Margin = new System.Windows.Forms.Padding(2);
-            this.panelControl1.Name = "panelControl1";
-            this.panelControl1.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.panelControl1.Size = new System.Drawing.Size(1080, 32);
-            this.panelControl1.TabIndex = 11;
+            this.pnlTop.BackColor = System.Drawing.SystemColors.Window;
+            this.pnlTop.BorderColor = System.Drawing.Color.LightGray;
+            this.pnlTop.BorderSize = 1;
+            this.pnlTop.Location = new System.Drawing.Point(0, 0);
+            this.pnlTop.Margin = new System.Windows.Forms.Padding(2);
+            this.pnlTop.Name = "pnlTop";
+            this.pnlTop.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.pnlTop.Size = new System.Drawing.Size(1080, 32);
+            this.pnlTop.TabIndex = 11;
             // 
-            // panel2
+            // pnlTitle
             // 
-            this.panel2.BackColor = System.Drawing.SystemColors.Window;
-            this.panel2.Controls.Add(this.label2);
-            this.panel2.Controls.Add(this.label1);
-            this.panel2.Location = new System.Drawing.Point(6, 1);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1065, 29);
-            this.panel2.TabIndex = 12;
-            this.panel2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel2_MouseDown);
+            this.pnlTitle.BackColor = System.Drawing.SystemColors.Window;
+            this.pnlTitle.Controls.Add(this.lblClose);
+            this.pnlTitle.Controls.Add(this.lblTitle);
+            this.pnlTitle.Location = new System.Drawing.Point(6, 1);
+            this.pnlTitle.Name = "pnlTitle";
+            this.pnlTitle.Size = new System.Drawing.Size(1065, 29);
+            this.pnlTitle.TabIndex = 12;
+            this.pnlTitle.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pnlTitle_MouseDown);
             // 
-            // label2
+            // lblClose
             // 
-            this.label2.Image = ((System.Drawing.Image)(resources.GetObject("label2.Image")));
-            this.label2.Location = new System.Drawing.Point(1031, 3);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(35, 24);
-            this.label2.TabIndex = 2;
-            this.label2.Click += new System.EventHandler(this.label2_Click);
+            this.lblClose.Image = ((System.Drawing.Image)(resources.GetObject("lblClose.Image")));
+            this.lblClose.Location = new System.Drawing.Point(1031, 3);
+            this.lblClose.Name = "lblClose";
+            this.lblClose.Size = new System.Drawing.Size(35, 24);
+            this.lblClose.TabIndex = 2;
+            this.lblClose.Click += new System.EventHandler(this.lblClose_Click);
             // 
-            // label1
+            // lblTitle
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI Variable Display", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(15, 3);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(149, 21);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "User Management";
+            this.lblTitle.AutoSize = true;
+            this.lblTitle.Font = new System.Drawing.Font("Segoe UI Variable Display", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitle.Location = new System.Drawing.Point(15, 3);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(149, 21);
+            this.lblTitle.TabIndex = 2;
+            this.lblTitle.Text = "User Management";
             // 
-            // tabProcedureList
+            // btnProcedureList
             // 
-            this.tabProcedureList.FlatAppearance.BorderSize = 0;
-            this.tabProcedureList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.tabProcedureList.Image = ((System.Drawing.Image)(resources.GetObject("tabProcedureList.Image")));
-            this.tabProcedureList.Location = new System.Drawing.Point(16, 88);
-            this.tabProcedureList.Margin = new System.Windows.Forms.Padding(0);
-            this.tabProcedureList.Name = "tabProcedureList";
-            this.tabProcedureList.Size = new System.Drawing.Size(92, 33);
-            this.tabProcedureList.TabIndex = 13;
-            this.tabProcedureList.UseVisualStyleBackColor = true;
+            this.btnProcedureList.FlatAppearance.BorderSize = 0;
+            this.btnProcedureList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnProcedureList.Image = ((System.Drawing.Image)(resources.GetObject("btnProcedureList.Image")));
+            this.btnProcedureList.Location = new System.Drawing.Point(16, 88);
+            this.btnProcedureList.Margin = new System.Windows.Forms.Padding(0);
+            this.btnProcedureList.Name = "btnProcedureList";
+            this.btnProcedureList.Size = new System.Drawing.Size(92, 33);
+            this.btnProcedureList.TabIndex = 13;
+            this.btnProcedureList.UseVisualStyleBackColor = true;
             // 
             // btnAddNew
             // 
@@ -126,7 +126,7 @@ namespace T3ACS
             this.btnAddNew.Size = new System.Drawing.Size(121, 33);
             this.btnAddNew.TabIndex = 14;
             this.btnAddNew.UseVisualStyleBackColor = true;
-            this.btnAddNew.Click += new System.EventHandler(this.btnAddNewUser_Click);
+            this.btnAddNew.Click += new System.EventHandler(this.btnAddNew_Click);
             // 
             // cboActionHistory
             // 
@@ -153,38 +153,38 @@ namespace T3ACS
             this.btnAction.UseVisualStyleBackColor = true;
             this.btnAction.Click += new System.EventHandler(this.btnAction_Click);
             // 
-            // paneltableH
+            // pnlTable
             // 
-            this.paneltableH.AutoScroll = true;
-            this.paneltableH.Controls.Add(this.dataGridView2);
-            this.paneltableH.Location = new System.Drawing.Point(19, 207);
-            this.paneltableH.Name = "paneltableH";
-            this.paneltableH.Size = new System.Drawing.Size(1032, 510);
-            this.paneltableH.TabIndex = 18;
+            this.pnlTable.AutoScroll = true;
+            this.pnlTable.Controls.Add(this.dgvUsers);
+            this.pnlTable.Location = new System.Drawing.Point(19, 207);
+            this.pnlTable.Name = "pnlTable";
+            this.pnlTable.Size = new System.Drawing.Size(1032, 510);
+            this.pnlTable.TabIndex = 18;
             // 
-            // dataGridView2
+            // dgvUsers
             // 
-            this.dataGridView2.AllowUserToAddRows = false;
-            this.dataGridView2.AllowUserToDeleteRows = false;
-            this.dataGridView2.AllowUserToResizeColumns = false;
-            this.dataGridView2.AllowUserToResizeRows = false;
+            this.dgvUsers.AllowUserToAddRows = false;
+            this.dgvUsers.AllowUserToDeleteRows = false;
+            this.dgvUsers.AllowUserToResizeColumns = false;
+            this.dgvUsers.AllowUserToResizeRows = false;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI Variable Display", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
-            this.dataGridView2.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            this.dataGridView2.BackgroundColor = System.Drawing.SystemColors.Window;
-            this.dataGridView2.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dataGridView2.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
-            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.ColumnHeadersVisible = false;
-            this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn1,
-            this.dataGridViewCheckBoxColumn1,
-            this.dataGridViewTextBoxColumn2,
-            this.dataGridViewTextBoxColumn4,
-            this.clmAttachFile});
+            this.dgvUsers.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvUsers.BackgroundColor = System.Drawing.SystemColors.Window;
+            this.dgvUsers.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dgvUsers.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
+            this.dgvUsers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvUsers.ColumnHeadersVisible = false;
+            this.dgvUsers.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.clmUserId,
+            this.clmAction,
+            this.clmUserName,
+            this.clmFullName,
+            this.clmPermission});
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI Variable Display", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -192,140 +192,140 @@ namespace T3ACS
             dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.White;
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView2.DefaultCellStyle = dataGridViewCellStyle3;
-            this.dataGridView2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView2.Location = new System.Drawing.Point(0, 0);
-            this.dataGridView2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.RowHeadersVisible = false;
+            this.dgvUsers.DefaultCellStyle = dataGridViewCellStyle3;
+            this.dgvUsers.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvUsers.Location = new System.Drawing.Point(0, 0);
+            this.dgvUsers.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.dgvUsers.Name = "dgvUsers";
+            this.dgvUsers.RowHeadersVisible = false;
             dataGridViewCellStyle4.Font = new System.Drawing.Font("Segoe UI Variable Display", 10.5F);
-            this.dataGridView2.RowsDefaultCellStyle = dataGridViewCellStyle4;
-            this.dataGridView2.RowTemplate.Height = 54;
-            this.dataGridView2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.dataGridView2.Size = new System.Drawing.Size(1032, 510);
-            this.dataGridView2.TabIndex = 1;
+            this.dgvUsers.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            this.dgvUsers.RowTemplate.Height = 54;
+            this.dgvUsers.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.dgvUsers.Size = new System.Drawing.Size(1032, 510);
+            this.dgvUsers.TabIndex = 1;
             // 
-            // dataGridViewTextBoxColumn1
+            // clmUserId
             // 
-            this.dataGridViewTextBoxColumn1.DataPropertyName = "UserId";
-            this.dataGridViewTextBoxColumn1.HeaderText = "UserId";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            this.dataGridViewTextBoxColumn1.Visible = false;
+            this.clmUserId.DataPropertyName = "UserId";
+            this.clmUserId.HeaderText = "UserId";
+            this.clmUserId.Name = "clmUserId";
+            this.clmUserId.ReadOnly = true;
+            this.clmUserId.Visible = false;
             // 
-            // dataGridViewCheckBoxColumn1
+            // clmAction
             // 
-            this.dataGridViewCheckBoxColumn1.DataPropertyName = "Action";
-            this.dataGridViewCheckBoxColumn1.FalseValue = "false";
-            this.dataGridViewCheckBoxColumn1.HeaderText = "";
-            this.dataGridViewCheckBoxColumn1.Name = "dataGridViewCheckBoxColumn1";
-            this.dataGridViewCheckBoxColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewCheckBoxColumn1.TrueValue = "true";
-            this.dataGridViewCheckBoxColumn1.Width = 36;
+            this.clmAction.DataPropertyName = "Action";
+            this.clmAction.FalseValue = "false";
+            this.clmAction.HeaderText = "";
+            this.clmAction.Name = "clmAction";
+            this.clmAction.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.clmAction.TrueValue = "true";
+            this.clmAction.Width = 36;
             // 
-            // dataGridViewTextBoxColumn2
+            // clmUserName
             // 
-            this.dataGridViewTextBoxColumn2.DataPropertyName = "UserName";
+            this.clmUserName.DataPropertyName = "UserName";
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dataGridViewTextBoxColumn2.HeaderText = "UserName";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
-            this.dataGridViewTextBoxColumn2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.dataGridViewTextBoxColumn2.Width = 300;
+            this.clmUserName.DefaultCellStyle = dataGridViewCellStyle2;
+            this.clmUserName.HeaderText = "UserName";
+            this.clmUserName.Name = "clmUserName";
+            this.clmUserName.ReadOnly = true;
+            this.clmUserName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.clmUserName.Width = 300;
             // 
-            // dataGridViewTextBoxColumn4
+            // clmFullName
             // 
-            this.dataGridViewTextBoxColumn4.DataPropertyName = "FullName";
-            this.dataGridViewTextBoxColumn4.HeaderText = "Full Name";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.ReadOnly = true;
-            this.dataGridViewTextBoxColumn4.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewTextBoxColumn4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.dataGridViewTextBoxColumn4.Width = 300;
+            this.clmFullName.DataPropertyName = "FullName";
+            this.clmFullName.HeaderText = "Full Name";
+            this.clmFullName.Name = "clmFullName";
+            this.clmFullName.ReadOnly = true;
+            this.clmFullName.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.clmFullName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.clmFullName.Width = 300;
             // 
-            // clmAttachFile
+            // clmPermission
             // 
-            this.clmAttachFile.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.clmAttachFile.DataPropertyName = "Permission";
-            this.clmAttachFile.HeaderText = "Permission";
-            this.clmAttachFile.Name = "clmAttachFile";
-            this.clmAttachFile.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.clmAttachFile.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.clmPermission.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.clmPermission.DataPropertyName = "Permission";
+            this.clmPermission.HeaderText = "Permission";
+            this.clmPermission.Name = "clmPermission";
+            this.clmPermission.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.clmPermission.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
-            // panelBorderControl2
+            // pnlHeader
             // 
-            this.panelBorderControl2.BackColor = System.Drawing.SystemColors.Window;
-            this.panelBorderControl2.BorderColor = System.Drawing.Color.White;
-            this.panelBorderControl2.BorderSize = 1;
-            this.panelBorderControl2.Font = new System.Drawing.Font("Segoe UI Variable Display", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panelBorderControl2.Location = new System.Drawing.Point(19, 175);
-            this.panelBorderControl2.Margin = new System.Windows.Forms.Padding(0);
-            this.panelBorderControl2.Name = "panelBorderControl2";
-            this.panelBorderControl2.Padding = new System.Windows.Forms.Padding(2);
-            this.panelBorderControl2.Size = new System.Drawing.Size(1032, 32);
-            this.panelBorderControl2.TabIndex = 17;
+            this.pnlHeader.BackColor = System.Drawing.SystemColors.Window;
+            this.pnlHeader.BorderColor = System.Drawing.Color.White;
+            this.pnlHeader.BorderSize = 1;
+            this.pnlHeader.Font = new System.Drawing.Font("Segoe UI Variable Display", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pnlHeader.Location = new System.Drawing.Point(19, 175);
+            this.pnlHeader.Margin = new System.Windows.Forms.Padding(0);
+            this.pnlHeader.Name = "pnlHeader";
+            this.pnlHeader.Padding = new System.Windows.Forms.Padding(2);
+            this.pnlHeader.Size = new System.Drawing.Size(1032, 32);
+            this.pnlHeader.TabIndex = 17;
             // 
-            // checkBox2
+            // chkSelectAll
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.BackColor = System.Drawing.SystemColors.Window;
-            this.checkBox2.Location = new System.Drawing.Point(27, 185);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(15, 14);
-            this.checkBox2.TabIndex = 24;
-            this.checkBox2.UseVisualStyleBackColor = false;
+            this.chkSelectAll.AutoSize = true;
+            this.chkSelectAll.BackColor = System.Drawing.SystemColors.Window;
+            this.chkSelectAll.Location = new System.Drawing.Point(27, 185);
+            this.chkSelectAll.Name = "chkSelectAll";
+            this.chkSelectAll.Size = new System.Drawing.Size(15, 14);
+            this.chkSelectAll.TabIndex = 24;
+            this.chkSelectAll.UseVisualStyleBackColor = false;
             // 
-            // label19
+            // lblPermission
             // 
-            this.label19.AutoSize = true;
-            this.label19.BackColor = System.Drawing.SystemColors.Window;
-            this.label19.Font = new System.Drawing.Font("Segoe UI Variable Display", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label19.Location = new System.Drawing.Point(653, 181);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(92, 21);
-            this.label19.TabIndex = 19;
-            this.label19.Text = "Permission";
+            this.lblPermission.AutoSize = true;
+            this.lblPermission.BackColor = System.Drawing.SystemColors.Window;
+            this.lblPermission.Font = new System.Drawing.Font("Segoe UI Variable Display", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPermission.Location = new System.Drawing.Point(653, 181);
+            this.lblPermission.Name = "lblPermission";
+            this.lblPermission.Size = new System.Drawing.Size(92, 21);
+            this.lblPermission.TabIndex = 19;
+            this.lblPermission.Text = "Permission";
             // 
-            // label16
+            // lblFullName
             // 
-            this.label16.AutoSize = true;
-            this.label16.BackColor = System.Drawing.SystemColors.Window;
-            this.label16.Font = new System.Drawing.Font("Segoe UI Variable Display", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.Location = new System.Drawing.Point(356, 181);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(84, 21);
-            this.label16.TabIndex = 22;
-            this.label16.Text = "Full Name";
+            this.lblFullName.AutoSize = true;
+            this.lblFullName.BackColor = System.Drawing.SystemColors.Window;
+            this.lblFullName.Font = new System.Drawing.Font("Segoe UI Variable Display", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFullName.Location = new System.Drawing.Point(356, 181);
+            this.lblFullName.Name = "lblFullName";
+            this.lblFullName.Size = new System.Drawing.Size(84, 21);
+            this.lblFullName.TabIndex = 22;
+            this.lblFullName.Text = "Full Name";
             // 
-            // label18
+            // lblUserName
             // 
-            this.label18.AutoSize = true;
-            this.label18.BackColor = System.Drawing.SystemColors.Window;
-            this.label18.Font = new System.Drawing.Font("Segoe UI Variable Display", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(54, 181);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(86, 21);
-            this.label18.TabIndex = 23;
-            this.label18.Text = "Username";
+            this.lblUserName.AutoSize = true;
+            this.lblUserName.BackColor = System.Drawing.SystemColors.Window;
+            this.lblUserName.Font = new System.Drawing.Font("Segoe UI Variable Display", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblUserName.Location = new System.Drawing.Point(54, 181);
+            this.lblUserName.Name = "lblUserName";
+            this.lblUserName.Size = new System.Drawing.Size(86, 21);
+            this.lblUserName.TabIndex = 23;
+            this.lblUserName.Text = "Username";
             // 
             // FormUsers
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1080, 720);
-            this.Controls.Add(this.checkBox2);
-            this.Controls.Add(this.label19);
-            this.Controls.Add(this.label16);
-            this.Controls.Add(this.label18);
-            this.Controls.Add(this.paneltableH);
-            this.Controls.Add(this.panelBorderControl2);
+            this.Controls.Add(this.chkSelectAll);
+            this.Controls.Add(this.lblPermission);
+            this.Controls.Add(this.lblFullName);
+            this.Controls.Add(this.lblUserName);
+            this.Controls.Add(this.pnlTable);
+            this.Controls.Add(this.pnlHeader);
             this.Controls.Add(this.cboActionHistory);
             this.Controls.Add(this.btnAction);
-            this.Controls.Add(this.tabProcedureList);
+            this.Controls.Add(this.btnProcedureList);
             this.Controls.Add(this.btnAddNew);
-            this.Controls.Add(this.panel2);
-            this.Controls.Add(this.panelControl1);
+            this.Controls.Add(this.pnlTitle);
+            this.Controls.Add(this.pnlTop);
             this.Font = new System.Drawing.Font("Segoe UI Variable Display", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -333,10 +333,10 @@ namespace T3ACS
             this.Name = "FormUsers";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "User Management";
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
-            this.paneltableH.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
+            this.pnlTitle.ResumeLayout(false);
+            this.pnlTitle.PerformLayout();
+            this.pnlTable.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvUsers)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -344,25 +344,25 @@ namespace T3ACS
 
         #endregion
 
-        private PanelBorderRadiusCustom panelControl1;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button tabProcedureList;
+        private PanelBorderRadiusCustom pnlTop;
+        private System.Windows.Forms.Panel pnlTitle;
+        private System.Windows.Forms.Label lblClose;
+        private System.Windows.Forms.Label lblTitle;
+        private System.Windows.Forms.Button btnProcedureList;
         private System.Windows.Forms.Button btnAddNew;
         private System.Windows.Forms.ComboBox cboActionHistory;
         private System.Windows.Forms.Button btnAction;
-        private System.Windows.Forms.Panel paneltableH;
-        private System.Windows.Forms.DataGridView dataGridView2;
-        private PanelBorderRadiusCustom panelBorderControl2;
-        private System.Windows.Forms.CheckBox checkBox2;
-        private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clmAttachFile;
+        private System.Windows.Forms.Panel pnlTable;
+        private System.Windows.Forms.DataGridView dgvUsers;
+        private PanelBorderRadiusCustom pnlHeader;
+        private System.Windows.Forms.CheckBox chkSelectAll;
+        private System.Windows.Forms.Label lblPermission;
+        private System.Windows.Forms.Label lblFullName;
+        private System.Windows.Forms.Label lblUserName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmUserId;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn clmAction;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmUserName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmFullName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmPermission;
     }
 }

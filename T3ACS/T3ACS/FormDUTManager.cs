@@ -59,7 +59,7 @@ namespace T3ACS
 
 
 
-        DUTModel _model;
+        IDUTModel _model;
         IMain _imain;
         int _dutId;
         public FormDUTManager(IMain imain)
@@ -292,7 +292,7 @@ namespace T3ACS
             //    var fileName = open.FileName;
             //    var str = File.ReadAllText(fileName);
             //    var vm = JsonConvert.DeserializeObject<TemplateViewModel>(str);
-            //    ProcedureModel model = new ProcedureModel();
+            //    IProcedureModel model = new ProcedureModel();
             //    var currentFolder = fileName.Substring(0, fileName.LastIndexOf("\\"));
             //    var namenewFile = fileName.Substring(fileName.LastIndexOf("\\") + 1);
             //    var newpath = currentFolder + "\\" + namenewFile.Replace(" ", "_").Replace(".", "_");
@@ -400,7 +400,7 @@ namespace T3ACS
                 var newpatha = AppDomain.CurrentDomain.BaseDirectory + "TemplateInspectionExport\\";
                 if (!Directory.Exists(newpatha)) Directory.CreateDirectory(newpatha);
                 exportInspection.InitialDirectory = newpatha;
-                ProcedureModel model = new ProcedureModel();
+                IProcedureModel model = new ProcedureModel();
                 var vm = model.GetProcedureById(lstId[0]);
                 if (exportInspection.ShowDialog() == DialogResult.OK)
                 {

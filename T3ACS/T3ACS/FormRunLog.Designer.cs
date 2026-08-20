@@ -32,48 +32,48 @@ namespace T3ACS
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormRunLog));
-            panelBorderRadiusCustom1 = new PanelBorderRadiusCustom();
+            pnlHeader = new PanelBorderRadiusCustom();
             lblTitleProcedure = new Label();
-            btnClose = new Label();
-            label2 = new Label();
-            label1 = new Label();
-            panelBorderRadiusCustom2 = new PanelBorderRadiusCustom();
-            label10 = new Label();
-            label9 = new Label();
-            label8 = new Label();
-            label7 = new Label();
-            label6 = new Label();
-            label5 = new Label();
-            label4 = new Label();
-            label3 = new Label();
-            richTextBox1 = new RichTextBox();
-            panelBorderRadiusCustom3 = new PanelBorderRadiusCustom();
-            buttonCustomIcon1 = new ButtonCustom();
-            buttonControl1 = new ButtonControl();
-            label11 = new Label();
-            panelBorderRadiusCustom1.SuspendLayout();
-            panelBorderRadiusCustom2.SuspendLayout();
-            panelBorderRadiusCustom3.SuspendLayout();
+            lblClose = new Label();
+            lblRunLogTitle = new Label();
+            lblIcon = new Label();
+            pnlInfo = new PanelBorderRadiusCustom();
+            lblEnd = new Label();
+            lblEndCaption = new Label();
+            lblStart = new Label();
+            lblStartCaption = new Label();
+            lblAuthor = new Label();
+            lblAuthorCaption = new Label();
+            lblDut = new Label();
+            lblDutCaption = new Label();
+            rtbLog = new RichTextBox();
+            pnlFooter = new PanelBorderRadiusCustom();
+            btnExportReport = new ButtonCustom();
+            btnCancel = new ButtonControl();
+            lblRunId = new Label();
+            pnlHeader.SuspendLayout();
+            pnlInfo.SuspendLayout();
+            pnlFooter.SuspendLayout();
             SuspendLayout();
             // 
-            // panelBorderRadiusCustom1
+            // pnlHeader
             // 
-            panelBorderRadiusCustom1.BorderColor = Color.FromArgb(229, 231, 235);
-            panelBorderRadiusCustom1.BorderSize = 1;
-            panelBorderRadiusCustom1.Controls.Add(lblTitleProcedure);
-            panelBorderRadiusCustom1.Controls.Add(btnClose);
-            panelBorderRadiusCustom1.Controls.Add(label2);
-            panelBorderRadiusCustom1.Controls.Add(label1);
-            panelBorderRadiusCustom1.Dock = DockStyle.Top;
-            panelBorderRadiusCustom1.Location = new Point(0, 0);
-            panelBorderRadiusCustom1.Name = "panelBorderRadiusCustom1";
-            panelBorderRadiusCustom1.RadiusBottomLeft = 0;
-            panelBorderRadiusCustom1.RadiusBottomRight = 0;
-            panelBorderRadiusCustom1.RadiusTopLeft = 0;
-            panelBorderRadiusCustom1.RadiusTopRight = 0;
-            panelBorderRadiusCustom1.Size = new Size(760, 45);
-            panelBorderRadiusCustom1.TabIndex = 0;
-            panelBorderRadiusCustom1.VerticalPoints = (List<int>)resources.GetObject("panelBorderRadiusCustom1.VerticalPoints");
+            pnlHeader.BorderColor = Color.FromArgb(229, 231, 235);
+            pnlHeader.BorderSize = 1;
+            pnlHeader.Controls.Add(lblTitleProcedure);
+            pnlHeader.Controls.Add(lblClose);
+            pnlHeader.Controls.Add(lblRunLogTitle);
+            pnlHeader.Controls.Add(lblIcon);
+            pnlHeader.Dock = DockStyle.Top;
+            pnlHeader.Location = new Point(0, 0);
+            pnlHeader.Name = "pnlHeader";
+            pnlHeader.RadiusBottomLeft = 0;
+            pnlHeader.RadiusBottomRight = 0;
+            pnlHeader.RadiusTopLeft = 0;
+            pnlHeader.RadiusTopRight = 0;
+            pnlHeader.Size = new Size(760, 45);
+            pnlHeader.TabIndex = 0;
+            pnlHeader.VerticalPoints = (List<int>)resources.GetObject("pnlHeader.VerticalPoints");
             // 
             // lblTitleProcedure
             // 
@@ -85,220 +85,220 @@ namespace T3ACS
             lblTitleProcedure.TabIndex = 4;
             lblTitleProcedure.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // btnClose
+            // lblClose
             // 
-            btnClose.Image = (Image)resources.GetObject("btnClose.Image");
-            btnClose.Location = new Point(715, 1);
-            btnClose.Name = "btnClose";
-            btnClose.Size = new Size(44, 43);
-            btnClose.TabIndex = 3;
-            btnClose.Click += btnClose_Click_1;
-            btnClose.MouseEnter += UserControl_MouseEnter;
-            btnClose.MouseLeave += UserControl_MouseLeave;
+            lblClose.Image = (Image)resources.GetObject("lblClose.Image");
+            lblClose.Location = new Point(715, 1);
+            lblClose.Name = "lblClose";
+            lblClose.Size = new Size(44, 43);
+            lblClose.TabIndex = 3;
+            lblClose.Click += lblClose_Click;
+            lblClose.MouseEnter += lblClose_MouseEnter;
+            lblClose.MouseLeave += lblClose_MouseLeave;
             // 
-            // label2
+            // lblRunLogTitle
             // 
-            label2.Font = new Font("Segoe UI Variable Text", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.Location = new Point(36, 10);
-            label2.Margin = new Padding(0);
-            label2.Name = "label2";
-            label2.Size = new Size(95, 23);
-            label2.TabIndex = 2;
-            label2.Text = "Run Log  —";
-            label2.TextAlign = ContentAlignment.MiddleLeft;
+            lblRunLogTitle.Font = new Font("Segoe UI Variable Text", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblRunLogTitle.Location = new Point(36, 10);
+            lblRunLogTitle.Margin = new Padding(0);
+            lblRunLogTitle.Name = "lblRunLogTitle";
+            lblRunLogTitle.Size = new Size(95, 23);
+            lblRunLogTitle.TabIndex = 2;
+            lblRunLogTitle.Text = "Run Log  —";
+            lblRunLogTitle.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // label1
+            // lblIcon
             // 
-            label1.Image = (Image)resources.GetObject("label1.Image");
-            label1.Location = new Point(16, 14);
-            label1.Name = "label1";
-            label1.Size = new Size(15, 15);
-            label1.TabIndex = 1;
+            lblIcon.Image = (Image)resources.GetObject("lblIcon.Image");
+            lblIcon.Location = new Point(16, 14);
+            lblIcon.Name = "lblIcon";
+            lblIcon.Size = new Size(15, 15);
+            lblIcon.TabIndex = 1;
             // 
-            // panelBorderRadiusCustom2
+            // pnlInfo
             // 
-            panelBorderRadiusCustom2.BorderColor = Color.DarkGray;
-            panelBorderRadiusCustom2.BorderSize = 1;
-            panelBorderRadiusCustom2.Controls.Add(label10);
-            panelBorderRadiusCustom2.Controls.Add(label9);
-            panelBorderRadiusCustom2.Controls.Add(label8);
-            panelBorderRadiusCustom2.Controls.Add(label7);
-            panelBorderRadiusCustom2.Controls.Add(label6);
-            panelBorderRadiusCustom2.Controls.Add(label5);
-            panelBorderRadiusCustom2.Controls.Add(label4);
-            panelBorderRadiusCustom2.Controls.Add(label3);
-            panelBorderRadiusCustom2.Dock = DockStyle.Top;
-            panelBorderRadiusCustom2.Location = new Point(0, 45);
-            panelBorderRadiusCustom2.Name = "panelBorderRadiusCustom2";
-            panelBorderRadiusCustom2.RadiusBottomLeft = 5;
-            panelBorderRadiusCustom2.RadiusBottomRight = 5;
-            panelBorderRadiusCustom2.RadiusTopLeft = 5;
-            panelBorderRadiusCustom2.RadiusTopRight = 5;
-            panelBorderRadiusCustom2.Size = new Size(760, 42);
-            panelBorderRadiusCustom2.TabIndex = 1;
-            panelBorderRadiusCustom2.VerticalPoints = (List<int>)resources.GetObject("panelBorderRadiusCustom2.VerticalPoints");
+            pnlInfo.BorderColor = Color.DarkGray;
+            pnlInfo.BorderSize = 1;
+            pnlInfo.Controls.Add(lblEnd);
+            pnlInfo.Controls.Add(lblEndCaption);
+            pnlInfo.Controls.Add(lblStart);
+            pnlInfo.Controls.Add(lblStartCaption);
+            pnlInfo.Controls.Add(lblAuthor);
+            pnlInfo.Controls.Add(lblAuthorCaption);
+            pnlInfo.Controls.Add(lblDut);
+            pnlInfo.Controls.Add(lblDutCaption);
+            pnlInfo.Dock = DockStyle.Top;
+            pnlInfo.Location = new Point(0, 45);
+            pnlInfo.Name = "pnlInfo";
+            pnlInfo.RadiusBottomLeft = 5;
+            pnlInfo.RadiusBottomRight = 5;
+            pnlInfo.RadiusTopLeft = 5;
+            pnlInfo.RadiusTopRight = 5;
+            pnlInfo.Size = new Size(760, 42);
+            pnlInfo.TabIndex = 1;
+            pnlInfo.VerticalPoints = (List<int>)resources.GetObject("pnlInfo.VerticalPoints");
             // 
-            // label10
+            // lblEnd
             // 
-            label10.Font = new Font("Segoe UI Variable Text", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label10.Location = new Point(641, 9);
-            label10.Margin = new Padding(0);
-            label10.Name = "label10";
-            label10.Size = new Size(119, 22);
-            label10.TabIndex = 0;
-            label10.Text = "2022-06-10 00:09:07";
-            label10.TextAlign = ContentAlignment.MiddleLeft;
+            lblEnd.Font = new Font("Segoe UI Variable Text", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblEnd.Location = new Point(641, 9);
+            lblEnd.Margin = new Padding(0);
+            lblEnd.Name = "lblEnd";
+            lblEnd.Size = new Size(119, 22);
+            lblEnd.TabIndex = 0;
+            lblEnd.Text = "2022-06-10 00:09:07";
+            lblEnd.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // label9
+            // lblEndCaption
             // 
-            label9.Font = new Font("Segoe UI Variable Small", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label9.Location = new Point(591, 9);
-            label9.Margin = new Padding(0);
-            label9.Name = "label9";
-            label9.Size = new Size(50, 22);
-            label9.TabIndex = 0;
-            label9.Text = "End :";
-            label9.TextAlign = ContentAlignment.MiddleCenter;
+            lblEndCaption.Font = new Font("Segoe UI Variable Small", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblEndCaption.Location = new Point(591, 9);
+            lblEndCaption.Margin = new Padding(0);
+            lblEndCaption.Name = "lblEndCaption";
+            lblEndCaption.Size = new Size(50, 22);
+            lblEndCaption.TabIndex = 0;
+            lblEndCaption.Text = "End :";
+            lblEndCaption.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // label8
+            // lblStart
             // 
-            label8.Font = new Font("Segoe UI Variable Text", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label8.Location = new Point(473, 9);
-            label8.Margin = new Padding(0);
-            label8.Name = "label8";
-            label8.Size = new Size(119, 22);
-            label8.TabIndex = 0;
-            label8.Text = "2022-06-10 00:09:07";
-            label8.TextAlign = ContentAlignment.MiddleLeft;
+            lblStart.Font = new Font("Segoe UI Variable Text", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblStart.Location = new Point(473, 9);
+            lblStart.Margin = new Padding(0);
+            lblStart.Name = "lblStart";
+            lblStart.Size = new Size(119, 22);
+            lblStart.TabIndex = 0;
+            lblStart.Text = "2022-06-10 00:09:07";
+            lblStart.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // label7
+            // lblStartCaption
             // 
-            label7.Font = new Font("Segoe UI Variable Small", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label7.Location = new Point(423, 9);
-            label7.Margin = new Padding(0);
-            label7.Name = "label7";
-            label7.Size = new Size(50, 22);
-            label7.TabIndex = 0;
-            label7.Text = "Start :";
-            label7.TextAlign = ContentAlignment.MiddleCenter;
+            lblStartCaption.Font = new Font("Segoe UI Variable Small", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblStartCaption.Location = new Point(423, 9);
+            lblStartCaption.Margin = new Padding(0);
+            lblStartCaption.Name = "lblStartCaption";
+            lblStartCaption.Size = new Size(50, 22);
+            lblStartCaption.TabIndex = 0;
+            lblStartCaption.Text = "Start :";
+            lblStartCaption.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // label6
+            // lblAuthor
             // 
-            label6.Font = new Font("Segoe UI Variable Text", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label6.Location = new Point(325, 9);
-            label6.Margin = new Padding(0);
-            label6.Name = "label6";
-            label6.Size = new Size(88, 22);
-            label6.TabIndex = 0;
-            label6.Text = "Admin";
-            label6.TextAlign = ContentAlignment.MiddleLeft;
+            lblAuthor.Font = new Font("Segoe UI Variable Text", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblAuthor.Location = new Point(325, 9);
+            lblAuthor.Margin = new Padding(0);
+            lblAuthor.Name = "lblAuthor";
+            lblAuthor.Size = new Size(88, 22);
+            lblAuthor.TabIndex = 0;
+            lblAuthor.Text = "Admin";
+            lblAuthor.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // label5
+            // lblAuthorCaption
             // 
-            label5.Font = new Font("Segoe UI Variable Small", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label5.Location = new Point(275, 9);
-            label5.Margin = new Padding(0);
-            label5.Name = "label5";
-            label5.Size = new Size(50, 22);
-            label5.TabIndex = 0;
-            label5.Text = "Athor :";
-            label5.TextAlign = ContentAlignment.MiddleCenter;
+            lblAuthorCaption.Font = new Font("Segoe UI Variable Small", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblAuthorCaption.Location = new Point(275, 9);
+            lblAuthorCaption.Margin = new Padding(0);
+            lblAuthorCaption.Name = "lblAuthorCaption";
+            lblAuthorCaption.Size = new Size(50, 22);
+            lblAuthorCaption.TabIndex = 0;
+            lblAuthorCaption.Text = "Athor :";
+            lblAuthorCaption.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // label4
+            // lblDut
             // 
-            label4.Font = new Font("Segoe UI Variable Text", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label4.Location = new Point(52, 9);
-            label4.Margin = new Padding(0);
-            label4.Name = "label4";
-            label4.Size = new Size(223, 22);
-            label4.TabIndex = 0;
-            label4.Text = "r";
-            label4.TextAlign = ContentAlignment.MiddleLeft;
+            lblDut.Font = new Font("Segoe UI Variable Text", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblDut.Location = new Point(52, 9);
+            lblDut.Margin = new Padding(0);
+            lblDut.Name = "lblDut";
+            lblDut.Size = new Size(223, 22);
+            lblDut.TabIndex = 0;
+            lblDut.Text = "r";
+            lblDut.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // label3
+            // lblDutCaption
             // 
-            label3.Font = new Font("Segoe UI Variable Small", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label3.Location = new Point(15, 9);
-            label3.Margin = new Padding(0);
-            label3.Name = "label3";
-            label3.Size = new Size(38, 22);
-            label3.TabIndex = 0;
-            label3.Text = "DUT :";
-            label3.TextAlign = ContentAlignment.MiddleLeft;
+            lblDutCaption.Font = new Font("Segoe UI Variable Small", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblDutCaption.Location = new Point(15, 9);
+            lblDutCaption.Margin = new Padding(0);
+            lblDutCaption.Name = "lblDutCaption";
+            lblDutCaption.Size = new Size(38, 22);
+            lblDutCaption.TabIndex = 0;
+            lblDutCaption.Text = "DUT :";
+            lblDutCaption.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // richTextBox1
+            // rtbLog
             // 
-            richTextBox1.BackColor = SystemColors.InfoText;
-            richTextBox1.BorderStyle = BorderStyle.None;
-            richTextBox1.ForeColor = Color.White;
-            richTextBox1.Location = new Point(0, 87);
-            richTextBox1.Margin = new Padding(0);
-            richTextBox1.Name = "richTextBox1";
-            richTextBox1.Size = new Size(760, 423);
-            richTextBox1.TabIndex = 2;
-            richTextBox1.Text = "";
+            rtbLog.BackColor = SystemColors.InfoText;
+            rtbLog.BorderStyle = BorderStyle.None;
+            rtbLog.ForeColor = Color.White;
+            rtbLog.Location = new Point(0, 87);
+            rtbLog.Margin = new Padding(0);
+            rtbLog.Name = "rtbLog";
+            rtbLog.Size = new Size(760, 423);
+            rtbLog.TabIndex = 2;
+            rtbLog.Text = "";
             // 
-            // panelBorderRadiusCustom3
+            // pnlFooter
             // 
-            panelBorderRadiusCustom3.BorderColor = Color.DarkGray;
-            panelBorderRadiusCustom3.BorderSize = 1;
-            panelBorderRadiusCustom3.Controls.Add(buttonCustomIcon1);
-            panelBorderRadiusCustom3.Controls.Add(buttonControl1);
-            panelBorderRadiusCustom3.Controls.Add(label11);
-            panelBorderRadiusCustom3.Location = new Point(0, 510);
-            panelBorderRadiusCustom3.Name = "panelBorderRadiusCustom3";
-            panelBorderRadiusCustom3.RadiusBottomLeft = 0;
-            panelBorderRadiusCustom3.RadiusBottomRight = 0;
-            panelBorderRadiusCustom3.RadiusTopLeft = 0;
-            panelBorderRadiusCustom3.RadiusTopRight = 0;
-            panelBorderRadiusCustom3.Size = new Size(760, 50);
-            panelBorderRadiusCustom3.TabIndex = 3;
-            panelBorderRadiusCustom3.VerticalPoints = (List<int>)resources.GetObject("panelBorderRadiusCustom3.VerticalPoints");
+            pnlFooter.BorderColor = Color.DarkGray;
+            pnlFooter.BorderSize = 1;
+            pnlFooter.Controls.Add(btnExportReport);
+            pnlFooter.Controls.Add(btnCancel);
+            pnlFooter.Controls.Add(lblRunId);
+            pnlFooter.Location = new Point(0, 510);
+            pnlFooter.Name = "pnlFooter";
+            pnlFooter.RadiusBottomLeft = 0;
+            pnlFooter.RadiusBottomRight = 0;
+            pnlFooter.RadiusTopLeft = 0;
+            pnlFooter.RadiusTopRight = 0;
+            pnlFooter.Size = new Size(760, 50);
+            pnlFooter.TabIndex = 3;
+            pnlFooter.VerticalPoints = (List<int>)resources.GetObject("pnlFooter.VerticalPoints");
             // 
-            // buttonCustomIcon1
+            // btnExportReport
             // 
-            buttonCustomIcon1.BackColor = Color.FromArgb(49, 102, 156);
-            buttonCustomIcon1.BackColorG = Color.FromArgb(49, 102, 156);
-            buttonCustomIcon1.BorderColorG = Color.FromArgb(49, 102, 156);
-            buttonCustomIcon1.BorderSize = 1;
-            buttonCustomIcon1.Font = new Font("Segoe UI Variable Text Semibold", 10.5F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            buttonCustomIcon1.Font = new Font("Segoe UI Variable Text Semibold", 8.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnExportReport.BackColor = Color.FromArgb(49, 102, 156);
+            btnExportReport.BackColorG = Color.FromArgb(49, 102, 156);
+            btnExportReport.BorderColorG = Color.FromArgb(49, 102, 156);
+            btnExportReport.BorderSize = 1;
+            btnExportReport.Font = new Font("Segoe UI Variable Text Semibold", 10.5F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnExportReport.Font = new Font("Segoe UI Variable Text Semibold", 8.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
   
-            buttonCustomIcon1.ImageAd = (Image)resources.GetObject("buttonCustomIcon1.Images");
-            buttonCustomIcon1.Location = new Point(622, 10);
-            buttonCustomIcon1.Margin = new Padding(0);
-            buttonCustomIcon1.Name = "buttonCustomIcon1";
-            buttonCustomIcon1.Size = new Size(129, 32);
-            buttonCustomIcon1.TabIndex = 2;
-            buttonCustomIcon1.Texts = " Export Report";
-            buttonCustomIcon1._EventSelect += buttonCustomIcon1_btnClick;
+            btnExportReport.ImageAd = (Image)resources.GetObject("btnExportReport.Images");
+            btnExportReport.Location = new Point(622, 10);
+            btnExportReport.Margin = new Padding(0);
+            btnExportReport.Name = "btnExportReport";
+            btnExportReport.Size = new Size(129, 32);
+            btnExportReport.TabIndex = 2;
+            btnExportReport.Texts = " Export Report";
+            btnExportReport._EventSelect += btnExportReport_btnClick;
             // 
-            // buttonControl1
+            // btnCancel
             // 
-            buttonControl1.BackColor = Color.White;
-            buttonControl1.BackColors = Color.White;
-            buttonControl1.BorderColor = Color.FromArgb(201, 201, 201);
-            buttonControl1.BorderFocusColor = Color.FromArgb(3, 120, 212);
-            buttonControl1.BorderRadius = 5;
-            buttonControl1.BorderSize = 1;
-            buttonControl1.Font = new Font("Segoe UI Variable Text Semibold", 10.5F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            buttonControl1.ForeColors = Color.FromArgb(0, 32, 77);
-            buttonControl1.HoverColors = Color.DarkGray;
-            buttonControl1.Location = new Point(515, 10);
-            buttonControl1.Name = "buttonControl1";
-            buttonControl1.Size = new Size(102, 32);
-            buttonControl1.TabIndex = 1;
-            buttonControl1.Texts = "Cancel";
-            buttonControl1.btnClick += buttonControl1_btnClick;
+            btnCancel.BackColor = Color.White;
+            btnCancel.BackColors = Color.White;
+            btnCancel.BorderColor = Color.FromArgb(201, 201, 201);
+            btnCancel.BorderFocusColor = Color.FromArgb(3, 120, 212);
+            btnCancel.BorderRadius = 5;
+            btnCancel.BorderSize = 1;
+            btnCancel.Font = new Font("Segoe UI Variable Text Semibold", 10.5F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnCancel.ForeColors = Color.FromArgb(0, 32, 77);
+            btnCancel.HoverColors = Color.DarkGray;
+            btnCancel.Location = new Point(515, 10);
+            btnCancel.Name = "btnCancel";
+            btnCancel.Size = new Size(102, 32);
+            btnCancel.TabIndex = 1;
+            btnCancel.Texts = "Cancel";
+            btnCancel.btnClick += btnCancel_btnClick;
             // 
-            // label11
+            // lblRunId
             // 
-            label11.ForeColor = Color.FromArgb(153, 161, 175);
-            label11.Location = new Point(16, 15);
-            label11.Name = "label11";
-            label11.Size = new Size(187, 22);
-            label11.TabIndex = 0;
-            label11.Text = "Run ID: RUN-0002";
+            lblRunId.ForeColor = Color.FromArgb(153, 161, 175);
+            lblRunId.Location = new Point(16, 15);
+            lblRunId.Name = "lblRunId";
+            lblRunId.Size = new Size(187, 22);
+            lblRunId.TabIndex = 0;
+            lblRunId.Text = "Run ID: RUN-0002";
             // 
             // FormRunLog
             // 
@@ -306,10 +306,10 @@ namespace T3ACS
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(760, 560);
-            Controls.Add(panelBorderRadiusCustom3);
-            Controls.Add(richTextBox1);
-            Controls.Add(panelBorderRadiusCustom2);
-            Controls.Add(panelBorderRadiusCustom1);
+            Controls.Add(pnlFooter);
+            Controls.Add(rtbLog);
+            Controls.Add(pnlInfo);
+            Controls.Add(pnlHeader);
             Font = new Font("Segoe UI Variable Display", 10.5F, FontStyle.Regular, GraphicsUnit.Point, 0);
             ForeColor = Color.FromArgb(3, 5, 51);
             FormBorderStyle = FormBorderStyle.None;
@@ -317,32 +317,32 @@ namespace T3ACS
             Name = "FormRunLog";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FormRunLog";
-            panelBorderRadiusCustom1.ResumeLayout(false);
-            panelBorderRadiusCustom2.ResumeLayout(false);
-            panelBorderRadiusCustom3.ResumeLayout(false);
+            pnlHeader.ResumeLayout(false);
+            pnlInfo.ResumeLayout(false);
+            pnlFooter.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
 
-        private PanelBorderRadiusCustom panelBorderRadiusCustom1;
-        private Label label1;
-        private Label label2;
-        private Label btnClose;
+        private PanelBorderRadiusCustom pnlHeader;
+        private Label lblIcon;
+        private Label lblRunLogTitle;
+        private Label lblClose;
         private Label lblTitleProcedure;
-        private PanelBorderRadiusCustom panelBorderRadiusCustom2;
-        private Label label3;
-        private Label label4;
-        private Label label10;
-        private Label label9;
-        private Label label8;
-        private Label label7;
-        private Label label6;
-        private Label label5;
-        private RichTextBox richTextBox1;
-        private PanelBorderRadiusCustom panelBorderRadiusCustom3;
-        private Label label11;
-        private ButtonControl buttonControl1;
-        private ButtonCustom buttonCustomIcon1;
+        private PanelBorderRadiusCustom pnlInfo;
+        private Label lblDutCaption;
+        private Label lblDut;
+        private Label lblEnd;
+        private Label lblEndCaption;
+        private Label lblStart;
+        private Label lblStartCaption;
+        private Label lblAuthor;
+        private Label lblAuthorCaption;
+        private RichTextBox rtbLog;
+        private PanelBorderRadiusCustom pnlFooter;
+        private Label lblRunId;
+        private ButtonControl btnCancel;
+        private ButtonCustom btnExportReport;
     }
 }
